@@ -1,13 +1,12 @@
 
 module.exports = {
-  pathPrefix: '/gatsby-starter-developer-blog',
-  siteUrl: 'https://lgcolella.github.io',
-  siteTitle: 'Luigi Colella',
+  pathPrefix: '/dondakeshimo-log',
+  siteUrl: 'https://dondakeshimo.github.io',
+  siteTitle: 'dondakeshimoの丸太',
   siteDescription: 'Logbook of a software developer',
-  author: 'lcolella',
+  author: 'dondakeshimo',
   postsForArchivePage: 3,
-  defaultLanguage: 'en',
-  disqusScript: 'https://luigi-colella.disqus.com/embed.js',
+  defaultLanguage: 'jp',
   pages: {
     home: '/',
     blog: 'blog',
@@ -16,9 +15,7 @@ module.exports = {
     archive: 'archive'
   },
   social: {
-    github: 'https://github.com/lgcolella',
-    linkedin: '',
-    rss: '/rss.xml'
+    github: 'https://github.com/dondakeshimo',
   },
   tags: {
     angular: {
