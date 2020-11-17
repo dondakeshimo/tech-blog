@@ -3,7 +3,7 @@ module.exports = {
   pathPrefix: '/dondakeshimo-log',
   siteUrl: 'https://dondakeshimo.github.io',
   siteTitle: 'dondakeshimoの丸太',
-  siteDescription: 'Logbook of a software developer',
+  siteDescription: '',
   author: 'dondakeshimo',
   postsForArchivePage: 3,
   defaultLanguage: 'jp',
