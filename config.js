@@ -5,7 +5,7 @@ module.exports = {
   siteTitle: 'dondakeshimoの丸太',
   siteDescription: '',
   author: 'dondakeshimo',
-  postsForArchivePage: 3,
+  postsForArchivePage: 20,
   defaultLanguage: 'jp',
   pages: {
     home: '/',
