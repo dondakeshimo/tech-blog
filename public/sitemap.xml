@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://dondakeshimo.github.io/blog/python-env</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/deep-learning-5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/deep-learning-4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/deep-learning-3</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/deep-learning-2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/deep-learning-1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/perfect-javascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/blog/intro-deep-learning</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tag/python/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tag/DL/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tag/book/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tag/javascript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/archive/1/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/it/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tag/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+</urlset>
