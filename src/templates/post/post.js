@@ -13,6 +13,7 @@ import SuggestedPosts from './suggested-posts'
 import Config from '../../../config'
 import Utils from '../../utils'
 import style from './post.module.less'
+import "katex/dist/katex.min.css"
 
 const Post = ({ data, pageContext }) => {
   const { html, frontmatter, timeToRead } = data.markdownRemark
