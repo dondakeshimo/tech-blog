@@ -1,7 +1,7 @@
 ---
 title: "Quick Tip: How to use SCSS in Angular CLI 6"
 path: blog/scss-in-angular-cli-6
-tags: [javascript, angular, sass]
+tags: [javascript, angular]
 cover: ./preview.png
 date: 2018-12-21
 excerpt: Configure SCSS for your next Angular project.
