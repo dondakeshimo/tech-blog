@@ -1,6 +1,6 @@
 
 module.exports = {
-  pathPrefix: '/dondakeshimo-log',
+  pathPrefix: '/tech-blog',
   siteUrl: 'https://dondakeshimo.github.io',
   siteTitle: 'dondakeshimoの丸太',
   siteDescription: '',
