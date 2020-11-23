@@ -1,4 +1,456 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 17 Nov 2020 17:26:51 GMT</lastBuildDate><item><title><![CDATA[Pythonの環境構築奮闘記 あるいは降参の反省文]]></title><description><![CDATA[Python の環境構築はツールが多すぎる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/python-env</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/python-envPythonの環境構築奮闘記 あるいは降参の反省文</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 16 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 23 Nov 2020 06:54:49 GMT</lastBuildDate><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+&lt;p&gt;私は業務でC++を使用している。
+聞いて驚いてほしいことに最近までのC++のコンパイラはC++98までしか理解しないものだった。
+過去形ということでお気づきだと思うが、つい最近、
+と言っても数ヶ月前だがコンパイラを新しいものに変えC++11をコンパイルする準備ができた。
+私はまだC++を使い始めて1年経っておらず、C++98の範囲でさえ分かっているとは言い難い状況だが、
+嫌だからこそ、この機にモダンなC++の書き方というものを学びたく思い
+&lt;a href=&quot;https://www.oreilly.co.jp/books/9784873117362/&quot;&gt;Effective Modern C++&lt;/a&gt; を購入した。
+やや嘘をついた、上述の本を購入したのは実はC++を学び始めてすぐで1年ほど前である。
+C++初学者であった私にこの書籍はあまりに難しく当時は挫折した。
+1年の修行期間を経てリベンジした結果なんとか完走することができたので、
+実際に自分が使いそうなものや覚えておいた方が良さそうなことをここにまとめる。&lt;/p&gt;
+&lt;h1&gt;Effective Modern C++&lt;/h1&gt;
+&lt;h2&gt;目次&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec1&quot;&gt;型推論にまつわる流儀&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec11&quot;&gt;テンプレートとauto&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec12&quot;&gt;decltype&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2&quot;&gt;ポインタにまつわる流儀&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec21&quot;&gt;std::unique_ptr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec22&quot;&gt;std::shared_ptr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec23&quot;&gt;std::weak_ptr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec24&quot;&gt;newの可能な範囲での撲滅&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec4&quot;&gt;moveにまつわる流儀&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec41&quot;&gt;std::move, std::forward&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec42&quot;&gt;ユニヴァーサル参照, 右辺値参照&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec43&quot;&gt;右辺値参照ならstd::move, ユニヴァーサル参照ならstd::forward&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec44&quot;&gt;ユニヴァーサル参照をとるオーバーロードの撲滅&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3&quot;&gt;モダンC++の流儀&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec31&quot;&gt;初期化子の統一&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec32&quot;&gt;nullptr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec33&quot;&gt;エイリアス宣言&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec34&quot;&gt;scoped enum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec35&quot;&gt;未定義private関数の撲滅&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec36&quot;&gt;overrideの宣言&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec37&quot;&gt;const_iterator&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec38&quot;&gt;noexcept, constexpr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec39&quot;&gt;要素の挿入, 直接配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;型推論にまつわる流儀&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec11&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;テンプレートとauto&lt;/h4&gt;
+&lt;p&gt;型推論を行う代表的な場面がテンプレートを使用した場合とautoを宣言した場合となる。
+テンプレートとautoの型推論は基本的に同じものであるため、
+まずはテンプレートを例にとってどの様な型推論が行われるか理解する。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ParamType param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;expr&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この場合 &lt;em&gt;T&lt;/em&gt; の推論には呼び出しの型だけではなく &lt;em&gt;ParamType&lt;/em&gt; の型にも左右される。
+具体的には以下の様に場合分けできる&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;ParamType&lt;/em&gt; が参照もしくはポインタだがユニヴァーサル参照ではない&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;ParamType&lt;/em&gt; がユニヴァーサル参照である&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;ParamType&lt;/em&gt; がポインタでも参照でもない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;&lt;em&gt;ParamType&lt;/em&gt;が参照もしくはポインタだがユニヴァーサル参照ではない&lt;/h5&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;expr&lt;/em&gt; が参照型ならば、参照性を無視する&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;expr&lt;/em&gt; の型を &lt;em&gt;ParamType&lt;/em&gt; とパターンマッチングし、 &lt;strong&gt;T&lt;/strong&gt; を決定する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;&lt;em&gt;ParamType&lt;/em&gt; がユニヴァーサル参照である&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;expr&lt;/em&gt; が左辺値ならば、 &lt;strong&gt;T&lt;/strong&gt; も &lt;em&gt;ParamType&lt;/em&gt; も左辺値参照と推論される&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;expr&lt;/em&gt; が右辺値ならば、先述の規則が適用される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;&lt;em&gt;ParamType&lt;/em&gt; がポインタでも参照でもない&lt;/h5&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;expr&lt;/em&gt; の型が参照ならば、参照性を無視する&lt;/li&gt;
+&lt;li&gt;参照性を無視した &lt;em&gt;expr&lt;/em&gt; の型が &lt;strong&gt;const&lt;/strong&gt; , &lt;strong&gt;volatile&lt;/strong&gt; であればこれを無視する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;ポインタへの成り下がり&lt;/h5&gt;
+&lt;p&gt;配列または関数実引数はテンプレートの型推論時にポインタに成り下がる&lt;/p&gt;
+&lt;h5&gt;autoとテンプレート推論の差異&lt;/h5&gt;
+&lt;p&gt;autoとテンプレートの型推論はほとんど同一のアルゴリズムで解決される。
+ただ一つの違いはautoが波括弧で囲んだ初期化子をstd::initilizer_listと &lt;em&gt;想定する&lt;/em&gt; のに対し、
+テンプレートの型推論は想定しないと言う点だ。&lt;/p&gt;
+&lt;h5&gt;明示的型宣言よりもautoを優先する&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;autoで宣言した変数は初期化する必要があり未定義動作を防げる&lt;/li&gt;
+&lt;li&gt;一般に可搬性や効率に関する問題を引き起こす型の不一致を防げる&lt;/li&gt;
+&lt;li&gt;型の暗黙的変換が行われないため意図的に変更させる必要があり可読性が上がる(明示的片付け初期化子の使用)&lt;/li&gt;
+&lt;li&gt;リファクタリングを容易にする&lt;/li&gt;
+&lt;li&gt;タイプ量が減る&lt;/li&gt;
+&lt;li&gt;プロクシ型はautoに誤った型を推論させるので注意する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec12&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;decltype&lt;/h4&gt;
+&lt;p&gt;decltype は変数を与えるとその型を返す関数である。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; v&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// decltype(v) is vector&amp;lt;int&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;使用用途として戻り型が仮引数の型により決定される関数テンプレートの宣言が挙げられる。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// c++11 version&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// c++14 version&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上記の記法は &lt;strong&gt;戻り型の後置&lt;/strong&gt; (trailing return type) と呼ばれているものである。
+上記の例は改良の余地があり、一つは右辺値を受け付ける必要があること、
+もう一つは返り値を必要なら右辺値にする方が効率が良いことだ。それらを反映させると&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// c++11 version&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// c++14 version&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;std::forwardについては後続の説明に記載予定。&lt;/p&gt;
+&lt;h5&gt;decltypeの注意点&lt;/h5&gt;
+&lt;p&gt;変数を括弧で囲むと参照が付与されてしまうので注意。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;token comment&quot;&gt;// -&gt; int&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// -&gt; int&amp;amp;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;sec2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;ポインタにまつわる流儀&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec21&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;std::unique_ptr&lt;/h4&gt;
+&lt;p&gt;独立するリソースの管理には std::unique_ptr を使用する。
+std::unique_ptrはムーブ専用型であり、独占所有セマンティクスを所有する。&lt;/p&gt;
+&lt;p&gt;std::unique_ptrのインターフェースは二つあり、カスタムデリータを引数にとるものと取らないものがある。
+カスタムデリータにはラムダ式を使用した方が時間、空間計算量が優れる。
+カスタムデリータを用いる際の注意点としてstd::unique_ptr 自体のメモリ使用量が増加することが挙げられる。&lt;/p&gt;
+&lt;p&gt;std::unique_ptrの大きな魅力は独占所有権を有しながら、std::shared_ptrへの変換が簡単なことだ。
+これはfactory関数の戻り型としてstd::unique_ptrが非常に優れている理由となる。
+関数側からはポインタが共有されるべきか独占されるべきか判断できないため、
+呼び出し側で好きに置き換えが可能なことで柔軟性を保持している。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec22&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;std::shared_ptr&lt;/h4&gt;
+&lt;p&gt;共同所有権を必要とするリソースの管理にはstd::shared_ptrを利用する。
+std::shared_ptrはreference countから地震がそのリソースを指す最後のポインタか否かを判断できる。
+即ちstd::shared_ptrのコンストラクタはreference countをインクリメントし、
+デストラクタはデクリメントする。&lt;/p&gt;
+&lt;p&gt;reference countを保持することでrawポインタと比較して性能面に負債を背負うこととなる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;std::shared_ptrのサイズがrawポインタの2倍になる&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;reference countをダイナミックにメモリ割り当てする必要がある&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;std::make_sharedの利用により回避できる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;reference countのincrement/decrementはアトミックに実行する必要がある&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;move演算をすることによってreference countを操作しなくて済む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;std::shared_ptrもstd::unique_ptrと同様にカスタムデリータを指定できる。
+これら二つのカスタムデリータを指定したスマートポインタは型にデリータを含むかどうかで差異が存在する。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// deleter type is part of ptr type&lt;/span&gt;
+std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;upw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// deleter type is not part of ptr type&lt;/span&gt;
+std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;spw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これらはポインタの取り回しの柔軟性にも差異を与える。
+例えばコンテナ型に上記のポインタを代入することを考えると、
+std::unique_ptrは全て同一のカスタムデリータを指定しない限りコンテナにまとめることができないが、
+std::shared_ptrは自由にカスタムデリータを指定できる。&lt;/p&gt;
+&lt;p&gt;std::shared_ptrはreference countを含むコントロールブロックと呼ばれるデータを所有している。
+コントロールブロック内にカスタムデリータのデータも含まれるため、
+std::shared_ptrはstd::unique_ptrと違いカスタムデリータを指定してもサイズが大きくならない。&lt;/p&gt;
+&lt;p&gt;コントロールブロックは対象オブジェクトを指すstd::shard_ptrを最初に作成した関数が設定する。
+ただし、一般にstd::shared_ptrが既に存在しているかを知る方法はないため、下記のルールを適用する。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;std::make_sharedは常にコントロールブロックを作成する&lt;/li&gt;
+&lt;li&gt;所有権が一意なポインタからstd::shared_ptrを作成した場合は常にコントロールブロックを作成する&lt;/li&gt;
+&lt;li&gt;rawポインタを与えstd::shared_ptrコンストラクタを呼び出した場合はコントロールブロックを作成する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記のルールからrawポインタをコンストラクタに複数か渡すことで
+バグの温床と非効率なコードが生成されることとなる。
+上述の理由からクラス設計において自身のポインタ &lt;strong&gt;this&lt;/strong&gt; を使用したいシーンがあるが、
+その際にstd::shared_ptrのコンストラクタへthisを渡していないか注意する必要がある。
+自身のポインタをstd::shared_ptrとして扱う必要がある場合は基底クラステンプレートとして
+std::enbale_shared_from_thisクラスを利用し、thisの代わりにshard_from_this()を使用する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec23&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;std::weak_ptr&lt;/h4&gt;
+&lt;p&gt;std::shared_ptrのように振る舞いながらも、対象リソースの所有権を共有しない
+スマートポインタが有用になる場面がある。
+この種のスマートポインタは対象が破棄された場合を考え、ポインタが不正(dangle)になったことを追跡管理し、
+問題に対応すル必要がある。
+これらを賄うC++のスマートポインタがstd::weak_ptrとなる。&lt;/p&gt;
+&lt;p&gt;std::weak_ptrは必ずstd::shared_ptrに付随して使用される。
+std::weak_ptrのコンストラクタにstd::shared_ptrを作成した時点から両者は同じメモリ上の位置を指し示す。
+ただし、std::weak_ptrは対象オブジェクトのreference countには影響を及ぼさない。&lt;/p&gt;
+&lt;p&gt;不正ポインタとなったstd::weak_ptrを &lt;strong&gt;expireされた&lt;/strong&gt; と表現する。
+スマートポインタが不正かどうかを判定するには &lt;code class=&quot;language-text&quot;&gt;wpw.expired()&lt;/code&gt; を呼び出せば良いが、
+一般に不正判定する目的は対象オブジェクトに無事アクセスできるかを確認することであり、
+不正判定からアクセスまでの一連の処理がアトミックに行われる必要がある。
+これを実現するためにはstd::weak_ptrをstd::shared_ptrに変換してやれば良い。
+&lt;code class=&quot;language-text&quot;&gt;wpw.lock()&lt;/code&gt; を用いて初期化する方法とstd::shared_ptrのコンストラクタに直接渡す方法がある。&lt;/p&gt;
+&lt;p&gt;std::weak_ptrは不正になる可能性のあるstd::shared_ptrライクなポインタで使用し、
+具体的な利用先としては下記のようなパターンが挙げられる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;キャッシュ&lt;/li&gt;
+&lt;li&gt;observer リスト&lt;/li&gt;
+&lt;li&gt;std::shared_ptrの循環防止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec24&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;newの可能な範囲での撲滅&lt;/h4&gt;
+&lt;p&gt;newを回避するためにstd::make_uniqueとstd::make_sharedを積極的に使用する。
+ただし、std::make_uniqueについてはC++14以降に追加された関数のため、以下に実装例を記す。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;make_unique&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;std namespaceに上記関数を置いた場合、C++14にアップグレードした際に衝突するため注意。&lt;/p&gt;
+&lt;p&gt;newの直接使用と比較してmake関数はソースコードの重複を避け、例外安全性を向上できる。
+また、std::make_sharedおよびstd::allocate_sharedでは高速化つサイズの小さなコードを生成できる。&lt;/p&gt;
+&lt;p&gt;make関数を使用できないシーンにはカスタムデリータを指定する場合と波括弧による初期化を目的とする場合の
+二つがある。&lt;/p&gt;
+&lt;p&gt;std::shared_ptrの場合ではmake関数が適切でない場面が増え、専用のメモリ管理を実装したクラスや、
+メモリに特別な注意が必要なシステム、巨大オブジェクト、
+対応するstd::shared_ptrとは異なるライフタイムを持つstd::weak_ptrなどが挙げられる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;moveにまつわる流儀&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec41&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;std::move, std::forward&lt;/h4&gt;
+&lt;p&gt;std::moveおよびstd::forwardはキャストを実行する関数にすぎず、関数内でムーブ演算は実行されない。&lt;/p&gt;
+&lt;p&gt;std::moveは右辺値への無条件キャストを実行する。&lt;/p&gt;
+&lt;p&gt;std::forwardは実引数が右辺値にバインドされている場合に限り、その実引数を右辺値へキャストする。&lt;/p&gt;
+&lt;p&gt;std::moveもstd::forwardもプログラム実行時には何も実行しない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec42&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;ユニヴァーサル参照, 右辺値参照&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Widget&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;          &lt;span class=&quot;token comment&quot;&gt;// rvalue reference&lt;/span&gt;
+
+Widget&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; var1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;Widget&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;        &lt;span class=&quot;token comment&quot;&gt;// rvalue reference&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; var2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; var1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;              &lt;span class=&quot;token comment&quot;&gt;// universal reference&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// rvalue reference&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;               &lt;span class=&quot;token comment&quot;&gt;// universal reference&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上記のコードから察せられるように「T&amp;#x26;&amp;#x26;」には二つの意味がある。
+一つは右辺値参照であり、もう一つは右辺値参照か左辺値参照のどちらか一方を表すことである。
+後者は型推論を伴うTに対し右辺値参照の記法を用いた際に発動する構文であり、
+参照の初期化を行う際の初期化子が右辺値なら右辺値参照を、
+左辺値なら左辺値参照をを表す。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec43&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;右辺値参照ならstd::move, ユニヴァーサル参照ならstd::forward&lt;/h4&gt;
+&lt;p&gt;std::moveは右辺値参照に対し、std::forwardは最後に使用するユニヴァーサル参照に対し、
+それぞれ実行するべきである。
+これは値戻しする関数から返す右辺値参照、ユニヴァーサル参照についても同様のことが言える。&lt;/p&gt;
+&lt;p&gt;ただし、 &lt;strong&gt;戻り値の最適化(return value optimization, RVO)&lt;/strong&gt; が適用される関数ではその限りではない。
+RVOとは値戻しの関数において下記条件を満たした際にコピーを省略する仕様のことである。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ローカルオブジェクトの型が関数の戻り値の型に一致している&lt;/li&gt;
+&lt;li&gt;戻り値となるのがそのローカルオブジェクトである&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;この場合、std::move等を返り値に適用してしまうとRVOが発動せず結果的に効率の悪いコードになってしまう。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec44&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;ユニヴァーサル参照をとるオーバーロードの撲滅&lt;/h4&gt;
+&lt;p&gt;ユニヴァーサル参照をとるオーバーロードを加えると、予想以上に多くの場面で、
+ほぼ常にユニヴァーサル参照をとるオーバーロードが呼び出される。
+完全転送コンストラクタは特に問題になる。非constな左辺値をとるコピーコンストラクタよりも
+一致度が高くなるのが通例であり、派生クラスからの基底クラスの
+コピー/ムーブコンストラクタ呼び出しをのっとってしまうためである。&lt;/p&gt;
+&lt;p&gt;ユニヴァーサル参照をとるオーバーロードの代替策としては&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;オーバーロードしない&lt;/li&gt;
+&lt;li&gt;const T&amp;#x26;を渡す&lt;/li&gt;
+&lt;li&gt;値を渡す&lt;/li&gt;
+&lt;li&gt;タグディスパッチを用いる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec45&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;参照の圧縮&lt;/h4&gt;
+&lt;p&gt;参照の圧縮とは型推論などの過程で参照の参照をコンパイラが生成した際に、
+単一の参照に変換する動作のことである。
+&lt;em&gt;二つある参照のいずれかが左辺値参照であれば、圧縮結果は左辺値参照となる。二つとも右辺値参照の場合は、圧縮結果は右辺値参照となる。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;参照の圧縮が発生する場面は4つある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;テンプレートのインスタンス化&lt;/li&gt;
+&lt;li&gt;autoの型生成&lt;/li&gt;
+&lt;li&gt;typedefとエイリアス宣言の使用と作成&lt;/li&gt;
+&lt;li&gt;decltype&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec45&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;完全転送&lt;/h4&gt;
+&lt;p&gt;完全転送とはある関数が仮引数を他の関数へ渡す挙動であり、単なる転送と異なり、
+仮引数のオブジェクトの性質(オブジェクトの型、左辺値か右辺値かなど)も転送する。
+使用例としては下記のようになる。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;fwd&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;完全転送はほとんどの場合意図通りに動作するが、まれに完全でない部分が露見する。
+条例の目的関数fと転送関数fwdでは、同じ実引数に対する両者の動作が異なると完全転送できない。&lt;/p&gt;
+&lt;p&gt;完全転送できない場合は二つで、fwdの仮引数の方を推論できない、
+または誤った方を推論した場合、完全転送がエラーになる。&lt;/p&gt;
+&lt;p&gt;完全転送のエラー原因となる実引数には、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;波括弧による初期化子&lt;/li&gt;
+&lt;li&gt;ヌルポインタとして用いた0やNULL&lt;/li&gt;
+&lt;li&gt;宣言のみのconst staticな汎整数メンバ変数&lt;/li&gt;
+&lt;li&gt;テンプレート名&lt;/li&gt;
+&lt;li&gt;オーバーロード関数名&lt;/li&gt;
+&lt;li&gt;ビットフィールド&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;などがある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;モダンC++の流儀&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec31&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;初期化子の統一&lt;/h4&gt;
+&lt;p&gt;初期化の方法は大きく以下の三つの記法に分類される。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; z&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;多くの場合、等号と波括弧は併用できるが、波括弧のみの時と同じのため等号はこの項では無視する。&lt;/p&gt;
+&lt;p&gt;C++11になり、初期化子の統一記法を導入したことで
+波括弧による初期化が概ねどのような場面でも適用できるようになった。
+そのため、これまで等号と丸括弧を場面場面で使い分けていたコピー不可能なオブジェクトの初期化や、
+非スタティックなメンバ変数のdefault値の指定に加えて、等号と丸括弧では表現できなかった
+コンテナの初期要素の指定も全て波括弧を用いて行えるようになった。&lt;/p&gt;
+&lt;p&gt;波括弧を用いることのもう一つのメリットとして &lt;strong&gt;精度が落ちる変換(narrowing conversion)&lt;/strong&gt; を認めない
+という特徴がある。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;double&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; z&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; sum&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; x &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; y &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; z &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// error!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これは &lt;strong&gt;最も厄介な構文解析(most vexing parse)&lt;/strong&gt; と呼ばれる問題を回避できる。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;Widget &lt;span class=&quot;token function&quot;&gt;w1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// call Widget ctor with argument 10&lt;/span&gt;
+Widget &lt;span class=&quot;token function&quot;&gt;w2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;token comment&quot;&gt;// declares a function named w2 that returns a Widget&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;波括弧の初期化子のデメリットはstd::initializer_listをとみなせる仮引数が渡された際に、
+見た目ではより高く一致するコンストラクタが他にあってもstd::initializer_listをとるコンストラクタに
+解決されてしまうことである。
+これは混乱を生む場合がある。&lt;/p&gt;
+&lt;p&gt;丸括弧と波括弧の選択が生む差異の例としては下記のようなものもある。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [5, 5, 5]&lt;/span&gt;
+
+std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [3, 5]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;結局波括弧ではないと初期化できないものがある一方、丸括弧を用いないと混乱を招く初期化もあり、
+どちらの方を使うべきということはない。
+開発ルールを定めることが肝要である。&lt;/p&gt;
+&lt;p&gt;ただし、他社が利用する可能性のあるライブラリの
+テンプレート関数内でのオブジェクト作成に際しては関数の挙動自体が左右されてしまうので
+単なる開発ルールにとどまらずよく吟味する必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec32&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;nullptr&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;0とNULLは常にint型である&lt;/strong&gt;。&lt;br&gt;
+0やNULLをヌルポインタとして利用するしかなかったが、nullptrが実装されたためその必要性は無くなった。&lt;br&gt;
+&lt;strong&gt;nullptrはポインタ型である。&lt;/strong&gt;&lt;br&gt;
+そのためオーバーロードで妙な解決をされることもない。
+常にnullptrを使用すべきである。&lt;/p&gt;
+&lt;p&gt;ただし、これまでと違いnullptrがあるからと言って汎整数型とポインタ型のオーバーロードを行うと
+これまで動作していた呼び出し側で意図しないオーバーロード解決されてしまうことになりかねないので注意する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec33&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;エイリアス宣言&lt;/h4&gt;
+&lt;p&gt;長ったらしい型宣言を簡略化する際のtypedefの上位互換としてエイリアス宣言が実装された。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; UPtrMapSS&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; UPtrMapSS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;FP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; FP &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;typedefはテンプレート化に対応していないが、エイリアス宣言は対応しているため、気持ちの悪いネストをする必要がなくなった。&lt;/p&gt;
+&lt;p&gt;また、エイリアステンプレートを用いれば、「::type」や「typename」を排除できる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec34&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;scoped enum&lt;/h4&gt;
+&lt;p&gt;C++98まではenum型はスコープを持たなかった。
+C++11ではこれが是正され、スコープを持つenum型が導入された。
+scoped enumの宣言は &lt;code class=&quot;language-text&quot;&gt;enum class&lt;/code&gt; と表記する。&lt;/p&gt;
+&lt;p&gt;単にスコープを持ち名前空間を汚さないようになっただけでなく、
+列挙子が暗黙に他の型に変換されることもなくなった。
+これまでのように列挙子を数値等と比較したい場合はキャストを利用する。&lt;/p&gt;
+&lt;p&gt;enumでは基礎とする方の指定が可能である。
+スコープを持つenumの基礎とする型のdefaultはintである。
+スコープを持たないenumはdefaultが存在しない。
+enumの前方宣言は基礎とする型が存在する場合可能である。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec35&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;未定義private関数の撲滅&lt;/h4&gt;
+&lt;p&gt;未定義の関数を呼び出し側に使用されたくない際、C++98ではprivateな関数とすることで秘匿にしていた。
+C++11以降ではprivateとして間接的に使用を禁止するのではなく &lt;strong&gt;deleteされた関数 (deleted function)&lt;/strong&gt;
+とすることで上記の要件を満たすことができる。
+加えて、deleteを利用した場合はコンパイル時に不正なアクセスを検知できる。
+private宣言のものをfriend関数内から利用しようとした際などはリンク時まで不正なアクセスを発見できない。&lt;/p&gt;
+&lt;p&gt;また、非メンバ関数、テンプレートのインスタンス化も含め、どんな関数でもdeleteできる。&lt;/p&gt;
+&lt;p&gt;以上より、使用を禁止したい関数に対してはdeleteを使用する。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;isLucky&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;sec36&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;overrideの宣言&lt;/h4&gt;
+&lt;p&gt;オーバーライドを実装したい場合、オーバーライドを満たす様にクラスおよびメンバ関数を実装すれば
+自動的にメンバ関数がオーバーライドされる。
+しかしこの仕様には問題点もあり、
+大きなものの一つがオーバーライドしたつもりができていない場合があることだ。
+しかもその誤りをコンパイラは教えてくれない。&lt;/p&gt;
+&lt;p&gt;上述の問題点を回避するためにC++11以降ではオーバーライドしたい関数には明示的に &lt;code class=&quot;language-text&quot;&gt;override&lt;/code&gt; 宣言を用いる。&lt;/p&gt;
+&lt;p&gt;override宣言にはコンパイラ、実装者へのオーバーライドの明示化以外に、
+メンバ関数の参照修飾子を用いると左辺値オブジェクトと右辺値オブジェクトを
+区別することができるというメリットもある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec37&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;const_iterator&lt;/h4&gt;
+&lt;p&gt;一般に可能な場面ではtuneniconstを使用せよと言われており、iteratorでもそれは例外ではない。
+const_iteratorとはSTLが用意したconstをさすポインタ相当のiteratorであり
+可能な場面ではこれを使用すべきである。&lt;/p&gt;
+&lt;p&gt;C++98でもC++11でも上記のルールは適用されるが、C++98でのconst_iteratorは扱いが煩雑だ。
+C++11ではこれが大幅に改良されており現実的に上述のルールに従うことが可能になった。&lt;/p&gt;
+&lt;p&gt;よって常にiteratorよりもconst_iteratorを優先して使用する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec38&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;noexcept, constexpr&lt;/h4&gt;
+&lt;h5&gt;noexcept&lt;/h5&gt;
+&lt;p&gt;C++11では、関数が例外を発生させないことをnoexceptにより明示できる。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;noexcept&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;C++11からプログラムの仕様が変更され、&lt;code class=&quot;language-text&quot;&gt;noexcept&lt;/code&gt; を指定することでコンパイラが最適化する機会が生まれる。&lt;/p&gt;
+&lt;h5&gt;constexpr&lt;/h5&gt;
+&lt;p&gt;ある変数がコンパイル時定数を必要とする場面で使用可能なことをコンパイラに保証してもらうために
+constexprが存在する。&lt;/p&gt;
+&lt;p&gt;可能な場面では常にconstexprを使用することで実行時ではなくコンパイル時に可能な範囲の演算が行われ、
+処理が軽やかになる。&lt;/p&gt;
+&lt;p&gt;注意点はconstexprの宣言を解除すると呼び出し側で大量のエラーが発生する可能性があることだ。
+constexprを宣言した後は以降constexpr宣言を削除しないと断ぜられる様にすることに留意する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec39&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;要素の挿入, 直接配置&lt;/h4&gt;
+&lt;p&gt;std::vectorに要素を追加する時、一般的に使用される関数はpush_backである。
+しかし、emplace_backを使用した方が効率良い場面がある。&lt;/p&gt;
+&lt;p&gt;原則として挿入関数と比べ、同等機能の直接配置関数が効率性に優れることはあるが劣ることはない。
+ただし、挿入関数なら拒否する様な型変換でも直接配置関数は実行する場合がある。&lt;/p&gt;
+&lt;p&gt;直接配置関数が実際に高速に実行されるのは下記の場合である。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;追加する値がコンテナ内に代入ではなくコンストラクトされる&lt;/li&gt;
+&lt;li&gt;実引数の型がコンテナ要素の型とは異なる&lt;/li&gt;
+&lt;li&gt;コンテナが重複すを理由に値の追加を拒否しない&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Pythonの環境構築奮闘記 あるいは降参の反省文]]></title><description><![CDATA[Python の環境構築はツールが多すぎる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/python-env</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/python-envPythonの環境構築奮闘記 あるいは降参の反省文</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 16 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;Pythonは最高だ！
 コードの見た目は綺麗で，3rdパーティモジュールも豊富，
 何よりもiPython kernelの存在が大きいと思う．
