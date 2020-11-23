@@ -39,10 +39,11 @@
   "scripts": {
     "build": "gatsby build --prefix-paths",
     "push": "gh-pages -d public",
-    "deploy": "yarn build && yarn push",
-    "dev": "gatsby develop",
+    "deploy": "yarn clean && yarn build && yarn push",
+    "dev": "yarn clean && gatsby develop",
     "start": "npm run dev",
     "serve": "gatsby serve",
+    "clean": "gatsby clean",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
