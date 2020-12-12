@@ -30,7 +30,7 @@ module.exports = {
     DL: {
       description: 'Deep learning is ...'
     },
-    gopher: {
+    go: {
       name: 'Go',
       description: 'Go is good language'
     },
@@ -45,7 +45,10 @@ module.exports = {
       description: 'Node.js is a tool for executing JavaScript in a variety of environments.'
     },
     python: {
-      description: 'Python is hebi'
+      description: 'Python is a hebi'
+    },
+    linux: {
+      description: 'Linux is a penguin'
     },
     react: {
       description: 'React is an open source JavaScript library used for designing user interfaces.'
