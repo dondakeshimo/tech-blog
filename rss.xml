@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 23 Nov 2020 07:05:51 GMT</lastBuildDate><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 12 Dec 2020 05:56:45 GMT</lastBuildDate><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+&lt;p&gt;現在作成しているCLIアプリケーションについてcronジョブを設定する必要があった。
+cronジョブの設定方法としては &lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; を用いる方法を知っていたが、プログラム内から
+ジョブを編集するにはエディタを開かれては困るということでその他の方法を調べたのでついでにここにまとめる。&lt;/p&gt;
+&lt;h1&gt;cronジョブを追加する4つの方法&lt;/h1&gt;
+&lt;h3&gt;4つの方法&lt;/h3&gt;
+&lt;p&gt;先に調べた方法をそれぞれ記載する&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;crontab [file]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER/&lt;/code&gt; ？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最後の方法は動作未検証のため？をつけている。
+それぞれの特徴を以下に述べていく。&lt;/p&gt;
+&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; によるエディタを用いた編集&lt;/h3&gt;
+&lt;p&gt;言わずと知れたエディタで編集する方法。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;console&quot;&gt;&lt;pre class=&quot;language-console&quot;&gt;&lt;code class=&quot;language-console&quot;&gt;$ crontab -u $USER -e&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;とすることで &lt;code class=&quot;language-text&quot;&gt;$USER&lt;/code&gt; 権限のcronジョブを作成することができる。
+有名なデメリットに&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;console&quot;&gt;&lt;pre class=&quot;language-console&quot;&gt;&lt;code class=&quot;language-console&quot;&gt;$ crontab -r&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;を誤って起動してしまうというものがある。
+こちらのコマンドはcronジョブを全消去するというもので非常に危険であるのに対し、
+確認もなく、よく使うオプションの &lt;code class=&quot;language-text&quot;&gt;e&lt;/code&gt; の隣にある &lt;code class=&quot;language-text&quot;&gt;r&lt;/code&gt; であることから事故が立たないとのこと。
+そのため、 &lt;code class=&quot;language-text&quot;&gt;/etc/crontab&lt;/code&gt; を直接編集する派閥もいるらしい。
+上記の直接編集もこちらの項目に含めて考える。&lt;/p&gt;
+&lt;h5&gt;pros&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;エディタでそのまま手軽に編集できる&lt;/li&gt;
+&lt;li&gt;権限を決められる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;cons&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;プログラムから使用しづらい&lt;/li&gt;
+&lt;li&gt;死の危険と隣り合わせ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;crontab [file]&lt;/code&gt; によるファイルの読み込み&lt;/h3&gt;
+&lt;p&gt;crontabコマンドは引数としてファイルを渡すとそのファイルを$USERのcronジョブ置き場に配置してくれる。
+&lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; と同様にユーザを指定することも可能。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;console&quot;&gt;&lt;pre class=&quot;language-console&quot;&gt;&lt;code class=&quot;language-console&quot;&gt;$ crontab -u $USER [file]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;pros&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;プログラムで使いやすい&lt;/li&gt;
+&lt;li&gt;権限を決められる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;cons&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;一度情報をファイルに起こさないといけない&lt;/li&gt;
+&lt;li&gt;削除や編集の仕方がわからない？ &amp;#x3C;- 要検証&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/crond.d/&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;指定のディレクトリにジョブを記載したファイルを配置する。
+cronは &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; を含め、いくつかのディレクトリ配下に配置されたジョブファイルを自動で読み取りに行く。
+ファイルを配置しておくだけなのでかなり自由度高くジョブを操作できる。
+問題点は権限がrootでなくてはいけないところ。&lt;/p&gt;
+&lt;h5&gt;pros&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;ファイルを配置するだけなので自由度高い&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;cons&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;権限がrootのみ&lt;/li&gt;
+&lt;li&gt;file modeにも気を使う必要がある (確か644のみ)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER&lt;/code&gt; にファイルを追加&lt;/h3&gt;
+&lt;p&gt;上記の &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; 配下にファイルを追加する方法だと権限がrootになってしまうということで調べた方法。
+&lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER&lt;/code&gt; は &lt;code class=&quot;language-text&quot;&gt;crontab -u $USER&lt;/code&gt; としたときに開かれるcronジョブファイルが配置されている場所なので
+権限は&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;U&lt;/mi&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;mtext&gt;になるはずである。ただし落とし穴があり、&lt;/mtext&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;‘&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;‘&lt;/mi&gt;&lt;mtext&gt;には&lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;USERになるはずである。
+ただし落とし穴があり、 `/var/spool/cron/crontabs/` には&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.10903em;&quot;&gt;U&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.05764em;&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.05764em;&quot;&gt;E&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.00773em;&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;に&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;な&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;る&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;は&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;ず&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;で&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;あ&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;る&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;。&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;た&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;だ&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;し&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;落&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;と&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;し&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;穴&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;が&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;あ&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;り&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;、&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.01968em;&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;に&lt;/span&gt;&lt;span class=&quot;mord cjk_fallback&quot;&gt;は&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;USERに対して書き込み権限どころか読み取り権限すら
+与えられておらず現実的に目的の位置にファイルを配置するためにはroot権限が必要なることである。
+調べている途中で使うことはないなと思ったので本当に動くかどうかも怪しいのは許していただきた。&lt;/p&gt;
+&lt;h5&gt;pros&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;ファイルを配置するだけなので自由度高い&lt;/li&gt;
+&lt;li&gt;$USER権限&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;cons&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;配置するためにroot権限が必要&lt;/li&gt;
+&lt;li&gt;file modeに気を使う必要がある&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;以上、まとめてみた感想だが、cronは意外と扱いづらいことがわかった。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;私は業務でC++を使用している。
 聞いて驚いてほしいことに最近までのC++のコンパイラはC++98までしか理解しないものだった。
 過去形ということでお気づきだと思うが、つい最近、

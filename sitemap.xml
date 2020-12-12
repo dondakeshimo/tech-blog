@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/python-env</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/deep-learning-5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -9,6 +10,7 @@
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/deep-learning-1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/perfect-javascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/blog/intro-deep-learning</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://dondakeshimo.github.io/tech-blog/tag/linux/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/tag/cpp/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/tag/python/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://dondakeshimo.github.io/tech-blog/tag/DL/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
