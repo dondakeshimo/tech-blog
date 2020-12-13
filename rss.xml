@@ -1,8 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 12 Dec 2020 06:00:41 GMT</lastBuildDate><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 13 Dec 2020 12:07:13 GMT</lastBuildDate><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;モチベーション&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;cronジョブを追加する4つの方法&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-1&quot;&gt;4つの方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-2&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; によるエディタを用いた編集&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-3&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;crontab [file]&lt;/code&gt; によるファイルの読み込み&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-4&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/crond.d/&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-5&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER&lt;/code&gt; にファイルを追加&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;まとめ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;現在作成しているCLIアプリケーションについてcronジョブを設定する必要があった。
 cronジョブの設定方法としては &lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; を用いる方法を知っていたが、プログラム内から
 ジョブを編集するにはエディタを開かれては困るということでその他の方法を調べたのでついでにここにまとめる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;cronジョブを追加する4つの方法&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;4つの方法&lt;/h3&gt;
 &lt;p&gt;先に調べた方法をそれぞれ記載する&lt;/p&gt;
 &lt;ul&gt;
@@ -13,6 +31,7 @@ cronジョブの設定方法としては &lt;code class=&quot;language-text&quot
 &lt;/ul&gt;
 &lt;p&gt;最後の方法は動作未検証のため？をつけている。
 それぞれの特徴を以下に述べていく。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; によるエディタを用いた編集&lt;/h3&gt;
 &lt;p&gt;言わずと知れたエディタで編集する方法。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;console&quot;&gt;&lt;pre class=&quot;language-console&quot;&gt;&lt;code class=&quot;language-console&quot;&gt;$ crontab -u $USER -e&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -34,6 +53,7 @@ cronジョブの設定方法としては &lt;code class=&quot;language-text&quot
 &lt;li&gt;プログラムから使用しづらい&lt;/li&gt;
 &lt;li&gt;死の危険と隣り合わせ&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;crontab [file]&lt;/code&gt; によるファイルの読み込み&lt;/h3&gt;
 &lt;p&gt;crontabコマンドは引数としてファイルを渡すとそのファイルを$USERのcronジョブ置き場に配置してくれる。
 &lt;code class=&quot;language-text&quot;&gt;crontab -e&lt;/code&gt; と同様にユーザを指定することも可能。&lt;/p&gt;
@@ -48,6 +68,7 @@ cronジョブの設定方法としては &lt;code class=&quot;language-text&quot
 &lt;li&gt;一度情報をファイルに起こさないといけない&lt;/li&gt;
 &lt;li&gt;削除や編集の仕方がわからない？ &amp;#x3C;- 要検証&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/crond.d/&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;指定のディレクトリにジョブを記載したファイルを配置する。
 cronは &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; を含め、いくつかのディレクトリ配下に配置されたジョブファイルを自動で読み取りに行く。
@@ -62,6 +83,7 @@ cronは &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; �
 &lt;li&gt;権限がrootのみ&lt;/li&gt;
 &lt;li&gt;file modeにも気を使う必要がある (確か644のみ)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER&lt;/code&gt; にファイルを追加&lt;/h3&gt;
 &lt;p&gt;上記の &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; 配下にファイルを追加する方法だと権限がrootになってしまうということで調べた方法。
 &lt;code class=&quot;language-text&quot;&gt;/var/spool/cron/crontabs/$USER&lt;/code&gt; は &lt;code class=&quot;language-text&quot;&gt;crontab -u $USER&lt;/code&gt; としたときに開かれるcronジョブファイルが配置されている場所なので
@@ -79,6 +101,7 @@ cronは &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; �
 &lt;li&gt;配置するためにroot権限が必要&lt;/li&gt;
 &lt;li&gt;file modeに気を使う必要がある&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;以上、まとめてみた感想だが、cronは意外と扱いづらいことがわかった。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;私は業務でC++を使用している。
