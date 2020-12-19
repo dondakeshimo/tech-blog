@@ -1,4 +1,426 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 13 Dec 2020 12:07:13 GMT</lastBuildDate><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[Luigi Colella RSS Feed]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 19 Dec 2020 10:30:42 GMT</lastBuildDate><item><title><![CDATA[マイクロサービスアーキテクチャのざっくりまとめ]]></title><description><![CDATA[マイクロサービスアーキテクチャを読んだのでざっくりまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/microservice-architecture</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/microservice-architectureマイクロサービスアーキテクチャのざっくりまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 19 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;マイクロサービスアーキテクチャ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-0-1&quot;&gt;マイクロサービスを用いる利点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-0-2&quot;&gt;マイクロサービスを用いるデメリット&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;サービスのモデル化&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-1&quot;&gt;優れたサービス&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-2&quot;&gt;境界&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-3&quot;&gt;共有データベースは絶対にダメ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-4&quot;&gt;オーケストレーションとコレオグラフィ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-5&quot;&gt;RESTとRPCのトレードオフ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-6&quot;&gt;非同期イベントベース連携&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-7&quot;&gt;クライアントライブラリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-8&quot;&gt;バージョニング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-9&quot;&gt;ユーザインタフェース&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;デプロイ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-0-1&quot;&gt;CI/CD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-0-2&quot;&gt;成果物&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-0-3&quot;&gt;サービス構成&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec4-0-0&quot;&gt;テスト&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-0-1&quot;&gt;テストの種類&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec5-0-0&quot;&gt;監視&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-0-1&quot;&gt;サービスについてのアドバイス&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-0-2&quot;&gt;システムについてのアドバイス&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec6-0-0&quot;&gt;セキュリティ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec7-0-0&quot;&gt;マイクロサービスにおける留意点&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-1&quot;&gt;指標&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-2&quot;&gt;システム障害への対処法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-3&quot;&gt;キャッシング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-4&quot;&gt;CAP定理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-5&quot;&gt;サービスレジストリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec7-0-6&quot;&gt;サービスの文書化&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec8-0-0&quot;&gt;マイクロサービスの原則&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-1&quot;&gt;ビジネス概念に沿ったモデル化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-2&quot;&gt;自動化の文化の採用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-3&quot;&gt;内部実装詳細の隠蔽&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-4&quot;&gt;全ての分散化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-5&quot;&gt;独立したデプロイ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-6&quot;&gt;障害の分離&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec8-0-7&quot;&gt;高度な観測&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;マイクロサービスアーキテクチャ&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-Sam-Newman/dp/4873117607&quot;&gt;マイクロサービスアーキテクチャ&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;上記の書籍をもとに学んだことをまとめていく。
+まずマイクロサービスについての定義だが、&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;マイクロサービスは、協調して動作する小規模で自律的なサービスです。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;とのことである。
+かなり曖昧であるが、サービス群に対してどこからがマイクロなサービスのような具体的な線引くのは難しい。
+本書で説明しているマイクロサービスの特徴としては&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一つの機能に専念していること&lt;/li&gt;
+&lt;li&gt;独立したデプロイが可能なこと&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;の2点が担保されていることがマイクロサービスの条件となっているようである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;マイクロサービスを用いる利点&lt;/h3&gt;
+&lt;h5&gt;技術異質性&lt;/h5&gt;
+&lt;p&gt;モノリシックなサービスに対し、技術選択の自由度が格段に上がる。
+railsを使用して全てを管理しているアプリケーションにおいてrubyとJS以外のプログラミング言語を導入するのは容易ではないが、
+適切にマイクロサービスに分割し機械学習分野に定評のあるPythonを推測部分に用いたり、
+課金周りの処理には信頼と安定のJavaを使用したりなどといった選択が可能になる。&lt;/p&gt;
+&lt;h5&gt;回復性(Resilience)&lt;/h5&gt;
+&lt;p&gt;システムのあるコンポーネントに障害が発生しても、その障害が連鎖しなければ、
+問題を分離してシステムの残りの部分は機能し続けることができる。
+モノリシックサービスでは一つの障害が全体に波及しやすい。&lt;/p&gt;
+&lt;h5&gt;スケーリング&lt;/h5&gt;
+&lt;p&gt;モノリシックサービスと違い、処理の重いサービスに集中的にリソースを割くということが可能になる。
+そのため、一般的に柔軟なスケーリングが可能となりコストを制御することが容易になる。&lt;/p&gt;
+&lt;h5&gt;デプロイの容易性&lt;/h5&gt;
+&lt;p&gt;大きなモノリシックサービスの軽微な変更に対してデプロイを行おうとすると、
+変更量と釣り合わない長いビルド時間やリリース時間と戦う羽目になる。
+また、リリースの失敗やバグ、障害の発生があると一気に全体に影響が出るため高頻度のリリースに精神的な障壁が生まれる。
+サービスを分割した場合上記の懸念事項が軽減される。&lt;/p&gt;
+&lt;h5&gt;組織面の一致&lt;/h5&gt;
+&lt;p&gt;1チームはピザ2枚で足りる人数が良い。
+そのような小規模チームで巨大なモノリシックサービスを見切るのは至難の技である。
+一つのサービスと一つのチームを結びつけられるように分割することで、効率よくマネジメントが可能になる。&lt;/p&gt;
+&lt;h5&gt;合成可能性&lt;/h5&gt;
+&lt;p&gt;分割されたサービスを再利用することが容易になる。
+例えば、シューズストアサービスが参照していたユーザサービスを
+新たに開発するブックストアサービスも参照するようにするといったことが簡単にできる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;マイクロサービスを用いるデメリット&lt;/h3&gt;
+&lt;p&gt;明確に書籍には記述されていないがざっと思いつくものをまとめる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;結局コストパフォーマンスが悪くなることがありそう&lt;/li&gt;
+&lt;li&gt;技術の自由度からチーム間の異動の際に学習コストが上がりそう&lt;/li&gt;
+&lt;li&gt;インタフェースが増えるのでその分事故も起きやすそう&lt;/li&gt;
+&lt;li&gt;理想のマイクロサービスの状態を全員が共有できていないとすぐにどこかで密結合が起こりそう&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;サービスのモデル化&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;優れたサービス&lt;/h3&gt;
+&lt;h5&gt;疎結合&lt;/h5&gt;
+&lt;p&gt;あるサービスを変更しても別のサービスを変更する必要がない状態。&lt;/p&gt;
+&lt;h5&gt;高凝集性&lt;/h5&gt;
+&lt;p&gt;関連するビジネスロジックが一つのサービスに収まっている状態。
+一つのロジックの振る舞いを変更したい時に、複数サービスにまたがって変更する必要がない状態。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;境界&lt;/h3&gt;
+&lt;h5&gt;ビジネス的境界&lt;/h5&gt;
+&lt;p&gt;大きなビジネスロジックを分解し、一つのビジネスロジックに着目した際外部との通信が必要な部分と必要のない部分に分割する。&lt;/p&gt;
+&lt;h5&gt;技術的境界&lt;/h5&gt;
+&lt;p&gt;分割の第一条件はビジネス境界であることを念頭に置く。技術的に分割できる部分は性能的な問題等を鑑みて分けても良い。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;共有データベースは絶対にダメ&lt;/h3&gt;
+&lt;p&gt;疎結合性と凝集性の真逆をいくプラクティスであるのでいかなる代償を払っても避けるべきである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;オーケストレーションとコレオグラフィ&lt;/h3&gt;
+&lt;p&gt;通信モードにおいて、リクエスト/レスポンスとイベントベースの二つが存在する。
+サービス間の関係性として
+リクエスト/レスポンスを用いたオーケストレーションと
+イベントベースの通信を用いたコレオグラフィがある。
+一般に、コレオグラフィ手法に向かう傾向が強いシステムの方が疎結合で柔軟性がある。
+リクエスト/レスポンスを使用する際にも非同期にするように心がければ、疎結合性がある程度担保できる。&lt;/p&gt;
+&lt;h5&gt;オーケストレーション&lt;/h5&gt;
+&lt;p&gt;オーケストラの指揮者のように中枢部のサービスに頼ってプロセスを推進する。
+指揮者サービスが各マイクロサービスとリクエスト/レスポンスを行い、
+データを集めて最終的なレスポンスを形成するというようなモデルがオーケストレーションである。
+メリットとしてはモデルが非常に分かりやすいこと、問題の特定が容易なこと。
+デメリットは、指揮者サービスが中央監督機関になりすぎること。
+中央集約しすぎるとほとんどのロジックをその部分で行うことが効率的となり、
+結果的にモノリシックなサービスが出来上がってしまう方向に引力が働く可能性がある。&lt;/p&gt;
+&lt;h5&gt;コレオグラフィ&lt;/h5&gt;
+&lt;p&gt;コレオグラフィはオーケストレーションとは違い中枢サービスがない。
+代わりに入り口となっているサービスがイベントを発行し、
+それらをサブスクライブしている各マイクロサービスがイベントをトリガーにプロセスを開始する。
+一般的に問題特定やエラーハンドリングを行うことがオーケストレーションよりも難しくなる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;RESTとRPCのトレードオフ&lt;/h3&gt;
+&lt;p&gt;リクエスト/レスポンス方式の通信の代表的なものとしてREST(REpresentational State Transfer)とRPC(Remote Process Call)がある。
+これら二つのトレードオフについて考える。&lt;/p&gt;
+&lt;h5&gt;REST&lt;/h5&gt;
+&lt;p&gt;RESTの考え方とHTTPプロトコルは非常に相性が良いため、ここでは主にHTTPにおけるRESTについて考える。
+HTTPリクエストを送ることによってリモートサーバに処理を依頼する。
+ハイパーメディアコントロールにより、リソースにアクセスして次の操作を決定することが容易となり、サーバとクライアントの分離が進む。
+欠点としては性能面や複雑さ、開発工数の増大などがある。&lt;/p&gt;
+&lt;h5&gt;RPC&lt;/h5&gt;
+&lt;p&gt;クライアントが単なる関数呼び出しを行うようにリモートサーバにリクエストを送れる手法である。
+いくつかの問題として、クライアントサイドとサーバサイドの技術選択に制限がかかることや、
+リモート呼び出しを抽象化しすぎた結果リモートサーバへのリクエストと気づかずに修正を入れてしまい事故につながるといったことがある。
+最新のProtocol BuffersやThriftのような機構はこのようなデメリットを軽減している。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-6&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;非同期イベントベース連携&lt;/h3&gt;
+&lt;p&gt;イベントベースの手法としてはメッセージキューを使用するものが代表的だろう。
+HTTPを使用してAtomのような手法を使うことも可能である。
+メッセージキューのインフラを整えるために追加の工数が大量に必要になるが、
+完成した暁には大いなる疎結合性が得られる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-7&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;クライアントライブラリ&lt;/h3&gt;
+&lt;p&gt;クライアントライブラリを使用する場合はクライアントサイドでアップグレードのタイミングを管理できるようにする。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-8&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;バージョニング&lt;/h3&gt;
+&lt;p&gt;バージョニングが必要な場合はセマンティックバージョニングを使用するのが良い。
+2.1.5のように &lt;code class=&quot;language-text&quot;&gt;MAJOR.MINOR.PATCH&lt;/code&gt; と数字に意味を持たせる。
+これによりアップグレードした際に破壊的な変更が行われているかどうかを察知することが可能となる。&lt;/p&gt;
+&lt;p&gt;その他の方式としては新旧のバージョンを共存させることが挙げられる。
+どちらの方式も選べるような状態にし、旧バージョンを誰も参照しなくなった際に削除する。&lt;/p&gt;
+&lt;p&gt;前者は頻繁なアップデートを行うインターフェースに、後者はそれほど頻繁でないものに使用することができると考えられる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-9&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ユーザインタフェース&lt;/h3&gt;
+&lt;p&gt;合成レイヤと考え、レイヤと接続する各サービスがそのレイヤに対して責任を持つのが好ましい。
+BFF(Backends for Frontends)を使用することでサービス呼び出しの管理が容易になるが、
+BFFの層で中間ロジックを入れると複雑さが増すので注意が必要。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;デプロイ&lt;/h1&gt;
+&lt;p&gt;相互依存するマイクロサービスにおいてデプロイを適切に行うことは非常に重要である。
+本章ではデプロイに関するテクニックや技術について言及する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;CI/CD&lt;/h3&gt;
+&lt;h5&gt;継続的インテグレーション&lt;/h5&gt;
+&lt;p&gt;CI(Continuous Integration)は、新たにチェックインされたコードが既存コードと適切に統合されるようにする。
+実際にCIを行っているかどうかの質問として&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1日に一度はメインラインにチェックインしているか&lt;/li&gt;
+&lt;li&gt;変更を検証するテストスイートがあるか&lt;/li&gt;
+&lt;li&gt;ビルドが壊れた時に、素rを修正するのがチームの最優先事項か&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;というのがある。&lt;/p&gt;
+&lt;h5&gt;CIとマイクロサービスのマッピング&lt;/h5&gt;
+&lt;p&gt;CIを考える際に&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ソースコードリポジトリ&lt;/li&gt;
+&lt;li&gt;CIビルドジョブ&lt;/li&gt;
+&lt;li&gt;ビルド生成物&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;の3つについてマッピングを考える必要がある。
+最終的な生成物が3つ出来上がると考えた時に、CIビルドジョブまで3つに分割するか、ソースコードリポジトリまで3つに分割するかで
+3パターン考えることができます。
+一般にCIビルドジョブを一気にやる手法は考えることが少ないことをメリットとして捉えられるかもしれないが無駄捉えられるかもしれないが
+CIビルドジョブを分割し、ソースコードリポジトリを分割しない場合はリポジトリが一つなので、
+チェックイン/チェックアウトのプロセスが容易になる。
+しかし、独立すべき複数のサービスを同時にレビューする習慣がつくため、密結合なコードに気付きづらくなるという欠点は抱えている。
+ソースコードリポジトリまで分割した場合、リポジトリの所有権がチーム単位で明確になり、独立したレビューを行うことができるが、
+リポジトリをまたがる変更が難しくなるというデメリットがある。&lt;/p&gt;
+&lt;h5&gt;継続的デリバリ&lt;/h5&gt;
+&lt;p&gt;継続的デリバリ(CD: COntinuous Delivery)とはチェックインするたびに本番環境への準備状況に関する
+フィードバックを常に得られ、さらに各チェックインを全てリリース候補として扱う手法である。
+準備状況についてはビルドパイプラインによってステップに分けられて実行され、その成否において状況が判断できる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;成果物&lt;/h3&gt;
+&lt;p&gt;リリースまで考えた際にソースコードの成果物として出力されるものの種類とそれらの特徴について考える。&lt;/p&gt;
+&lt;h5&gt;プラットフォーム固有の成果物&lt;/h5&gt;
+&lt;p&gt;Javaの場合はjarファイルとwarファイル、Pythonの場合はEggのようなプログラミング言語に対する成果物が生成される。
+しかし、それを稼働させるためにはそれぞれの成果物を実行するための環境を整える必要がある。
+環境を整えるためにはchefのような自動構成管理ツールが役に立つ。&lt;/p&gt;
+&lt;h5&gt;OS成果物&lt;/h5&gt;
+&lt;p&gt;Red HatにおけるRPMやUbuntuにおけるdebのようなOS固有の成果物を生成する手法もある。
+この場合、プラットフォーム固有の環境構築に依存する必要がなくなる。
+しかし、OS固有の成果物の生成は一般に難易度が高いことや複数のOSにデプロイする場合には逆に手間がかかる可能性があるなどの欠点もある。&lt;/p&gt;
+&lt;h5&gt;カスタムイメージの成果物&lt;/h5&gt;
+&lt;p&gt;Puppet, Chef, Ansibleといった自動構成管理ツールの欠点は構成処理に時間がかかることである。
+そのため、予め仮想マシンイメージを生成物とすることで各サーバへのデプロイ時間を軽減することができる。
+また、イミュータブルサーバの概念を実現するのにも役に立つ。
+この概念は端的にいうと、稼働中のサーバ郡は常に同じ状態にさせるために各々に対する変更は行わないようにするといったものである。
+イメージを作成することで、SSH接続を不可にしてサーバを稼働させることが可能になり、概念としてのイミュータブルサーバを
+より現実的なものとすることができる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;サービス構成&lt;/h3&gt;
+&lt;p&gt;ホストとサービスをどのようにマッピングするかを考える。&lt;/p&gt;
+&lt;h5&gt;1ホストに複数のサービス&lt;/h5&gt;
+&lt;p&gt;スケールが難しい。
+管理するホストが一つなのが楽。&lt;/p&gt;
+&lt;h5&gt;ホストごとに一つのサービス&lt;/h5&gt;
+&lt;p&gt;スケールアウトが容易。管理するホストが複数になるので監視等のコストがかかる。&lt;/p&gt;
+&lt;h5&gt;物理と仮想化&lt;/h5&gt;
+&lt;p&gt;仮想化に対するキーワードを記載する。
+最新の仮想化ではオーバーヘッドがかなり軽減され、進めるにつれて柔軟性や再現性が上がるという恩恵を得られる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker&lt;/li&gt;
+&lt;li&gt;Linuxコンテナ&lt;/li&gt;
+&lt;li&gt;Vagrand&lt;/li&gt;
+&lt;li&gt;ハイパーバイザ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;テスト&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;テストの種類&lt;/h3&gt;
+&lt;h5&gt;Maricの4象限&lt;/h5&gt;
+&lt;p&gt;Marickの4象限の派生系というものがある。
+図を書くのが面倒なので、言葉で記載すが、4象限なので軸が二つあり、それぞれ &lt;code class=&quot;language-text&quot;&gt;ビジネス &amp;lt;-&amp;gt; 技術&lt;/code&gt; , &lt;code class=&quot;language-text&quot;&gt;プログラミングのサポートの大小&lt;/code&gt; である。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ビジネス、プログラミングのサポート小: 探索的テスト&lt;/li&gt;
+&lt;li&gt;ビジネス、プログラミングのサポート大: 受け入れテスト&lt;/li&gt;
+&lt;li&gt;技術、プログラミングのサポート小    : 性質テスト&lt;/li&gt;
+&lt;li&gt;技術、プログラミングのサポート大    : 単体テスト&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;テストのスコープ&lt;/h5&gt;
+&lt;p&gt;テストのスコープについては単体テストが最も狭く、End to Endテストが最も広い。
+テストのスコープが大きくなるにつれてコードに対する自信が向上する。
+テストのスコープが小さくなるにつれて実行時間が短くなり、分離性が向上する。&lt;/p&gt;
+&lt;h5&gt;単体テスト&lt;/h5&gt;
+&lt;p&gt;機能が適切かどうかに関して高速なフィードバックを得られることが単体テストの目的である。
+コードのリファクタリングを支援するために非常に重要になる。&lt;/p&gt;
+&lt;h5&gt;サービステスト&lt;/h5&gt;
+&lt;p&gt;1マイクロサービスのみを対象としたテスト。
+可動部がマイクロサービス単体に限定されているためテストの脆弱性が小さくなる。&lt;/p&gt;
+&lt;h5&gt;End to Endテスト&lt;/h5&gt;
+&lt;p&gt;サービス全体を対象としたテスト。
+テストの脆弱性は大きくなり問題箇所の特定も難しくなるが、成功した際に最も大きな自信が得られる。
+その他にテストの責任者が曖昧になりやすいという組織上の欠点があったり、実行時間が大きくなりやすかったりとくつかの問題点を抱えている。&lt;/p&gt;
+&lt;h5&gt;コンシューマ駆動テスト&lt;/h5&gt;
+&lt;p&gt;コンシューマ/クライアントがプロデューサ/サーバの試験を行う。
+これにより確実にインタフェースの整合性が担保でき、End to Endテストよりも遥かに高速に試験が行える。
+コンシューマ駆動テストを助けるツールとしてPactというものがある。&lt;/p&gt;
+&lt;h5&gt;スモークテスト&lt;/h5&gt;
+&lt;p&gt;新たにデプロイしたソフトウェアに対して実行し、そのデプロイが正常に機能していることを確認する。
+これを行うためにデプロイとリリースを分離する必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ブルーグリーンデプロイメント&lt;/strong&gt;&lt;br&gt;
+必要なサーバの倍量を準備しておき、半分に分割、片方にのみリクエストが流れる状態にする。
+リクエストが来ていない側のサーバに新しいバージョンを行い、スモークテストを実施する。
+スモークテストが成功したら、新しいバージョンにリクエストを流す。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;カナリアリリース&lt;/strong&gt;&lt;br&gt;
+本番環境の一部に新しいバージョンをリリースする。
+様々な観点から新しいバージョンに問題ないことを確認し、新しいバージョンの割合を最終的に100%にする。&lt;/p&gt;
+&lt;h5&gt;機能横断テスト&lt;/h5&gt;
+&lt;p&gt;非機能要件と呼ばれる通常の機能のように実装できないシステムの特性を表す用語があるが、その用語と同様のものとして機能横断要件というものを定義する。
+多くの機能横断要件は本番環境のみでしか検証することができず、4象限で大別すると性質テストに当てはまる。
+これらに関しては極力自動化できるようにするが不可能な部分は手動になり、臨機応変な対応が求められる。
+多くの場合機能横断要件に関して検討されるのが遅いので、早めに考えるよう提案されている。&lt;/p&gt;
+&lt;h5&gt;性能テスト&lt;/h5&gt;
+&lt;p&gt;上記の機能横断要件の一部性能面を満たしているか確認するテストである。
+性能テスト環境は本番環境と近しいものを用意する必要があり、努力が必要な場合が多いがボトルネックの特定など有意義な結果が得られる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;監視&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;サービスについてのアドバイス&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;最低でもインバウンド応答時間を追跡する。続いてエラー率、アプリケーションレベルのメトリクス。&lt;/li&gt;
+&lt;li&gt;全ての下流のレスポンスの健全性を追跡する。最低でも下流呼び出しの応答時間を追跡し、可能ならエラー率も追跡する。&lt;/li&gt;
+&lt;li&gt;メトリクスを収集する方法と場所を標準化する。&lt;/li&gt;
+&lt;li&gt;可能なら標準的な場所に標準形式でログを記録する。&lt;/li&gt;
+&lt;li&gt;基板となるOSを監視し、不正なプロセスを探し出して、キャパシティプランニングを実行できるようにする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;システムについてのアドバイス&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU使用率のようなホストレベルメトリクスはアプリケーションレベルのメトリクスと一緒に集約する。&lt;/li&gt;
+&lt;li&gt;メトリクス格納ツールを使用し、システムレベルまたはサービスレベルで集約、掘り下げができるようにする。&lt;/li&gt;
+&lt;li&gt;メトリクス格納ツールでシステムの傾向を把握するのに十分な期間のデータを保持できるようにする。&lt;/li&gt;
+&lt;li&gt;ログの集約と格納用にクエリ可能なツールを一つは導入する。&lt;/li&gt;
+&lt;li&gt;相関IDの標準化を検討する。&lt;/li&gt;
+&lt;li&gt;対応が必要な条件を理解し、アラートやダッシュボードを作成する。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec6-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;セキュリティ&lt;/h1&gt;
+&lt;p&gt;マイクロサービスを利用するとモノリシックサービスと比較して強固なセキュリティを築ける可能性が得られ、
+セキュリティの手法に関する自由度も上がる。
+SAMLやSSOなどの統合的な認証方法についてはさらに学ぶ必要があるが、その他は基本的なセキュリティ法則を遵守する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;マイクロサービスにおける留意点&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;指標&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;応答時間/遅延&lt;/li&gt;
+&lt;li&gt;可溶性&lt;/li&gt;
+&lt;li&gt;データの耐久性/損失性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;システム障害への対処法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;タイムアウト&lt;/li&gt;
+&lt;li&gt;サーキットブレーカー&lt;/li&gt;
+&lt;li&gt;隔壁&lt;/li&gt;
+&lt;li&gt;分離&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;キャッシング&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;クライアント側、プロキシ、サーバ側のキャッシング&lt;/li&gt;
+&lt;li&gt;HTTPでのキャッシング&lt;/li&gt;
+&lt;li&gt;書き込みのキャッシング&lt;/li&gt;
+&lt;li&gt;回復性のためのキャッシング&lt;/li&gt;
+&lt;li&gt;オリジンサーバの隠蔽&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;CAP定理&lt;/h3&gt;
+&lt;p&gt;整合性(Consistency)、可用性(availability)、分断耐性(partition tolerance)の中で、
+故障モードでは二つを得る。三つ全てを保証することはできない。
+分断耐性を犠牲にすることはできないため、APシステムかCPシステムかで故障モードを考える必要がある。
+ただし、どちらか一方に振り切る必要はない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;サービスレジストリ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;DNS&lt;/li&gt;
+&lt;li&gt;ZooKeeper&lt;/li&gt;
+&lt;li&gt;Consul&lt;/li&gt;
+&lt;li&gt;Eureka&lt;/li&gt;
+&lt;li&gt;自作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec7-0-6&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;サービスの文書化&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Swagger&lt;/li&gt;
+&lt;li&gt;HALとHALブラウザ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;マイクロサービスの原則&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ビジネス概念に沿ったモデル化&lt;/h3&gt;
+&lt;p&gt;ビジネスで境界づけられたコンテキストを技術概念に基づいたインタフェースよりも優先する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;自動化の文化の採用&lt;/h3&gt;
+&lt;p&gt;管理するものが多く、複雑なマイクロサービスにおいて、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自動テストは必須&lt;/li&gt;
+&lt;li&gt;CI/CDは必須&lt;/li&gt;
+&lt;li&gt;カスタムイメージ/環境定義/イミュータブルサーバは推奨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;内部実装詳細の隠蔽&lt;/h3&gt;
+&lt;p&gt;境界づけられたコンテキストをモデル化し、共有すべきモデルと隠すべきモデルを調べる。
+サービスはデータベースを隠蔽し、データポンプや、イベントデータポンプを用いて
+レポートのために複数のサービスからのデータを集約する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;全ての分散化&lt;/h3&gt;
+&lt;p&gt;チームにサービスを所有させる。
+オーケストレーションではなくコレオグラフィとダムミドルウェアを選び、高度なエンドポイントを持たせる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;独立したデプロイ&lt;/h3&gt;
+&lt;p&gt;破壊的な変更が必要な時でもバージョン付けされたエンドポイントを共存させてコンシューマに対して後方互換性を持たせるべきである。
+ホストごとに一つのサービスを持つようにするとブルーグリーンやカナリアといったリリーステクニックを使用できる。
+コンシューマ駆動契約を用いて、破壊的変更が起こる前にそれについて察知する。
+コンシューマが自ら更新のタイミングを決められるようにする。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-6&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;障害の分離&lt;/h3&gt;
+&lt;p&gt;リモート呼び出しをローカル呼び出しのように扱ってはいけない。
+障害がどこでも起こりうることを念頭に対処法を施す。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec8-0-7&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;高度な観測&lt;/h3&gt;
+&lt;p&gt;セマンティック監視を利用して、ログと統計データは集約する。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;モチベーション&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -1570,223 +1992,4 @@ JavaScript側で難しいことはそれほどないと思う。&lt;/p&gt;
 みたいな感じやと思う。&lt;/p&gt;
 &lt;h5&gt;つまり、結論&lt;/h5&gt;
 &lt;p&gt;慣れが大事。&lt;/p&gt;
-&lt;h5&gt;次回からはクライアントサイドの説明をしてくれるそうです！&lt;/h5&gt;</content:encoded></item><item><title><![CDATA[機械学習の勉強を始めました]]></title><description><![CDATA[ゼロから作る Deep Learning の自分用まとめ]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/intro-deep-learning</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/intro-deep-learning機械学習の勉強を始めました</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 19 Aug 2017 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;機械学習の勉強を真面目にはじめました。&lt;/h1&gt;
-&lt;p&gt;今回しっかりと基礎から見直そうと思い、入門書を精読することにしました。
-具体的には上記の本を精読し、しっかりとゼロから作っていこうかと。
-なんとなく難しかったところとかを適当にまとめたり、シンプルにようやくしたりします。&lt;/p&gt;
-&lt;h1&gt;ニューラルネットワーク&lt;/h1&gt;
-&lt;h3&gt;入力ネットワークの構造&lt;/h3&gt;
-&lt;p&gt;入力層、隠れ層、出力層に分けられる。
-入力層は例えば、28x28の画像であれば、28x28=784の入力。
-隠れ層は何層重ねてもよく、さらにどれだけ縮小しても拡大しても良い。
-出力層はクラス分類問題であれば、クラスの数となる。
-行列計算と非常に相性が良い構造である。&lt;/p&gt;
-&lt;h3&gt;活性化関数&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;シグモイド関数&lt;/li&gt;
-&lt;li&gt;ステップ関数&lt;/li&gt;
-&lt;li&gt;ReLU関数&lt;/li&gt;
-&lt;li&gt;ソフトマックス関数&lt;/li&gt;
-&lt;li&gt;恒等関数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;これらを回帰問題か分類問題かなどに応じて使い分ける。
-主に、重みを付与しながらの層から層への情報伝播の後、
-各層で行われる処理はこのような関数による変換。&lt;/p&gt;
-&lt;h3&gt;バッチ処理&lt;/h3&gt;
-&lt;p&gt;一回に入力する量を増やす処理。
-画像であれば、何枚もの画像を別次元に格納する。
-この処理により高速化の恩恵が得られる。&lt;/p&gt;
-&lt;h1&gt;データの学習&lt;/h1&gt;
-&lt;h3&gt;損失関数&lt;/h3&gt;
-&lt;p&gt;損失関数とは機械学習における目標値である。
-損失関数から出力される値を最小化することを目標に機械は学習を行う。
-主に用いられる関数として下記のものがあげられる。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;二乗和誤差&lt;/li&gt;
-&lt;li&gt;交差エントロピー誤差&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;勾配法&lt;/h3&gt;
-&lt;p&gt;極小値にハマり学習の進まないプラトーという状況に陥ることに注意。&lt;br&gt;
-毎回の学習の更新量を定めるパラメタを &lt;strong&gt;学習率&lt;/strong&gt; と呼ぶ。
-学習率は人間があらかじめ設定する必要があるため &lt;strong&gt;ハイパーパラメタ&lt;/strong&gt;
-と呼ばれる。&lt;/p&gt;
-&lt;h3&gt;ここまでのまとめ&lt;/h3&gt;
-&lt;p&gt;まとめてみると学習の流れは&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;ミニバッチ&lt;/li&gt;
-&lt;li&gt;勾配の算出&lt;/li&gt;
-&lt;li&gt;パラメタの更新&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;これらを繰り返すことになる。この流れを確率的勾配降下法と呼ぶ。
-また、ミニパッチ一回分の繰り返しを &lt;strong&gt;1epoch&lt;/strong&gt; と呼ぶ&lt;/p&gt;
-&lt;h3&gt;過学習&lt;/h3&gt;
-&lt;p&gt;学習に用いたデータセットに特化した学習を行ってしまい汎化能力が失われた状態。
-この状態を避けるために学習データとテストデータを分け、
-定期的にテストデータの認識精度も測ることで、
-両方の認識精度が向上していることを確認する必要がある。&lt;/p&gt;
-&lt;h2&gt;誤差逆伝播(backpropagation)&lt;/h2&gt;
-&lt;p&gt;微分値によってパラメタを進める方向、量を決めるが、
-微分は一般的に重たい計算のため、高速化するために誤差逆伝播法を用いる。
-これは各計算を分解、独立化し、chain ruleによって、
-独立した計算それぞれに対する微分を考えていくことで、
-行列計算として微分計算を行えると言う利点がある。&lt;br&gt;
-隠れ層での行列の形状を変化させる計算をAffineレイヤと呼び、
-Affineレイヤを含む、上記の活性化関数それぞれに対し、
-独立して計算済みのレイヤを実装していくことで、
-部品を組み立てるようにニューラルネットワークを実装することができ、
-かつ高速に微分計算を行うことができる。&lt;/p&gt;
-&lt;h4&gt;勾配確認&lt;/h4&gt;
-&lt;p&gt;実装の難しい誤差逆伝播法のバリデーションのため、
-実装の簡単な数値微分の結果と比較すること。&lt;/p&gt;
-&lt;h2&gt;最適化手法&lt;/h2&gt;
-&lt;p&gt;パラメタの更新のことを最適化と呼ぶ。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;確率的勾配降下法(SGD)&lt;/li&gt;
-&lt;li&gt;Momentum&lt;/li&gt;
-&lt;li&gt;AdaGrad&lt;/li&gt;
-&lt;li&gt;Adam&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;上記の4つをこの書籍では取り上げていた。&lt;/p&gt;
-&lt;h5&gt;SGD&lt;/h5&gt;
-&lt;p&gt;最もシンプルな手法。
-勾配に学習率をかけたものを次のパラメタ更新に用いる。
-欠点として、最小値までの傾斜が等方的でない場合、
-ジグザグな動きをすることとなり、学習スピードが遅くなる。&lt;/p&gt;
-&lt;h5&gt;Momentum&lt;/h5&gt;
-&lt;p&gt;前回の学習スピードを保持することで、
-同じ方向に進むときは加速度的に進み、
-ジグザグな動きをするときはSGDと比べて減速するようにした。&lt;/p&gt;
-&lt;h5&gt;AdaGrad&lt;/h5&gt;
-&lt;p&gt;学習率を定数ではなく変数にする。
-過去全ての更新量を記憶し、そのぶん学習率を小さくしていく。
-欠点として、学習に長時間かかった場合、学習率が0に近づき、
-学習が進まなくなることが挙げられるが、それを改善したRMSProp
-と言う手法も存在する。&lt;/p&gt;
-&lt;h5&gt;Adam&lt;/h5&gt;
-&lt;p&gt;直感的にはMomentumとAdaGradを組み合わせたようなものらしい&lt;/p&gt;
-&lt;h3&gt;重みの初期値&lt;/h3&gt;
-&lt;h5&gt;1を標準偏差としたガウス分布&lt;/h5&gt;
-&lt;p&gt;0と1にアクティベーション(各レイヤの出力)が固まることから
-勾配消失が起きているとわかる。&lt;/p&gt;
-&lt;h5&gt;0.001を標準偏差としたガウス分布&lt;/h5&gt;
-&lt;p&gt;0.5付近に固まるため、勾配消失は怒っていないが、
-その代わり表現力が小さくなっている。
-ある値にアクティベーションが集まると、
-単一のレイヤで全てのレイヤを表現できてしまうと言う問題や、
-学習が効率よくいかない問題が挙げられる。&lt;/p&gt;
-&lt;h5&gt;Xavierの初期値&lt;/h5&gt;
-&lt;p&gt;前層のノードの数に準じて初期値を小さくする手法。
-活性化関数が線形関数(線形関数に近似される関数)の際に用いられる。&lt;/p&gt;
-&lt;h5&gt;Heの初期値&lt;/h5&gt;
-&lt;p&gt;Xavierに2倍の広がりをもたせたもの。
-非線形関数に用いられる。&lt;/p&gt;
-&lt;h3&gt;Batch Normalization&lt;/h3&gt;
-&lt;p&gt;データを綺麗な分布にならす手法。
-Affineレイヤと活性化関数レイヤの間に
-Batch Normalizationレイヤを入れて使用する。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;学習スピードの増加&lt;/li&gt;
-&lt;li&gt;初期値に対する依存度の減少&lt;/li&gt;
-&lt;li&gt;過学習の抑制&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;などの効果がある。&lt;/p&gt;
-&lt;h3&gt;正則化&lt;/h3&gt;
-&lt;p&gt;過学習を抑制するための手法&lt;/p&gt;
-&lt;h5&gt;Weight decay(荷重減衰)&lt;/h5&gt;
-&lt;p&gt;損失関数に重みに準じた量を加算することで、
-大きな重みを持つことにペナルティを課す。&lt;/p&gt;
-&lt;h5&gt;Dropout&lt;/h5&gt;
-&lt;p&gt;確率で、ノードを消去することで何かうまいこと過学習が抑制されるらしい。&lt;/p&gt;
-&lt;h1&gt;畳み込みニューラルネットワーク(CNN)&lt;/h1&gt;
-&lt;p&gt;主に画像に用いられるニューラルネットワーク。
-昔のモデル(ここまで考えてきたモデル)では、
-Affineレイヤで前層の出力を全結合していたが、
-その部分をConvolutionレイヤで置き換え、
-必要に応じて、活性化関数適用後の出力にPoolingレイヤを挟むことで
-Affineレイヤの形状無視と言う欠点を補う。&lt;/p&gt;
-&lt;h3&gt;Convolutionレイヤ&lt;/h3&gt;
-&lt;p&gt;形状を考えるために、入力データに対して、
-&lt;strong&gt;フィルター(カーネル)&lt;/strong&gt; を用いた結合を行う。
-フィルターは入力データと同じチャンネル数で、任意のサイズを持つ。
-フィルターのサイズと、
-入力データに対する &lt;strong&gt;パティング&lt;/strong&gt; 、フィルターの &lt;strong&gt;ストライド&lt;/strong&gt; によって
-出力データのサイズが決定する。
-一つのフィルターに対して、出力データのチャンネル数は常に1つのため、
-複数のフィルターを用意して、出力データのチャンネル数を調整する。&lt;/p&gt;
-&lt;h3&gt;Poolingレイヤ&lt;/h3&gt;
-&lt;p&gt;サイズを小さくするための演算。
-ある範囲の最も大きな値のみ抽出していくMaxPoolingが画像処理の分野では主流である。
-Poolingレイヤの特徴は以下の3つに代表される。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;学習するパラメータがない&lt;/li&gt;
-&lt;li&gt;チャンネル数は変化しない&lt;/li&gt;
-&lt;li&gt;微小な位置変化に対してロバスト&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;CNNの特徴？&lt;/h3&gt;
-&lt;p&gt;フィルターが前半の層では低次元のエッジなどを抽出していくのに対し、
-後半のフィルターは高次元の犬の顔などを抽出し始めるらしい。
-これは層を多くすることによって、出力までの下準備をそれまでのレイヤで
-丹念にできることに起因するとかしないとか。&lt;/p&gt;
-&lt;h3&gt;代表的なCNN&lt;/h3&gt;
-&lt;h5&gt;LeNet&lt;/h5&gt;
-&lt;p&gt;1998年初めてのCNN？基本的な構造は今使われているものと同じだが、
-PoolingレイヤでMaxPoolingを行なっているわけではないらしいのと、
-活性化関数がSigmoid関数らしい。&lt;/p&gt;
-&lt;h5&gt;AlexNet&lt;/h5&gt;
-&lt;p&gt;2012年に彗星のごとくコンペティションに現れ、
-圧倒的な成績でトロフィーと話題をさらっていったAlexNetさんです。
-機械学習ブームの火付け役をしてくれたらしいですね。LeNetと比べると&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;活性化関数にReLU関数を用いる&lt;/li&gt;
-&lt;li&gt;LRNと言う局所的正規化を行う関数を挟む&lt;/li&gt;
-&lt;li&gt;Dropoutを使用する&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;松尾教授の書籍を読んだ時、うろ覚えですが、確かこのDropoutが
-革新的だったといっていたような気がします。うろ覚えなので突っ込まないでください。&lt;/p&gt;
-&lt;h1&gt;ディープラーニング&lt;/h1&gt;
-&lt;h3&gt;層を厚くすると言うこと&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;表現力の増加&lt;/li&gt;
-&lt;li&gt;表現するために必要な学習パラメタの減少&lt;/li&gt;
-&lt;li&gt;学習時間は増加&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;こんな感じのメリットデメリットがあるらしい。
-表現力の増加とあるが、実際、MNISTの認識では2層くらいのモデルが
-最も高精度らしく、表現力がどの程度必要なのかも考えなければならない。
-ちなみに2015年のクラス分類コンペティションの優勝モデルは
-150層とか言う馬鹿げたレベルのディープさだったそうな。&lt;/p&gt;
-&lt;h3&gt;有名なネットワーク&lt;/h3&gt;
-&lt;h5&gt;VGG&lt;/h5&gt;
-&lt;p&gt;CNNの基本型らしい。3x3の小さなフィルターでなんども畳み込むそうな。&lt;/p&gt;
-&lt;h5&gt;GoogleLeNet&lt;/h5&gt;
-&lt;p&gt;基本的に層をディープにするといったら、伝播方向っぽいんだけど、
-Googleさんは横方向にも伸ばしてしまったそうな。
-&lt;strong&gt;インセプション構造&lt;/strong&gt; と呼ぶらしく、複数のサイズのフィルターで
-たたみ込んでその結果を結合するそうな。&lt;/p&gt;
-&lt;h5&gt;ResNet&lt;/h5&gt;
-&lt;p&gt;GoogleがきてMSが来ないわけがない。
-これがさっき言ったアホみたいに層を深くした150層ネットワーク。
-レイヤを通した出力とレイヤを通す前の入力の合計をその層の出力とする
-スキップ構造と呼ばれるものを用いることで、
-勾配消失問題を克服して、層をものごっつ厚くできたそうな。&lt;/p&gt;
-&lt;h3&gt;転移学習&lt;/h3&gt;
-&lt;p&gt;すでに学習済みのパラメタをそのまま初期値として用いて、
-次の学習を行う手法のこと。少ないデータセットしか手元にない時とかいいらしい。&lt;/p&gt;
-&lt;h3&gt;最近ディープラーニングで行われていること&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;物体検出(物体認識の適用範囲検索と物体認識の結合)&lt;/li&gt;
-&lt;li&gt;セグメンテーション(ピクセルレベルでのクラス分類)&lt;/li&gt;
-&lt;li&gt;画像キャプション生成(CNNとRNNの結合)&lt;/li&gt;
-&lt;li&gt;画像スタイル変換(中間出力とのloss)&lt;/li&gt;
-&lt;li&gt;画像生成(DCGAN)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;強化学習&lt;/h3&gt;
-&lt;p&gt;エージェント(computer)が環境から得られる報酬を
-最大化するように動いていくのかな？
-ゲームとかでやってるらしい。
-パックマンをコンピューターにやらせたらもう人は勝てないらしい。
-とりあえず強化学習にはまた独自のアルゴリズムがあるっぽくて(Q学習？)
-それとCNNを融合させることでDeep Q-Networkとか言うすごい奴が生まれたらしい。&lt;/p&gt;
-&lt;h1&gt;まとめ&lt;/h1&gt;
-&lt;p&gt;特殊な用語がたくさん出てきたので、
-とりあえずこの分野に入るときには一回真面目に入門書を読むべきと感じました。&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;h5&gt;次回からはクライアントサイドの説明をしてくれるそうです！&lt;/h5&gt;</content:encoded></item></channel></rss>
