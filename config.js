@@ -3,10 +3,10 @@ module.exports = {
   pathPrefix: '/tech-blog',
   siteUrl: 'https://dondakeshimo.github.io',
   siteTitle: 'dondakeshimoの丸太',
-  siteDescription: '',
+  siteDescription: 'マルタ島は最高',
   author: 'dondakeshimo',
   postsForArchivePage: 20,
-  defaultLanguage: 'jp',
+  defaultLanguage: 'ja',
   pages: {
     home: '/',
     blog: 'blog',

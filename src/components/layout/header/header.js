@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'gatsby'
-import { FaBars, FaTimes, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaBars, FaTimes, FaGithub } from 'react-icons/fa'
 /* App imports */
 import useEvent from '../../hooks/useEvent'
 import style from './header.module.less'
@@ -78,15 +78,6 @@ const Header = () => {
               href={Config.social.github}
             >
               <FaGithub size="30" />
-            </a>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href={Config.social.linkedin}
-            >
-              <FaLinkedin size="30" />
             </a>
           </li>
         </ul>
