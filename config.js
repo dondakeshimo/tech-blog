@@ -30,6 +30,10 @@ module.exports = {
     DL: {
       description: 'Deep learning is ...'
     },
+    github: {
+      name: 'GitHub',
+      description: 'GitHub gives every engineers great power.'
+    },
     go: {
       name: 'Go',
       description: 'Go is good language'
