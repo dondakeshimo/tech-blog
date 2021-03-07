@@ -39,7 +39,7 @@
   "scripts": {
     "build": "gatsby build --prefix-paths",
     "push": "gh-pages -d public",
-    "deploy": "yarn clean && yarn build && yarn push",
+    "deploy": "yarn clean && yarn build && yarn push && yarn clean",
     "dev": "yarn clean && gatsby develop",
     "start": "npm run dev",
     "serve": "gatsby serve",
