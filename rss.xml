@@ -1,4 +1,546 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 07 Mar 2021 11:17:31 GMT</lastBuildDate><item><title><![CDATA[GitHub ActionsでCHANGELOG駆動Release]]></title><link>https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/github-actions-changelogGitHub ActionsでCHANGELOG駆動Release</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 07 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 18 May 2021 15:03:50 GMT</lastBuildDate><item><title><![CDATA[エリック・エヴァンスのドメイン駆動設計をまとめる]]></title><description><![CDATA[いわゆるエヴァンス本を読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/evans-eric-dddエリック・エヴァンスのドメイン駆動設計をまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-0-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0-0&quot;&gt;ドメイン駆動設計&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-1-0&quot;&gt;ドメイン駆動設計の基本的用法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-0-2-0&quot;&gt;ユビキタス言語&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3-0-0-0&quot;&gt;設計における構成要素&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-0-0&quot;&gt;アーキテクチャ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-1-0&quot;&gt;レイヤードアーキテクチャ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-2-0&quot;&gt;利口なUI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-0-0&quot;&gt;オブジェクト&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-1-0&quot;&gt;ENTITIES (REFERENCE OBJECTES)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-2-0&quot;&gt;VALUE OBJECTS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-3-0&quot;&gt;SERVICES&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-0-0&quot;&gt;モジュール (パッケージ)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-4-0-0&quot;&gt;ライフサイクル&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-4-1-0&quot;&gt;集約&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-4-2-0&quot;&gt;ファクトリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-4-3-0&quot;&gt;リポジトリ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec4-0-0-0&quot;&gt;リファクタリング&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-1-0-0&quot;&gt;SPECIFICATION&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-2-0-0&quot;&gt;設計&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-3-0-0&quot;&gt;デザインパターン&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-3-1-0&quot;&gt;STRATEGY (POLICY)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-3-2-0&quot;&gt;COMPOSITE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec5-0-0-0&quot;&gt;戦略的設計&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-0-0&quot;&gt;モデルの整合性維持&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-1-0&quot;&gt;境界づけられたコンテキスト&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-2-0&quot;&gt;共有カーネル&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-3-0&quot;&gt;顧客/提供者 (CUSTOMER/SUPPLIER)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-4-0&quot;&gt;順応者 (CONFORMIST)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-5-0&quot;&gt;腐敗防止層 (ANTICORRUPTION LAYER)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-6-0&quot;&gt;公開ホストサービス&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-1-7-0&quot;&gt;公表された言語&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-0-0&quot;&gt;蒸留&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-1-0&quot;&gt;コアドメイン&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-2-0&quot;&gt;汎用サブドメイン&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-3-0&quot;&gt;ドメインビジョン声明文&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-4-0&quot;&gt;強調されたコア&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-5-0&quot;&gt;隔離されたコア&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-2-6-0&quot;&gt;抽象化されたコア&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-3-0-0&quot;&gt;大規模な構造&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-3-1-0&quot;&gt;責務のレイヤ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec5-3-2-0&quot;&gt;知識レベル&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;動機&lt;/h1&gt;
+&lt;p&gt;ソフトウェアエンジニア界で活動をしている人なら誰しもが聞いたことはあろう
+&lt;a href=&quot;https://www.amazon.co.jp/%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-Architects%E2%80%99Archive-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%AE%9F%E8%B7%B5-%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9/dp/4798121967/ref=tmm_other_meta_binding_swatch_0?_encoding=UTF8&amp;#x26;qid=&amp;#x26;sr=&quot;&gt;エリック・エヴァンスのドメイン本&lt;/a&gt;
+私もようやくその本の価値が分かる時分になり、手にとった。
+どうやら考えていたよりも幾分実験的な内容で、体系だっているようで煩雑としている印象を受けたが、
+如何せん書かれていることは設計を行う人間にとっては不可欠な内容と思える物ばかりで、
+是非とも自分のものにしたいという思いからエッセンスのみを &lt;em&gt;自分のために&lt;/em&gt; まとめる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;ドメイン駆動設計&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ドメイン駆動設計の基本的用法&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;モデルと設計の核心が相互に形成し合う&lt;/li&gt;
+&lt;li&gt;モデルは、チームメンバ全員が使用する言語の基盤である&lt;/li&gt;
+&lt;li&gt;モデルとは、蒸留された知識である&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ユビキタス言語&lt;/h3&gt;
+&lt;p&gt;ドメインエキスパートが使用する専門用語とソフトウェアエンジニアが使用する言語は共通化する必要がある。
+この共通化された言語を &lt;strong&gt;ユビキタス言語&lt;/strong&gt; という。&lt;/p&gt;
+&lt;p&gt;ユビキタス言語の語彙にはクラスや主要な操作の名前が含まれている。
+開発チームは試行錯誤の上で、用語や用語の組み合わせがぎこちない場所を発見した場合、その代わりとなる表現を探す。
+言語に対するこのような変更はドメインモデルに対する変更として認識される。
+ドメインモデルは言語の骨格として使用されることになり、モデルはユビキタス言語を反映したものにならなければならない。
+その上で、チーム内の全てのコミュニケーションとコードにおいて、その言語を厳格に用いることをチームに約束させることが重要である。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ユビキタス言語における変更は、モデルに対する変更であると認識すること。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;モデルが言語の骨格となるが、それに異議を唱えるのはもちろん開発チームのみでなくドメインエキスパートも同様にすべきである。
+(むしろその方が多いとも思われる。)
+ユビキタス言語の使いにくさ、ぎこちなさはモデルの不整合の発見の一助となる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;設計における構成要素&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;アーキテクチャ&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;レイヤードアーキテクチャ&lt;/h3&gt;
+&lt;p&gt;ドメインモデルの隔離と依存関係の整理のためにレイヤードアーキテクチャが用いられる。
+代表的な例としてMVCモデルが挙げられる。
+本書で紹介されているレイヤーについて確認すると&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ユーザインタフェース層(プレゼンテーション層)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;外部との接続部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;アプリケーション層&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ソフトウェアが行うべき処理を定義する&lt;/li&gt;
+&lt;li&gt;ドメインオブジェクトを使用して問題を解決する&lt;/li&gt;
+&lt;li&gt;ビジネスルールや知識を含まない&lt;/li&gt;
+&lt;li&gt;ビジネスの状態は持たないが作業の進捗などの情報は持っても良い&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ドメイン層(モデル層)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ビジネスの概念とビジネスの状態、ルールを管理する&lt;/li&gt;
+&lt;li&gt;状態の永続化などの技術的詳細はインフラストラクチャ層に委譲する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;インフラストラクチャ層&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ドメイン層だめの永続化、ユーザインタフェースのウェジェット描画など技術的詳細を提供する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本書におけるレイヤードアーキテクチャの本質はドメインモデルの隔離に尽きると言える。
+ドメイン層を技術的詳細やその他詳細と疎結合にすることで、ドメインモデルはドメインモデルのみに集中することができる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;利口なUI&lt;/h3&gt;
+&lt;p&gt;上記のドメインモデルに集中する本懐を鑑みると表題はおかしな言葉に見えるし、
+実際ドメイン駆動設計において、利口なUIはアンチパターンである。
+しかし、フロントエンド開発の現状を考えるとしっかりとその長短について見つめ直す必要があろう。
+もちろん複雑なビジネスロジックを含むフロントエンド開発においては単なるUIとしての機能というよりは、
+それ一つでソフトウェアとみなせるため、内部でドメイン駆動設計を行うという選択肢もあるが、
+ここでいうUIとは最も外部に位置するクラスであり、
+ReactでいうpageごとのMainコンポーネントがそれに当たると考えて良いと思われる。&lt;/p&gt;
+&lt;h5&gt;利点&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;単純なアプリケーションの場合&lt;/strong&gt; 、生産性が高くすぐに作れる&lt;/li&gt;
+&lt;li&gt;アーキテクチャに対する造詣が浅くても問題ない&lt;/li&gt;
+&lt;li&gt;単純な機能追加は簡単で、見積もりも簡単である&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;欠点&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;アプリケーションの統合は困難である&lt;/li&gt;
+&lt;li&gt;振る舞いの再利用が難しい&lt;/li&gt;
+&lt;li&gt;複雑な機能追加を行うとアプリケーションもまた複雑化していく&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;オブジェクト&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ENTITIES (REFERENCE OBJECTES)&lt;/h3&gt;
+&lt;p&gt;同一性によって定義されるオブジェクトのことをエンティティと呼ぶ。
+エンティティは属性よっては定義されず、同じ属性を保有していても他のオブジェクトと区別される必要があり、
+属性が変化したとしても同一性が損なわれてはならない。&lt;/p&gt;
+&lt;p&gt;エンティティの考え方として代表的なものを考えると「人間」という概念が挙げられる。
+身長体重などの属性はいくらでも変化するが私が私であることは変わらない(本当かは正直知らないが)。&lt;/p&gt;
+&lt;p&gt;モデルでエンティティを定義する際に留意することを下記に示す。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同一性を第一とすること&lt;/li&gt;
+&lt;li&gt;クラスの定義をシンプルに保ち、ライフサイクルの連続性と同一性に集中すること&lt;/li&gt;
+&lt;li&gt;形式や履歴に関係なく、各オブジェクトを識別する手段を定義すること&lt;/li&gt;
+&lt;li&gt;オブジェクト同士を属性によって突き合わせる要件には注意すること&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;各オブジェクトに対して結果が保証される操作を定義すること&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ユニークな文字列が代表的な解決策ではある&lt;/li&gt;
+&lt;li&gt;ユニークな文字列を使用するか否かにかかわらず、モデルが同じであるとは何を意味するかを定義する必要がある&lt;/li&gt;
+&lt;li&gt;一度識別子を決定したら決して変更してはならない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;VALUE OBJECTS&lt;/h3&gt;
+&lt;p&gt;あるモデル要素についてその属性にのみ関心が集中し、同一性が必要ないオブジェクトを値オブジェクトと呼ぶ。
+エンティティと異なり、同じ属性を保有しているオブジェクト同士に区別は必要なく同一のものであると見なす。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同一性を与えない&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不変なモデルとして設計する&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FLYWEIGHTパターンなど考慮が非常に楽である&lt;/li&gt;
+&lt;li&gt;ただし多くの言語でサポートされている概念ではないので開発ルールとして開発者が遵守する必要がある&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;値オブジェクトに対して可変性を持たせる場合もあるが、可能ならば回避する性質である。
+可変性が生じた場合はその値オブジェクトは共有してはならない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;SERVICES&lt;/h3&gt;
+&lt;p&gt;ドメインエキスパートとの会話から生まれる概念の中には、本質的に活動や行動、操作であって、
+オブジェクトとしてモデル化すると不自然なものがある。
+これらの概念は無理にオブジェクトとしてモデル化せずドメインサービスとしてモデル化することができる。
+サービスとは、モデルにおいて独立したインタフェースとして提供される操作であり、カプセル化されない。
+良く設計されたサービスの特徴として&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;操作がドメインの概念に関係しており、その概念がドメインオブジェクトの自然な一部ではない&lt;/li&gt;
+&lt;li&gt;引数と返り値、つまりインタフェースはドメインオブジェクトで定義されている&lt;/li&gt;
+&lt;li&gt;操作に状態がない&lt;/li&gt;
+&lt;li&gt;ユビキタス言語で操作名が定義されている&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;それぞれのレイヤーに属するサービスを
+ドメインサービス、アプリケーションサービス、インフラストラクチャサービスと呼ぶことができる。&lt;/p&gt;
+&lt;p&gt;ドメイン層にサービスを導入することで、アプリケーション層によるドメイン層の呼び出し処理が簡素化され、
+ドメイン層とアプリケーション層の線引きを明確化することができる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;モジュール (パッケージ)&lt;/h2&gt;
+&lt;p&gt;モジュール間では低結合、モジュール内では高凝集と言うのは技術的に考えて自明の理だが、
+モジュールは概念についても分断してしまうことを意識する。
+モジュールはユビキタス言語を用いて名付けられるべきであり、
+ドメインの概念に従って分割されると同時に対応するコードも独立される状態を目指す。&lt;/p&gt;
+&lt;p&gt;フレームワークにただ従ってパッケージングを行った場合、上述のような結果が得られないことも多いので注意する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;ライフサイクル&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-4-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;集約&lt;/h3&gt;
+&lt;p&gt;集約は複数オブジェクトの集まりを指す言葉であり、トランザクションの単位となる。
+特に複数のオブジェクトに関連する不変条件が存在する時に、シンプルなロックの機構をやたらと使うと
+過度に遅いシステムや、デッドロックが発生するシステムが作成されてしまうため、
+いくつかのオブジェクト間の不変条件を満たすことを容易にするようにグルーピングしたものが集約となる。&lt;/p&gt;
+&lt;p&gt;集約において重要な概念は集約ルートと境界である。
+集約ルートとはグローバルな同一性を保持したエンティティであり、外部からの参照を受け付ける集約内部で唯一のオブジェクトとなる。
+境界とは集約内部においてはルートエンティティ以外の参照を持つことは自由だが、集約外部で参照を持たれて良いのは
+ルートエンティティのみと言う約束および内部と外部の境目を指す。&lt;/p&gt;
+&lt;p&gt;トランザクションの具体的なルールは下記のようになる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集約のルートエンティティは、グローバルな同一性をもち、不変条件をチェックする最終的な責務を負う&lt;/li&gt;
+&lt;li&gt;境界内部のエンティティは、集約ないのでのみ一意となるローカルな同一性を持つ&lt;/li&gt;
+&lt;li&gt;集約の境界外にあるオブジェクトはルートエンティティ以外の境界内のオブジェクト参照を保持できない&lt;/li&gt;
+&lt;li&gt;ルートエンティティは境界内部のオブジェクトの参照を返却できるが、境界外部のオブジェクトはその参照を保持してはならない&lt;/li&gt;
+&lt;li&gt;上記のルールを満たした場合、データベースから直接取得できるのは集約ルートだけとなる&lt;/li&gt;
+&lt;li&gt;削除操作については境界内部に存在するオブジェクトを一度に削除する必要がある&lt;/li&gt;
+&lt;li&gt;境界内部に存在するオブジェクトに対する変更が反映される際、必ず集約全体の不変状態を満たすようにしなければならない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;この概念を直接的に用いると言うことは少ないかもしれないが、
+ファクトリとリポジトリにおいて対象となるものがここで述べた &lt;strong&gt;集約&lt;/strong&gt; となる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-4-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ファクトリ&lt;/h3&gt;
+&lt;p&gt;オブジェクトのライフサイクルにおいて初期の生成時、または中期の再構成に利用される。
+オブジェクトを利用するクライアントに対して、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;オブジェクトの関連の詳細まで意識させたくない&lt;/li&gt;
+&lt;li&gt;オブジェクトの生成に必要な複雑な操作を行わせたくない&lt;/li&gt;
+&lt;li&gt;多態的に利用されるオブジェクト群のアクセスポイントを特定させたい&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記のような要望がある場合はファクトリを利用する。&lt;/p&gt;
+&lt;h5&gt;ファクトリの配置場所&lt;/h5&gt;
+&lt;p&gt;対象が集約である場合(これがほとんどの場合であると著者は述べている)、エンティティルートにファクトリメソッドを追加することができる。&lt;/p&gt;
+&lt;p&gt;別の例としては、集約の境界外であるが対象オブジェクトを生成する際に支配的なルールを内包しているオブジェクトが
+ファクトリメソッドを持つことも自然な設計である。&lt;/p&gt;
+&lt;p&gt;また、上記のどちらも自然な設計とは思えない場合は独立したファクトリオブジェクトまたはファクトリサービス
+(どちらも同じものだと思われる)を作成すると言う選択肢も忘れていはならない。&lt;/p&gt;
+&lt;h5&gt;ファクトリのインタフェース&lt;/h5&gt;
+&lt;p&gt;以下の点を念頭において、シグネチャを決定する必要がある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;各操作はアトミックであり、一度のやり取りで完結する&lt;/li&gt;
+&lt;li&gt;失敗時の挙動については事前に取り決めをしておき一貫性を保つ&lt;/li&gt;
+&lt;li&gt;ファクトリはその引数と結合する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特に引数との結合だが、引数として適切なものは&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下位の設計層に由来する基本的なオブジェクト&lt;/li&gt;
+&lt;li&gt;密接に関連する(関連せざるを得ない)抽象オブジェクト&lt;/li&gt;
+&lt;li&gt;生成物に付与する設定項目&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;不変条件の管理&lt;/h5&gt;
+&lt;p&gt;ファクトリを使用する場合、生成物の不変条件の管理をファクトリで行うか生成物で行うかの選択に迫られる。
+多くの場合、生成されるオブジェクトに不変条件のロジックを記述し、
+ファクトリは不変条件の担保を生成オブジェクトに委譲させる形を取れば十分である。
+ただし、下記のような条件の場合はファクトリにロジックを移動させることも可能である。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;不変条件のロジックが必要なタイミングがオブジェクト生成時のみである&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;値オブジェクト&lt;/li&gt;
+&lt;li&gt;エンティティの識別子&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;集約のルールに関するロジック&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;オブジェクトの再構成&lt;/h5&gt;
+&lt;p&gt;ファクトリをライフサイクル初期の生成に関する操作を扱うものとして見てきたが、オブジェクトの再構成にもファクトリを利用することがある。
+生成に対して再構成を行う場合はより複雑な操作が必要になる場合があるため注意が必要である。
+また、生成とは2つの点で大きく異なる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;エンティティのファクトリに関して、新しい追跡IDを割り当てることがない&lt;/li&gt;
+&lt;li&gt;不変条件の違反に対して生成時とは別の制御を行う必要がある場合が多い&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;まとめ&lt;/h5&gt;
+&lt;p&gt;インスタンスの生成のアクセスポイントは何かしら必要である、それがコンストラクタであることもあるが、
+ファクトリを作成することで複雑な操作や実装の詳細の隠蔽を行えるなどの多大な恩恵を得られることがある。
+ファクトリはモデルを表現するものではないが、ドメイン設計の一部であり、モデルを表現するオブジェクトを鮮明にしておく上で役に立つ。
+モデルの一部ではないが、モデルの詳細を知っているアクセスポイントであるため、
+下手な依存関係や密結合を作成しないことや不変条件に対しる責務に対して慎重に設計する必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-4-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;リポジトリ&lt;/h3&gt;
+&lt;p&gt;オブジェクトの再構成において、グローバルに検索を用いてアクセスできるデータベースは非常に有用だが、
+その疎結合せいやグローバル性からドメインオブジェクトや集約ルートが無視されてしまう可能性が残る。
+そのため、ほとんどのオブジェクトではグローバルな検索でアクセスすべきではない。&lt;/p&gt;
+&lt;p&gt;グローバルな検索によって再構成されるべきオブジェクトももちろんある。
+ただし、クライアントが自由に検索クエリをかけるような状況、あるいは検索における技術的な枠組みを直接扱うような状況に
+陥っている場合、先述のビジネスルールの無視や境界の無視が起こりかねない。
+そのため、クライアントとデータへのアクセス技術との間に &lt;strong&gt;リポジトリ&lt;/strong&gt; を挟むことでクライアントのアクセスポイントを限定する。
+その他にもリポジトリを用意することによる恩恵は多数ある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;クライアントにとって再構成の処理がシンプルになる&lt;/li&gt;
+&lt;li&gt;アプリケーションとドメインの設計を永続化技術や複数のデータベース戦略などから分離する&lt;/li&gt;
+&lt;li&gt;オブジェクトアクセスに関する設計上の決定を伝える&lt;/li&gt;
+&lt;li&gt;テストで使用するために、ダミーの実装で置き換えるのが容易になる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;リファクタリング&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;SPECIFICATION&lt;/h2&gt;
+&lt;p&gt;あるオブジェクトが何らかの基準を満たしているかどうかを判定する述語的な値オブジェクトを仕様オブジェクトという。
+仕様オブジェクトを用いることはある種のパターンである。&lt;/p&gt;
+&lt;p&gt;ビジネスルールの中にはどのエンティティ、値オブジェクトの責務にも合致しないものがあり、それらを強引にオブジェクトに含ませることで、
+ドメインオブジェクト本来の意味を侵害しかねない。こうした際に仕様オブジェクトとしてビジネスルールを分離することで、
+ドメインオブジェクトが保護され、モデルの保守性、表現力が増す。
+仕様の価値は異なるように見えるアプリケーションの機能を統一することにある。
+下記のうち一つでも当てはまる用途があればオブジェクトの状態を定義する必要がある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;オブジェクトを &lt;strong&gt;検証&lt;/strong&gt; して何らかの要求を満たしているか、何らかの目的のための用意ができているか調べる&lt;/li&gt;
+&lt;li&gt;コレクションからオブジェクトを &lt;strong&gt;選択&lt;/strong&gt; する&lt;/li&gt;
+&lt;li&gt;何らかの &lt;strong&gt;要求&lt;/strong&gt; に適合する新しいオブジェクトの生成を定義する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記の検証、選択、要求に応じた構築という3つの用途を仕様というパターンに当てはめることで、同一のルールとして扱うことができる。&lt;/p&gt;
+&lt;h5&gt;検証&lt;/h5&gt;
+&lt;p&gt;非常に単純な用途であり、作成された仕様オブジェクトは渡された対象オブジェクトが仕様オブジェクトに記述されている
+ビジネスルールを満たしているかどうかを確認する。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DelinquentInvoiceSpecification&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;InvoiceSpecification&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;// 当日日付&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Date&lt;/span&gt; currentData&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DelinquentInvoiceSpecification&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Date&lt;/span&gt; currentDate&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;currentDate &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; currentDate&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;isSatisfiedBy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Invoice&lt;/span&gt; candidate&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; gracePeriod &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; candidate&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getPaymentGracePeriod&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token class-name&quot;&gt;Date&lt;/span&gt; firmDeadline &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DateUtility&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addDaysToDate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;candidate&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;dueDate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; gracePeriod&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; currentDate&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;after&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;firmDeadline&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;また、仕様を述語的に扱うのを容易にするためにコンポジットパターンを適用することも可能である。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;isSatisfiedBy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Object&lt;/span&gt; candidate&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;not&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AbstractSpecification&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AndSpecification&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;or&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;OrSpecification&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; other&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Specification&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;not&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;NotSpecification&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;選択&lt;/h5&gt;
+&lt;p&gt;検証と同様に選択における条件を仕様オブジェクトに記述する。
+例えば、上記の &lt;code class=&quot;language-text&quot;&gt;DelinquentInvoiceSpecification&lt;/code&gt; に &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Set&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;selectSatisfying&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;InvoiceSpecification&lt;/span&gt; spec&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;を追加すれば良いだろう。&lt;/p&gt;
+&lt;p&gt;ここで留意する必要があるのは、インフラストラクチャ層の責務である技術的詳細をドメイン層に持ち込まないことである。
+逆にビジネスルールをインフラストラクチャ層に流出させないことも同様に重要である。
+O/Rマッパーを使用するかダブルディスパッチを利用するなどして、レイヤを保つこと。&lt;/p&gt;
+&lt;h5&gt;要求&lt;/h5&gt;
+&lt;p&gt;検証、選択が既に存在するオブジェクトに対する仕様であったが、要求は今から生成するオブジェクトに対する仕様である。
+このオブジェクトを満たすように生成や再構築が行われることとなる。&lt;/p&gt;
+&lt;p&gt;同様の事象が扱えるパターンとしてジェネレータがあり、こちらを使用することで受ける恩恵もいくつかあるので
+トレードオフを吟味して考える必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;設計&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;意図の明白なインタフェース&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;副作用のない関数&lt;/li&gt;
+&lt;li&gt;表明: 操作の事後条件とクラスと集約の不変条件の宣言&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;概念の輪郭&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;独立したクラス&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;閉じた操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;デザインパターン&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;STRATEGY (POLICY)&lt;/h3&gt;
+&lt;p&gt;プロセスの中で変化する部分を柔軟に変更するためにストラテジーパターンが有効である。
+先述の仕様オブジェクトはStrategyパターンとして扱うことが可能である。&lt;/p&gt;
+&lt;p&gt;書籍の具体例を借りると、運搬業務における経路選択において何を最適化するかの仕様を可変部分としてStrategyパターンを組むことができる。
+この場合、経路選択内では仕様を満たすような経路を探すという作業に集中することができ、
+選択されるべき経路が最も安い経路なのか、最も早い経路なのかなどは考えなくてよくなる。
+選択の仕様を分離することでシステムに柔軟性が生まれていることがわかる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;COMPOSITE&lt;/h3&gt;
+&lt;p&gt;ネストされたコンテナの関係性をモデルに反映する場合コンポジットパターンが有効である。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-0-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;戦略的設計&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;モデルの整合性維持&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;境界づけられたコンテキスト&lt;/h3&gt;
+&lt;p&gt;モデルが適用されるコンテキストは明確に定義されなければならない。
+明示的な境界は、チーム編成、アプリケーションのようと、コードベースやデータベーススキーマなどの物理的な表現などの観点から設定する。
+コンテキストの名前は当然ユビキタス言語である必要がある。
+モデルに詳しくない人が誤って他のコンテキストの概念を直接扱ったりすることのないように、
+コンテキストマップに代表されるドキュメントがあると良い。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;共有カーネル&lt;/h3&gt;
+&lt;p&gt;コンテキストの境界を跨ぐ概念などはそれぞれのコンテキストを担当するチーム間で合意を得て開発していく必要がある。
+これらの概念をドメインモデルのサブセットとして共有する手法がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;顧客/提供者 (CUSTOMER/SUPPLIER)&lt;/h3&gt;
+&lt;p&gt;二つのシステム間の関係が「上流」と「下流」の関係にある場合、変更に対するオーバーヘッドが生じる場合がある。
+上流のチームは下流のチームに必要だったものを止めてしまわないかと慎重になり、
+下流のチームは上流のチームが新たな情報を与えてくれないとプロジェクトが進まないことがある。
+この場合は、顧客/提供者の関係であることを明示的な関係性として定義すること。
+上流チームのシステムで下流チームに関係のある部分は下流チームと共同でテストを作成し(受入テスト)、
+継続的な統合の一部として実行するようにする。
+また、提供者にとって優先されるべきは顧客であるということも取り決める必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-4-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;順応者 (CONFORMIST)&lt;/h3&gt;
+&lt;p&gt;上流/下流関係の2チームがあったとして先述のように顧客/提供者の関係を築くには上流側に恩恵がない場合、
+下流チームはどうすることもできない。
+上記のような時は下流チームが上流チームに隷属する他ない。
+このような下流システムを順応者と呼んでいる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-5-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;腐敗防止層 (ANTICORRUPTION LAYER)&lt;/h3&gt;
+&lt;p&gt;コンテキストの境界におけるインタフェースが膨大になると、コンテキスト内のモデルがインタフェースに合わせてしまうことがある。
+インタフェースはモデルに従属されるべきであり、これはおかしい。
+この場合は、インタフェースを用のレイヤを作成することで、ドメインモデルを保護する。
+このレイヤを腐敗防止層と呼ぶ。&lt;/p&gt;
+&lt;p&gt;腐敗防止層はファサードバターンとアダプタパターンを合わせて使用することができる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-6-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;公開ホストサービス&lt;/h3&gt;
+&lt;p&gt;システム間の関係として、基本的にはサーバーがクライアントの要求に応えるようにインタフェースを定義するが、
+クライアントが多い場合などクライアントの要望に応えるのが難しい場合はサーバー側の主導でインタフェースを定める。
+サーバはアクセするためのプロトコルを定義し公開する。この共有プロトコルは一貫性のある状態に保つ必要がある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-1-7-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;公表された言語&lt;/h3&gt;
+&lt;p&gt;二つのコンテキスト間でモデルをやり取りするには共通の言語が必要になる。
+必要なドメインの情報を公表された共通の媒体を通じて交換するのが良い。
+例えば、化学マークアップ言語(CML: Chemical Markup Language) などがそれにあたる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;蒸留&lt;/h2&gt;
+&lt;p&gt;蒸留とは混ざり合ったコンポーネントを分離するプロセスであり、価値があって役立つ形式で本質を抽出するためのものである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;コアドメイン&lt;/h3&gt;
+&lt;p&gt;ドメインモデルの中でも最も重要なコアドメインを明確にし位置付けることで、開発の優先順位や外部委託の判断などの判断基準となる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;汎用サブドメイン&lt;/h3&gt;
+&lt;p&gt;ドメインモデルの中で専門的な知識を捉えることも伝えることもなく、複雑さを付け加えるだけの部分もある。
+このようなサブドメインを識別し分離することで、コアドメインに対してより集中できるようになる。
+また、専門的な知識に携わっていない部分に関しては汎用性が高い部分ともいえるため、
+既製品や公表されているモデルの採用も視野に入れられる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ドメインビジョン声明文&lt;/h3&gt;
+&lt;p&gt;コアドメインとそれがもたらす価値に関する簡潔な記述を作成することで、「価値の提議」を行える。
+ドメインモデルがどのように役立ち、対象のアクターに対してそれぞれどのような対応を行うかを示す。
+スコープはコンテキスト内のスコープに限定する。
+この声明文はプロジェクトの早期に作成し、新しい洞察を得たら都度改訂すること。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-4-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;強調されたコア&lt;/h3&gt;
+&lt;p&gt;ドメインビジョン声明文は広い観点から見た提議であり、具体性に乏しい。
+開発者にとってコアドメインはドメインビジョン声明文のような抽象的な状態で言語化されているだけでは十分ではない。
+そこで、コアドメインとコアを構成する要素感の主要な相互作用を記述した &lt;strong&gt;蒸留ドキュメント&lt;/strong&gt; を記載する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-5-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;隔離されたコア&lt;/h3&gt;
+&lt;p&gt;コアドメインは洗練され、独立している状態にある必要がある。
+このためには如何様な開発コストも割くべきである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-2-6-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;抽象化されたコア&lt;/h3&gt;
+&lt;p&gt;モデルにおける最も根本的な概念を抽出し、それを抽象クラスやインタフェースにくくり出す。
+コアドメインを洗練できたとしても、膨大な詳細に圧倒されるような設計では理解することは難しい。
+抽象化の層を挟むことで階層的に理解が進むようになる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;大規模な構造&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;責務のレイヤ&lt;/h3&gt;
+&lt;p&gt;モデル間の概念状の依存関係、ドメインの様々な部分の変更の大きさと頻度を元に、ドメインの自然な階層を探す。
+階層に従い、抽象的な責務を割り当てる。
+概念的依存関係として下表のような金融システムの例をあげる。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;レイヤ&lt;/th&gt;
+&lt;th&gt;概念&lt;/th&gt;
+&lt;th&gt;状態&lt;/th&gt;
+&lt;th&gt;具体例&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;意思決定&lt;/td&gt;
+&lt;td&gt;分析メカニズム&lt;/td&gt;
+&lt;td&gt;状態変化はほとんどない&lt;/td&gt;
+&lt;td&gt;リスク分析、交渉ツール&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ポリシー&lt;/td&gt;
+&lt;td&gt;戦略、制約&lt;/td&gt;
+&lt;td&gt;遅い状態変化&lt;/td&gt;
+&lt;td&gt;準備金の限度、資産配分目標&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;確約 ｜ビジネス取引と顧客の契約&lt;/td&gt;
+&lt;td&gt;ボチボチな状態変化&lt;/td&gt;
+&lt;td&gt;顧客合意、シンジケート合意&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;業務&lt;/td&gt;
+&lt;td&gt;ビジネスの現実&lt;/td&gt;
+&lt;td&gt;早い状態変化&lt;/td&gt;
+&lt;td&gt;未払いローンの状態、支払いと配分&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;a id=&quot;sec5-3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;知識レベル&lt;/h3&gt;
+&lt;p&gt;エンティティ間にある役割と関係が状況によって変わるアプリケーションでは複雑さがます。
+例えば従業員とその役割などが当てはまる。
+リフレクションパターンにおけるベースモデルを業務レベル、メタレベルを知識レベルとすることで
+ドメインモデルに適用したものを使うと複雑さを軽減できる。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GitHub ActionsでCHANGELOG駆動Release]]></title><link>https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/github-actions-changelogGitHub ActionsでCHANGELOG駆動Release</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 07 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0-0&quot;&gt;概要&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -2066,181 +2608,4 @@ Tehano, TensorFlowがシンボリックな記述をグラフに加える手法�
 &lt;h1&gt;アーキテクチャ設計&lt;/h1&gt;
 &lt;p&gt;アーキテクチャ設計とはユニットの数やネットワーク全体の構造を意味する．&lt;/p&gt;
 &lt;h3&gt;万能近似性と深さ&lt;/h3&gt;
-&lt;p&gt;万能近似理論はネットワークが十分な数の隠れユニットを持つ場合，線形の出力層と押しつぶすことができる活性化関数を持つ隠れ層が少なくとも1つ含まれる順伝播型ネットワークはどんなバレル可測関数でも任意の制度で近似できると述べている．ただし，表現可能であることが保証されても学習可能であることは保証されていないことには注意が必要である．現在も万能近似理論の証明に関する研究は進んでいるが，ネットワークの深さや効率に関する疑問は解明されていない．&lt;/p&gt;</content:encoded></item><item><title><![CDATA[機械学習の基礎的な知識についてざっくりとしたまとめ]]></title><description><![CDATA[書籍 深層学習 を読みながらまとめていく]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/deep-learning-2</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/deep-learning-2機械学習の基礎的な知識についてざっくりとしたまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 24 Dec 2018 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;(学術的な)機械学習の基礎&lt;/h1&gt;
-&lt;p&gt;現在、深層学習について勉強中です。
-読んでいる書籍は以下になります。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/dp/4048930621/&quot;&gt;深層学習&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;今回、第一部がようやく終わったということで、少し振り返ります。
-第一部では下記エントリーの数学の基礎部分と数値計算の基礎、
-最後に機械学習の基礎について学びました。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;/tech-blog/blog/deep-learning-1&quot;&gt;機械学習に必要な数学についてざっくりとしたまとめ&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;機械学習の基礎についてはkaggleに代表されるような技術的なものでも、
-企業で使われているような実際的なものでもなく、
-あくまで理論的なものになります。
-そのため確率やら統計やらの話ばかりで多少イメージしづらかったですが、
-論文等を読む際のしっかりとした基本ができたかと思います。
-自分のために非常にざっくりと忘備録をつけていきます。&lt;/p&gt;
-&lt;h1&gt;学習アルゴリズム&lt;/h1&gt;
-&lt;h3&gt;学習の定義&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;「コンピュータプログラムは、性能指標Pで測定されるタスクTにおける性能が
-経験Eにより改善される場合、そのタスクTのクラスおよび性能指標Pに関して
-経験Eから学習すると言われている」&lt;/p&gt;
-&lt;p&gt;Mitchell(1997)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;タスク &lt;em&gt;T&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;一般的なタスクを列挙する&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;分類&lt;/li&gt;
-&lt;li&gt;欠損値のある入力の分類&lt;/li&gt;
-&lt;li&gt;回帰&lt;/li&gt;
-&lt;li&gt;転写&lt;/li&gt;
-&lt;li&gt;機械翻訳&lt;/li&gt;
-&lt;li&gt;構造出力&lt;/li&gt;
-&lt;li&gt;異常検知&lt;/li&gt;
-&lt;li&gt;合成とサンプリング&lt;/li&gt;
-&lt;li&gt;欠損値補完&lt;/li&gt;
-&lt;li&gt;ノイズ除去&lt;/li&gt;
-&lt;li&gt;密度推定&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;性能指標 &lt;em&gt;p&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;機械学習アルゴリズムの能力を評価するためのものが必要である。
-例えば、モデルの精度や誤差率などがこれに該当する。
-学習に用いた訓練集合とは別のテスト集合を用いて評価する。&lt;/p&gt;
-&lt;h3&gt;経験 &lt;em&gt;E&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;機械学習アルゴリズムは大きく &lt;em&gt;教師あり学習&lt;/em&gt; と &lt;em&gt;教師なし学習&lt;/em&gt; に
-分類されるが、それらの厳格な境界や定義はない。
-学習アルゴリズムはデータ集合を経験することで学習する。&lt;/p&gt;
-&lt;h3&gt;線形回帰&lt;/h3&gt;
-&lt;p&gt;学習アルゴリズムの中でシンプルで有名な例として線形回帰を取り上げる。&lt;/p&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;w&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \hat{y} = \mathbf{w}^{\mathrm{T}} \mathbf{x}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.69444em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;y&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.19444em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.19444em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8913309999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;w&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8913309999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathrm mtight&quot;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;w&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{w}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.44444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;w&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; は重みと呼ばれるパラメータであり、
-&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{x}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.44444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; は特徴量である。
-訓練集合において、予測と正解の &lt;em&gt;平均二乗誤差&lt;/em&gt; を最小化するような重みを求めることで、
-データ集合からモデルが経験するということになる。
-線形の簡単なモデルを扱っているため、微分方程式が正規方程式として知られる形になり、
-一意に解が求まることがわかっている。&lt;/p&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;w&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \hat{y} = \mathbf{w}^{\mathrm{T}} \mathbf{x} + b&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.69444em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;y&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.19444em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.19444em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.9746609999999999em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;w&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8913309999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathrm mtight&quot;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;上記のようにインターセプト項 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;b&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を加えたものを線形回帰として扱うこともある。
-この場合、 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;b&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;b&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; はバイアスと呼ばれる。統計のバイアスとは異なる。&lt;/p&gt;
-&lt;h1&gt;容量、過剰適合、歌唱適合&lt;/h1&gt;
-&lt;p&gt;この章は汎化に対する話となる。
-訓練集合から訓練誤差が最小になるように学習を行うのに対し、
-汎化性能を測定するためにはテスト集合から汎化誤差(テスト誤差)を計算する。
-訓練集合とテスト集合についてはi.i.d.仮定をおいた上で、学習アルゴリズムが目指すことは&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;訓練誤差を小さくする&lt;/li&gt;
-&lt;li&gt;訓練誤差とテスト誤差の差を小さくする&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;この二つの要素は機械学習における二つの中心的な課題に相当し、
-それぞれ &lt;em&gt;過少適合&lt;/em&gt; 、 &lt;em&gt;過剰適合&lt;/em&gt; と呼ばれる。
-これらの度合いは &lt;em&gt;モデルの容量&lt;/em&gt; を変化させることで制御する。
-任意の高い容量という最も極端な状態に到達するには、 &lt;em&gt;ノンパラメトリックモデル&lt;/em&gt;
-の概念を導入する。パラメータが存在しないため、モデルの容量を縛る要素が存在しないモデルである。&lt;/p&gt;
-&lt;h3&gt;ノーフリーランチ定理&lt;/h3&gt;
-&lt;p&gt;データを生成する分布全てを平均すると、
-どのアルゴリズムも過去に観測されていない点を分類する際の誤差率は同じになる
-という定理。
-全ての分布を平均した場合、他の機械学習アルゴリズムよりも普遍的に良いと言える
-機械学習アルゴリズムは存在しないと主張している。&lt;/p&gt;
-&lt;h3&gt;正則化&lt;/h3&gt;
-&lt;p&gt;モデルの容量を変更する以外で過少適合、過剰適合を制御する方法として &lt;em&gt;正則化&lt;/em&gt;
-があげられる。
-正則化とは他の解に対して優先度を表現する方法の総称である。
-一般的には正則化項と呼ばれるペナルティをコスト関数に追加することでモデルを正則化する。&lt;/p&gt;
-&lt;h1&gt;ハイパーパラメータと検証集合&lt;/h1&gt;
-&lt;p&gt;ほとんどの機械学習アルゴリズムにおいて、挙動を制御するための設定値が存在し、
-それらは &lt;em&gt;ハイパーパラメータ&lt;/em&gt; と呼ばれる。
-最適なハイパーパラメータを選ぶために &lt;em&gt;検証集合&lt;/em&gt; が必要になる。
-検証集合は訓練データから構成される。&lt;/p&gt;
-&lt;p&gt;ほとんどのデータ集合は訓練集合とテスト集合に分けられているが、
-その中の訓練集合を訓練集合と検証集合に分割する。
-訓練集合でモデルを学習、検証集合でハイパーパラメータの最適化を行い、
-テスト集合でモデルの汎化性能を測定する。&lt;/p&gt;
-&lt;h1&gt;推定量、バイアス、バリアンス&lt;/h1&gt;
-&lt;h3&gt;点推定量&lt;/h3&gt;
-&lt;p&gt;関心のある量について「最良の」予測を一つ提示する試みである。&lt;/p&gt;
-&lt;h3&gt;バイアス&lt;/h3&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;b&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;i&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;E&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \mathrm{bias}(\hat{\theta}_m) = \mathbf{E}(\hat{\theta}_m) - \theta&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.16666em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;E&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.16666em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;−&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;b&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;i&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;msub&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathrm{bias}(\hat{\theta_m}) = 0&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.25em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; になるものは不偏と呼ばれ、好まれる推定量である。&lt;/p&gt;
-&lt;h3&gt;分散と標準誤差&lt;/h3&gt;
-&lt;p&gt;推定量のバリアンスとは単に推定量の分散である。
-推定量の分散や標準誤差は、潜在的なデータ生成過程からデータ集合を別々に再サンプリングする際に、
-データから計算した推定量がどのように変化するかを示す尺度を提供する。&lt;/p&gt;
-&lt;h3&gt;平均二乗誤差を最小化するためのバイアスとバリアンスとのトレードオフ&lt;/h3&gt;
-&lt;p&gt;バイアスは関数やパラメータの真の値からの期待偏差を測定する。
-バリアンスはデータのサンプル化の方法に起因すると考えられる期待推定力の偏差を測定する。
-平均二乗誤差はこれら二つの誤差を組み込んだものである。&lt;/p&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;M&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;S&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;E&lt;/mi&gt;&lt;/mrow&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;E&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;[&lt;/mo&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;msup&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo stretchy=&quot;false&quot;&gt;]&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;b&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;i&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;msup&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;V&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;r&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;mo&gt;^&lt;/mo&gt;&lt;/mover&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \mathrm{MSE} = \mathbf{E}[(\hat{\theta}_m - \theta)^2] =
-    \mathrm{bias}(\hat{\theta}_m)^2 + \mathrm{Var}(\hat{\theta}_m)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.68333em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;E&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;E&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.16666em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;−&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.1141079999999999em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8641079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.16666em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8641079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2078799999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot; style=&quot;margin-right:0.01389em;&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;r&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9578799999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.26344em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.16666em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;^&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.151392em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;m&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;バイアスとバリアンスの関係は、モデルの容量や過少適合、過剰適合という機械学習の概念と
-密接に関係している。&lt;/p&gt;
-&lt;h1&gt;最尤推定&lt;/h1&gt;
-&lt;p&gt;最尤推定を解釈する方法の一つとして、最尤推定は訓練集合で定義される経験分布とモデル分布の差を
-最小化するとみなす方法がある。
-最尤法は負の対数尤度(NLL)の最小化、交差エントロピーの最小化、KLダイバージェンスの最大化
-として捉えることができる。&lt;/p&gt;
-&lt;h1&gt;ベイズ統計&lt;/h1&gt;
-&lt;p&gt;点推定に対し、予測を行う際に &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\theta&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; の取りうる値全てを考慮するものが考えられる。
-この手法はベイズ統計の分野となる。
-事前確率分布を先験的に仮定し、事例の経験によって、その分布を書き換えていくことで
-値の分布を推定する。&lt;/p&gt;
-&lt;h3&gt;最大事後確率(MAP)推定&lt;/h3&gt;
-&lt;p&gt;パラメータの完全なベイズ事後分布を用いた推定を行うことが最も理にかなった手法ではあるが、
-点推定を行うことが望ましい場合も多い。これを行う方法の一つとしてMAP推定が挙げられる。&lt;/p&gt;
-&lt;h1&gt;教師あり学習アルゴリズム&lt;/h1&gt;
-&lt;h3&gt;確率的教師あり学習&lt;/h3&gt;
-&lt;p&gt;最終的な出力を0~1の値に押し込むことで確率を予測することができる。&lt;/p&gt;
-&lt;h3&gt;サポートベクトルマシン&lt;/h3&gt;
-&lt;p&gt;線形回帰をベースとして、カーネルトリックと呼ばれる技法を用いることで、
-非常に高い性能を発揮した手法。
-データ集合が大きい場合、訓練の計算コストが高くなってしまうというデメリットがある。&lt;/p&gt;
-&lt;h3&gt;その他の教師あり学習アルゴリズム&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;k近傍法&lt;/li&gt;
-&lt;li&gt;決定木&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1&gt;教師なし学習アルゴリズム&lt;/h1&gt;
-&lt;p&gt;古典的な教師なし学習はデータの、より単純な表現を探す手法ということができる。
-より単純なに関する定義として&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;より低次元な表現&lt;/li&gt;
-&lt;li&gt;疎な表現&lt;/li&gt;
-&lt;li&gt;独立した表現&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;の三つが挙げられる。&lt;/p&gt;
-&lt;h3&gt;主成分分析(PCA)&lt;/h3&gt;
-&lt;p&gt;元の入力よりも次元が低い表現を学習し、
-また成分が互いに線形な相関を持たない表現 (独立ではない)を学習する。
-詳細は割愛。&lt;/p&gt;
-&lt;h3&gt;k平均クラスタリング&lt;/h3&gt;
-&lt;p&gt;k個のクラスタに分割し、疎な表現を実現する。
-詳細は割愛。&lt;/p&gt;
-&lt;h1&gt;確率的勾配降下法&lt;/h1&gt;
-&lt;p&gt;1回のステップに対し、訓練集合の全てを用いては計算コストが大きくなってしまう。
-したがって、アルゴリズムの各ステップにおいて、
-訓練集合から一様に抽出されるサンプルのミニバッチをサンプリングし、
-それら数百のデータを用いて1回の学習ステップを行うことで計算時間を軽減する。
-この手法を確率的勾配降下法と呼び、
-更新毎の計算量が訓練集合の大きさに依存しないというメリットを得る。&lt;/p&gt;
-&lt;h1&gt;機械学習アルゴリズムの構築&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;データ集合の仕様&lt;/li&gt;
-&lt;li&gt;コスト関数&lt;/li&gt;
-&lt;li&gt;最適化手順&lt;/li&gt;
-&lt;li&gt;モデル&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;上記4つを組み合わせることで機械学習アルゴリズムは構築される。&lt;/p&gt;
-&lt;h1&gt;深層学習の発展を促す課題&lt;/h1&gt;
-&lt;h3&gt;次元の呪い&lt;/h3&gt;
-&lt;p&gt;次元が大きくなると構成される空間が大きくなりすぎる。&lt;/p&gt;
-&lt;h3&gt;局所一様と平滑化&lt;/h3&gt;
-&lt;p&gt;機械学習アルゴリズムにおいて、ある正解データの近傍にあるものは
-その正解データと大きく変わらない値に学習されるように、
-事前分布が仕込まれていることがほとんである。
-その場合、正解データが多く集まっている場所に関しては極めてよく学習できても、
-それ以外のデータが集まっていないだけで、同様の分布を持っている場所については
-正しく予測できる保証がない。&lt;/p&gt;
-&lt;h3&gt;多様体学習&lt;/h3&gt;
-&lt;p&gt;多様体は連結した領域であり、各店の周りの近傍に関連づけられた点の集合である。
-ある表現の整理の仕方によって次元が変わるということだと思われる。&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;万能近似理論はネットワークが十分な数の隠れユニットを持つ場合，線形の出力層と押しつぶすことができる活性化関数を持つ隠れ層が少なくとも1つ含まれる順伝播型ネットワークはどんなバレル可測関数でも任意の制度で近似できると述べている．ただし，表現可能であることが保証されても学習可能であることは保証されていないことには注意が必要である．現在も万能近似理論の証明に関する研究は進んでいるが，ネットワークの深さや効率に関する疑問は解明されていない．&lt;/p&gt;</content:encoded></item></channel></rss>
