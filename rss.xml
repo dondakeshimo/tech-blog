@@ -1,4 +1,465 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 18 May 2021 15:07:08 GMT</lastBuildDate><item><title><![CDATA[エリック・エヴァンスのドメイン駆動設計をまとめる]]></title><description><![CDATA[いわゆるエヴァンス本を読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/evans-eric-dddエリック・エヴァンスのドメイン駆動設計をまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 31 May 2021 14:48:53 GMT</lastBuildDate><item><title><![CDATA[クリーンアーキテクチャをまとめる]]></title><description><![CDATA[クリーンアーキテクチャを読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/clean-architecture-uncle-bobクリーンアーキテクチャをまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;設計の原則&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-0&quot;&gt;プログラミングパラダイム&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-1&quot;&gt;構造化プログラミング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-2&quot;&gt;オブジェクト指向プログラミング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-3&quot;&gt;関数型プログラミング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-4&quot;&gt;パラダイムのまとめ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-0&quot;&gt;SOLID原則&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-1&quot;&gt;単一責任の原則 (SRP: Single Responsibility Principle)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-2&quot;&gt;オープン・クローズドの原則 (OCP: Open-Closed Principle)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-3&quot;&gt;リスコフの置換原則 (LSP: Liskov Substitution Principle)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-4&quot;&gt;インターフェイス分離の原則 (ISP Interface Segregation Principle)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-5&quot;&gt;依存関係逆転の原則 (DIP: Dependency Inversion Principle)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-0&quot;&gt;コンポーネントの原則&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-1&quot;&gt;再利用・リリース等価の原則 (REP)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-2&quot;&gt;閉鎖性共通の原則 (CCP)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-3&quot;&gt;全再利用の原則 (CRP)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-4&quot;&gt;REP, CCP, CRPの関係&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-5&quot;&gt;非循環依存関係の原則 (ADP)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-6&quot;&gt;安定依存の原則 (SDP)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-7&quot;&gt;安定度・抽象度等価の原則 (SAP)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;アーキテクチャ&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-0&quot;&gt;システム&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-1&quot;&gt;開発&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-2&quot;&gt;デプロイ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-3&quot;&gt;運用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-4&quot;&gt;保守&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-0&quot;&gt;アーキテクトの思考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-1&quot;&gt;選択肢&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-2&quot;&gt;切り離し&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-3&quot;&gt;境界線&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-0&quot;&gt;アーキテクチャ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-1&quot;&gt;方針とレベル&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-2&quot;&gt;ビジネスルール&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-3&quot;&gt;クリーンアーキテクチャ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-4&quot;&gt;インターフェイスアダプター&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-5&quot;&gt;境界&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-6&quot;&gt;メインコンポーネント&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-7&quot;&gt;詳細&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-8&quot;&gt;設計手順&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-9&quot;&gt;パッケージング&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-0-0&quot;&gt;まとめ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;動機&lt;/h1&gt;
+&lt;p&gt;業務にて設計に携わることがあり、何度か聞いていたクリーンアーキテクチャというものを調べてみた。
+ブログ記事や解説記事を漁っているうちに、これは原本を呼んだ方が早そうだと思い書籍を購入した。
+(後から気づいたが、本人のブログ記事が原点だったが説明が最小限なので流石にあれだけでは理解が難しい。)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.co.jp/dp/B07FSBHS2V/ref=dp-kindle-redirect?_encoding=UTF8&amp;#x26;btkr=1&quot;&gt;Clean Architecture 達人に学ぶソフトウェアの構造と設計&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;崩壊したコードを書くほうがクリーンなコードを書くよりも常に遅い&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;素晴らしい本だったのだが、幾分情報量が多いのでここにまとめることで頭を整理しようと思う。
+崩壊した脳内で設計を行うよりもクリーンにした頭で設計をする方が常に早いのだ。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;設計の原則&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;プログラミングパラダイム&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;構造化プログラミング&lt;/h3&gt;
+&lt;p&gt;goto文の使用がプログラミングにおいて有害であることが示された。
+あらゆるプログラムは「順次」「選択」「反復」の3つの構造で構築できることが特定され、それぞれが数学的に証明された。
+全てのモジュールは証明可能な単位に再帰的に分割することが可能であるとしたのが構造化プログラミングであり、
+機能によりモジュールは分割できる。
+全てのモジュールに対して数学的に正しいことを証明することはできないが、科学的にそれをテストで補うことが可能である。
+言い換えればテスト可能な単位までモジュールを分割することが構造化プログラミングのパラダイムにおいてのベストプラクティスである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;オブジェクト指向プログラミング&lt;/h3&gt;
+&lt;p&gt;「カプセル化」「継承」「ポリモーフィズム」に代表されるパラダイムである。
+ただし、カプセル化と継承についてはパラダイムシフトが行われる前のC言語から普通に使用されていた概念である。
+ここで重要になるのがポリモーフィズムとなる。
+ポリモーフィズムの概念がC言語時代になかったわけではないが、安全に使用することはできなかった。
+ポリモーフィズムを使用することで依存性を逆転させることが可能になり、ソースコードの依存関係を制御の流れから逆転させることができる。
+依存関係逆転を用いることで処理の中核にある重要なビジネスルールをその他の依存関係から独立させることが可能になる。
+まとめると、オブジェクト指向プログラミングの登場によって、ポリモーフィズムを用いることで、
+システムにある全てのソースコードの依存関係を絶対的に制御する能力を人類は手に入れた。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;関数型プログラミング&lt;/h3&gt;
+&lt;p&gt;関数型プログラミングでは再代入をすることができない。
+全ての変数は不変であることで、競合状態、デッドロック状態、並行更新の問題が発生しなくなる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;パラダイムのまとめ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;構造化プログラミングは、直接的な制御の移行に規律を課すものである。&lt;/li&gt;
+&lt;li&gt;オブジェクト指向プログラミングは、間接的な制御の移行に規律を課すものである。&lt;/li&gt;
+&lt;li&gt;関数型プログラミングは、代入に規律を課すものである。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;SOLID原則&lt;/h2&gt;
+&lt;p&gt;関数やクラスの設計原則をまとめたSOLID原則を紹介する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;単一責任の原則 (SRP: Single Responsibility Principle)&lt;/h3&gt;
+&lt;p&gt;システムに対しある変更を望むグループのことを &lt;strong&gt;アクター&lt;/strong&gt; と呼ぶこととする。
+単一責任の原則とは対象のアクターが複数あるコードは分割するべきであるという原則である。
+分割することで増えてしまう関数やクラスはFacadeパターンを使用することでインターフェイスを統一することができる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;オープン・クローズドの原則 (OCP: Open-Closed Principle)&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ソフトウェアの構成要素は拡張に対しては開いていて、修正に対して閉じていなければならない
+『アジャイルソフトウェア開発の奥義 第2版』 (SBクリエイティブ) より引用&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;依存性をコントロールし情報を隠蔽することで、各々の変更の影響を最小限に機能追加については容易にするという原則である。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;リスコフの置換原則 (LSP: Liskov Substitution Principle)&lt;/h3&gt;
+&lt;p&gt;リスコフの置換原則とは派生型に対する定義である。
+T型がS型の派生型となるにはS型で定義されたプログラムPで、
+S型のオブジェクトの代わりにT型のオブジェクトを使用してもPの振る舞いが変わらない必要がある。
+これはアーキテクチャのレベルでも適用され、派生型と捉えられるあらゆる設計は厳密に置き換え可能でなければならない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;インターフェイス分離の原則 (ISP Interface Segregation Principle)&lt;/h3&gt;
+&lt;p&gt;別のモジュール、コンテキスト、技術を使用する際は分離されたインターフェイスを使用すること。
+直接依存してしまうと、密結合が生まれてしまいコンパイルの時間が伸び、障害に対してロバストでなくなる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;依存関係逆転の原則 (DIP: Dependency Inversion Principle)&lt;/h3&gt;
+&lt;p&gt;コードの変化のしやすさを考えると、 &lt;code class=&quot;language-text&quot;&gt;具象クラス &amp;gt; 抽象クラス &amp;gt; インタフェース&lt;/code&gt; となる、なるべきである。
+そのため、具象クラスへの依存は可能な限り減らす、参照、継承、オーバーライドどれも御法度である。
+具象インスタンスの作成をする際は &lt;strong&gt;Abstract Factoryパターン&lt;/strong&gt; を利用することで、直接具象を参照しなくてもよくなる。
+このように具象への参照を忌避していくと、最終的には全ての具象を扱う関数が唯一存在することとなり、
+これはmainコンポーネントと呼ばれることが多い。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;コンポーネントの原則&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;再利用・リリース等価の原則 (REP)&lt;/h3&gt;
+&lt;p&gt;再利用のためのグループ化を行う。
+ひとつのコンポーネントを形成するクラスやモジュールは、まとめてリリース可能でなければならない。
+同じバージョン番号を共有し、同じリリースプロセスを経て、同じリリースドキュメントを持っている状態は合理的であり、あるべき姿である。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;閉鎖性共通の原則 (CCP)&lt;/h3&gt;
+&lt;p&gt;保守性のためのグループ化を行う。
+単一責任の原則をコンポーネントのために言い換えたもの。
+コンポーネントを変更する理由が複数あるべきではない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;全再利用の原則 (CRP)&lt;/h3&gt;
+&lt;p&gt;不要なリリース作業を減らすための分割を行う。
+一緒に用いられることが多いクラスやモジュールはひとまとめにすること。
+密結合なクラスやモジュールも同様である。
+逆に、同時に使用されることがほとんどないクラスは分離されるべきである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;REP, CCP, CRPの関係&lt;/h3&gt;
+&lt;p&gt;REPとCCPは包含関係にあり、どちらもコンポーネントを大きくする方向に働くものである。
+一方、CRPはコンポーネントを小さくする方向に働く原則であり、これら3つの原則のバランスをうまくとる必要がある。
+REPとCCPのみを守るとリリース頻度が増加する。
+CCPとCRPのみを守ると再利用性が低下する。
+CPRとREPのみを守ると変更すべきコンポーネントが増大する。
+プロジェクト初期はREPを軽視する傾向にあり、プロジェクトの成熟に連れて、徐々にREPへ重心を寄せていくことが多い。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;非循環依存関係の原則 (ADP)&lt;/h3&gt;
+&lt;p&gt;コンポーネント間の依存は循環してはならないという名前通りの原則。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-6&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;安定依存の原則 (SDP)&lt;/h3&gt;
+&lt;p&gt;変更しやすいコンポーネントは変更しにくいコンポーネントから依存されてはならない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-7&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;安定度・抽象度等価の原則 (SAP)&lt;/h3&gt;
+&lt;p&gt;コンポーネントの抽象度はその安定度と同程度んでなければならない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;アーキテクチャ&lt;/h1&gt;
+&lt;p&gt;アーキテクチャとはシステムに与えられた形状である。
+アーキテクチャの目的はシステムの開発、デプロイ、運用、保守を容易にすることである。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;それらを容易にするための戦略は、できるだけ長い期間、できるだけ多く選択肢を残すことである。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;システム&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;開発&lt;/h3&gt;
+&lt;p&gt;マイクロサービスアーキテクチャでも読んだ通り、1チームが1コンポーネントを担当するべきであるため、
+形状は自ずとチームに寄り添う形で決まっていくはずである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;デプロイ&lt;/h3&gt;
+&lt;p&gt;デプロイの文脈でアーキテクチャが目指すべきことは単一のアクションでデプロイが行えることである。
+単に自動デプロイ環境が整っていることを指すのではなく、対象のコンポーネントが独立してデプロイできることを指す。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;運用&lt;/h3&gt;
+&lt;p&gt;アーキテクチャの運用における仕事はシステムへの理解の手助けとなることだ。
+形状がシステムを端的に表せているならば、システムへの理解は容易となる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;保守&lt;/h3&gt;
+&lt;p&gt;保守のコストとは既存のコードを掘り起こし、新しい機能の追加や欠陥の修正に最適な場所や戦略を見つけるコストである。
+正しいアーキテクチャは上記コストを大幅に削減でき、人的リソースの増大を防ぐ。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;　アーキテクトの思考&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;選択肢&lt;/h3&gt;
+&lt;p&gt;システムは大きく「方針」と「詳細」の二つに分割できる。
+この時、アーキテクトは方針とは無関係に詳細を決めながら重要でない詳細については選択肢を残してアーキテクチャを構築していく。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;切り離し&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;水平方向の分割としてレイヤー分割&lt;/li&gt;
+&lt;li&gt;垂直方向の分割としてユースケース分割&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記の分割を行う規模として&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ソースレベル&lt;/li&gt;
+&lt;li&gt;デプロイ(バイナリ)レベル&lt;/li&gt;
+&lt;li&gt;サービス(実行単位)レベル&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;などが考えられる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;境界線&lt;/h3&gt;
+&lt;p&gt;1つのクラス、モジュール、コンポーネントにとって重要なものと重要でないものの間には境界線を引く。&lt;/p&gt;
+&lt;h4&gt;インターフェイスと継承&lt;/h4&gt;
+&lt;p&gt;インターフェイスとその継承の間には境界線が発生する。
+対象の単位内でインターフェイスが定義さえされていれば、インターフェイスの実装部分については無関心でいられるためである。&lt;/p&gt;
+&lt;h4&gt;デプロイコンポーネント&lt;/h4&gt;
+&lt;p&gt;動的リンクライブラリはデプロイレベルの切り離しとして理解でき、それぞれの動的リンクライブラリには境界がある。&lt;/p&gt;
+&lt;h4&gt;スレッド&lt;/h4&gt;
+&lt;p&gt;モノリスでも動的リンクライブラリでもスレッドでの分割も行うことができる。&lt;/p&gt;
+&lt;h4&gt;ローカルプロセス&lt;/h4&gt;
+&lt;p&gt;スレッドよりも明確な境界線としてローカルプロセスもある。&lt;/p&gt;
+&lt;h4&gt;サービス&lt;/h4&gt;
+&lt;p&gt;現状最も強い境界線はサービスである。
+同じプロセッサやマルチコアの環境で同時に動作させることも可能だが、そのような物理的な制約は特に問題にならない。
+あらゆる通信はネットワークを経由して行われることが前提となる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;アーキテクチャ&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;方針とレベル&lt;/h3&gt;
+&lt;p&gt;プログラムは入力を出力に変換する &lt;strong&gt;方針&lt;/strong&gt; を詳細に記述したものである。
+この方針は細分化され、入力の検証や、出力のフォーマット設定の記述をしている方針がある。
+これらの方針には &lt;strong&gt;レベル&lt;/strong&gt; が存在する。&lt;/p&gt;
+&lt;p&gt;「レベル」の定義は「入力と出力からの距離」である。
+上述の入力の検証や、出力のフォーマット設定などは入出力に限りなく近いため下位のレベルに位置する。
+逆に上位のレベルとしては受け取った入力に対して行う変換作業などが挙げられる。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;ソースコードの依存性はデータフローから切り離し、レベルと結びつけるべきである。&lt;/em&gt;
+どのような場合も、下位レベルのコンポーネントが上位レベルのコンポーネントに依存するように設計する。&lt;/p&gt;
+&lt;p&gt;方針のグルーピングについてはSRPやCCPに基づいて行うが、
+その際に重要なのは上位レベルの方針は下位レベルの方針よりも変更の頻度が低く、変更の理由が重要である。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ビジネスルール&lt;/h3&gt;
+&lt;h4&gt;エンティティ&lt;/h4&gt;
+&lt;p&gt;最重要ビジネスルールのことをエンティティと呼ぶ。
+エンティティは最上位のレベルに位置することとなる。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&quot;/tech-blog/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
+にて扱ったエンティティとは別の概念であり、ドメイン駆動設計でいうところのコアドメインにあたる。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;ユースケース&lt;/h4&gt;
+&lt;p&gt;ユースケースはアプリケーション固有のビジネスルールを記述する。
+アプリケーション固有のビジネスルールとはエンティティをいつ・どこで呼び出すかを規定することである。&lt;/p&gt;
+&lt;p&gt;ユースケースでは実際の入出力の詳細を知ることはなく、エンティティはユースケースを知ることがない。
+ここからユースケースがエンティティと入出力の詳細の中間のレベルに位置していることがわかる。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&quot;/tech-blog/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
+でいうところのドメイン層のサービス、特に粒度を大きくとるために使用するサービスに近いものであると考えている。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;リクエストとレスポンスのモデル&lt;/h4&gt;
+&lt;p&gt;ユースケースは入力データを期待し、出力データを生成するが具体的な入出力の詳細に触れてはいけない。
+そのため、入力データ、出力データは双方入出力の詳細に依存していないデータである必要がある。
+ここで、SRPから、これらのデータ構造にエンティティへの参照を含めてはならない。&lt;/p&gt;
+&lt;h4&gt;フレームワークとアーキテクチャ&lt;/h4&gt;
+&lt;p&gt;はっきりさせておく必要があるのは、フレームワークはアーキテクトによって選択肢が残されるべき詳細であるということである。
+フレームワークによってアーキテクチャが規定されることはなく、あくまでツールに過ぎないことを認識する必要がある。
+また、テストについてもフレームワークに依存することなくユニットテストが実行できることが望ましい。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-3&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;クリーンアーキテクチャ&lt;/h3&gt;
+&lt;p&gt;&lt;figure class=&quot;gatsby-resp-image-figure&quot; style=&quot;&quot;&gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 772px;&quot;
+    &gt;
+      &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 73.6%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB6eycmog1/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAECIRH/2gAIAQEAAQUCdMVHSsJwl5//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAVEAEBAAAAAAAAAAAAAAAAAAAgIf/aAAgBAQAGPwKL/8QAGhAAAgMBAQAAAAAAAAAAAAAAAAERIUExgf/aAAgBAQABPyEhW2W4mWym/DRtklnp/9oADAMBAAIAAwAAABBsz//EABgRAAIDAAAAAAAAAAAAAAAAAAABIaGx/9oACAEDAQE/ENocH//EABcRAAMBAAAAAAAAAAAAAAAAABARIWH/2gAIAQIBAT8Qrwf/xAAbEAEAAwEBAQEAAAAAAAAAAAABABEhMUFRYf/aAAgBAQABPxBSgvaA6/WMGtgsT0jggIV2C2sCX02EJs4A+fsRFFt2f//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Clean Architecture&quot;
+        title=&quot;Clean Architecture&quot;
+        src=&quot;/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg&quot;
+        srcset=&quot;/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/9a1e7/CleanArchitecture.jpg 250w,
+/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/10bbb/CleanArchitecture.jpg 500w,
+/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg 772w&quot;
+        sizes=&quot;(max-width: 772px) 100vw, 772px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+    &lt;/span&gt;
+    &lt;figcaption class=&quot;gatsby-resp-image-figcaption&quot;&gt;Clean Architecture&lt;/figcaption&gt;
+  &lt;/figure&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html&quot;&gt;https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html&lt;/a&gt; より引用&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;優れたアーキテクチャの特性&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;フレームワーク非依存: フレームワークをツールとして扱える&lt;/li&gt;
+&lt;li&gt;テスト可能: ビジネスルールはUI、データベース、ウェブサーバー、その他の外部要素がなくてもテストできる&lt;/li&gt;
+&lt;li&gt;UI非依存: UIはシステムの他の部分の変更と独立して変更できる&lt;/li&gt;
+&lt;li&gt;データベース非依存: ビジネスルールの変更なしにデータベースを自由に変更できる&lt;/li&gt;
+&lt;li&gt;外部エージェント非依存: ビジネスルールは外部のインターフェイスについて何も知らない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;依存性のルール&lt;/h4&gt;
+&lt;p&gt;円の中心に近づくほどレベルが上がっていることを表している。
+つまり、 &lt;strong&gt;ソースコードの依存性は、内側岳に向かっていなければならない。&lt;/strong&gt;&lt;/p&gt;
+&lt;h4&gt;境界線の越え方&lt;/h4&gt;
+&lt;p&gt;ユースケースからプレゼンターを呼び出したい時など、上記のルールからユースケースがプレゼンターを直接呼び出し、
+プレゼンターに依存することは許されていない。
+内側から外側の層を使用する必要がある場合はDIPを利用する。&lt;/p&gt;
+&lt;h4&gt;境界線を越えるデータ&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;構造体&lt;/li&gt;
+&lt;li&gt;データ転送オブジェクト&lt;/li&gt;
+&lt;li&gt;関数呼び出しの引数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;など選択肢はいくつもあるが、独立した単純なデータ構造であることが重要である。
+エンティティオブジェクトやデータベースの行をそのまま渡すようなことをしてはいけない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-4&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;インターフェイスアダプター&lt;/h3&gt;
+&lt;h4&gt;Humble Object&lt;/h4&gt;
+&lt;p&gt;Humble Objectパターンは振る舞いをユニットテストがしやすいように二つに分割するパターンである。
+一つのモジュールは控えめ(Humble)で、ここにはテストが難しい振る舞いのみが記述される。
+例としてはGUIが挙げられる。GUIにおいて画面に表示されているものの確認の自動化は極めて難しいが、
+その他の振る舞いの大部分は簡単にテストできる。&lt;/p&gt;
+&lt;h4&gt;PresenterとView&lt;/h4&gt;
+&lt;p&gt;上述のHubmle Objectパターンで登場したGUIにおける表示とその他の部分を指す。
+表示の部分をView, その他の部分をPresenterと言う。
+Viewはテストが難しいため、表示だけに専念して、データの移動や取得などのロジックは含まないようにする。
+代わりにテスト可能な部分の全てはPresenterに含まれる。
+Presenterで全てのデータを取得、処理した後にViewが解釈でき、
+&lt;strong&gt;そのまま表示できる&lt;/strong&gt; ViewModelと呼ばれるようなデータ構造体として受け渡す。
+ViewがやるべきことはViewModelからデータを読み込み画面に表示する以外なく、Humbleに保たれる。&lt;/p&gt;
+&lt;h4&gt;データベースとゲートウェイ&lt;/h4&gt;
+&lt;p&gt;ユースケースインタラクターとデータベースの間にあるのがゲートウェイである。
+ゲートウェイはアプリケーションのビジネスルールとは格別され、データのCRUDの実際の操作にのみ焦点を当てる。
+ゲートウェイはデータベースと指定されたやりとりをしているだけなのでHumble Objectと言える。
+また、データベースとのやりとりの部分、例えばSQL文の記述になると思われるが、ゲートウェイに隔離しておくことで、
+ユースケースインタラクターが独立してテスト可能になる。&lt;/p&gt;
+&lt;p&gt;さて、ここでデータマッパーに代表されるマッピング処理はどこに含まれるかだが、
+当然ユースケースインタラクターではなく、ゲートウェイに含まれる。
+ゲートウェイの中でもデータベースとゲートウェイの境界に位置する技術がデータマッパーである。&lt;/p&gt;
+&lt;h4&gt;サービスリスナー&lt;/h4&gt;
+&lt;p&gt;アプリケーションが他のサービスと通信する必要がある場合も、Hubmle Objectパターンを意識する。
+境界を越える際はシンプルなデータ構造を持ってアプリケーションに渡すことや、詳細の情報をアプリケーション層が扱わないことを意識する。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;境界&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You Aren&apos;t Going to Need It. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;通称YAGNIから必要に迫られる前の抽象化は悪だとされてきた。
+しかし、アーキテクトは時に変化を予測してYAGNIを違反する必要がある。&lt;/p&gt;
+&lt;p&gt;部分的な境界を利用することで、完全な境界は形成せずに境界を作成する準備だけすることもできるが、
+そのような境界は不完全なため、境界の維持は実装者のモラルに頼らざるを得ない。&lt;/p&gt;
+&lt;p&gt;アーキテクトは実装する境界と無視する境界を決定する必要があり、
+それはプロジェクトの初期から運用に至るまでで何度も考察されるべきである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-6&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;メインコンポーネント&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Mainコンポーネントは、究極的な詳細（最下位レベルの方針）である。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;全てのシステムでは少なくとも一つ、その他のコンポーネントを作成・調整・監督するコンポーネントが必要になる。
+そのようなコンポーネントをメインコンポーネントと呼ぶ。
+依存関係の注入や、設定ファイルのパス指定などコードの本体で把握したくない文字列を読み込む。&lt;/p&gt;
+&lt;p&gt;Mainは、初期状態や構成を設定して、外部リソースを集め、アプリケーションの上位レベルの方針に制御を渡すプラグインである。
+例えば、開発用、テスト用、本番用のMainを用意することもできる。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-7&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;詳細&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;データベース&lt;/li&gt;
+&lt;li&gt;ウェブ&lt;/li&gt;
+&lt;li&gt;フレームワーク&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;これらは全て決定を最後まで遅らせるべき詳細にあたる。
+どれもビジネスルールと密結合させるべきではない。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-8&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;設計手順&lt;/h3&gt;
+&lt;h4&gt;アクターとユースケースの洗い出し&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;システムの最初のアーキテクチャを決めるための第一歩は、アクターとユースケースを見つけることだ。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;システムに変更を要求する可能性のあるアクターを探しだす。
+単一責任の原則からあるアクターへの変更が他のアクターに影響を与えないようにしたい。&lt;/p&gt;
+&lt;p&gt;次に、アクターごとに考えられるユースケースを洗い出す。
+ユースケースにもレベルが存在し、上位の概念ほど抽象化が高い。
+例えば、家具のカタログを閲覧すると言うユースケースはアクターが複数いる場合には抽象ユースケースとなる。
+管理者としてカタログを閲覧するのか、購入者としてカタログを購入するのかは本質的に異なるが、上位のレベルでは同じものであるため、
+カタログを閲覧すると言う抽象ユースケースを継承したユースケースと考えることができる。&lt;/p&gt;
+&lt;h4&gt;コンポーネントアーキテクチャ&lt;/h4&gt;
+&lt;p&gt;コンポーネントアーキテクチャについてはここまでで議論されてきたように、詳細になるに従って具象化させていくように切り分けていく。
+切り分け方としては伝統的なビュー、プレゼンター、インタラクター、コントローラー、ユーティリティーなどが考えられるが、
+こここそがアーキテクトの腕の見せ所であると考えられるので、それぞれのプロジェクトごとに考えていくしかない。&lt;/p&gt;
+&lt;h4&gt;依存性管理&lt;/h4&gt;
+&lt;p&gt;依存性についても先述の通り、制御の流れと逆向きに、抽象化の向きに沿って、管理していく。
+ここで一つ重要なのが、アクターごとに独立に変更や機能追加ができるようにしておくことである。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-9&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;パッケージング&lt;/h3&gt;
+&lt;h4&gt;レイヤーによるパッケージング&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;web&lt;/li&gt;
+&lt;li&gt;service&lt;/li&gt;
+&lt;li&gt;data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;などのレイヤーの名称によってパッケージを分割する方法。
+特に考えることなくパッケージングができるため簡単ではあるが、
+プロジェクトが大きくなるとこれらの分割だけでは可読性が大きく損なわれる。
+また、アーキテクチャがドメイン知識について何か提示してくれることがない。&lt;/p&gt;
+&lt;h4&gt;機能によるパッケージング&lt;/h4&gt;
+&lt;p&gt;レイヤーによるパッケージングを水平方向での分割とすると、機能による分割は垂直方向の分割である。
+ドメイン駆動設計の用語で言うところの集約ルートに基づいて分割する。
+こちらの方がアーキテクチャがドメイン知識についてのヒントとなるだろう。&lt;/p&gt;
+&lt;h4&gt;ポートとアダプターによるパッケージング&lt;/h4&gt;
+&lt;p&gt;クリーンアーキテクチャのレイヤー図のうちビジネスルールを表す、「Entities」「Use Cases」はドメイン層にあたる。
+その外側はインフラストラクチャ層であり、この二つは確実に分割されている必要がある。
+基本的には上記のことを踏まえたレイヤーによるパッケージングになる。&lt;/p&gt;
+&lt;h4&gt;コンポーネントによるパッケージング&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;関連する機能をよくできたクリーンなインターフェイスの向こう側に閉じ込めて、アプリケーションなどの実行環境の内側に置いたもの&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;とコンポーネントを定義する。
+コンポーネントに従ってパッケージを分割していくことになるが、
+上記の考え方と違うのは永続化のコードがドメインのコードと同様のパッケージに属することだ。
+当然、パッケージ内で依存性のコントロールは行われるため、分割の箇所が変わるだけで原則に違反するわけではない。
+こうすることで、コントローラ層から直接インフラストラクチャ層を呼び出すようなヤンチャができなくなる。
+また、コンポーネントと言う単位で分割することによってパッケージの責務がわかりやすくなるので、
+コード利用者も管理者もコードの把握が楽になると言う利点もある。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;自分の解釈では下記を満たしていればクリーンアーキテクチャである。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安定度が大きくなるほど抽象度を上げる&lt;/li&gt;
+&lt;li&gt;依存性逆転の法則を利用して下位のコンポーネントを上位のコンポーネントに依存させない&lt;/li&gt;
+&lt;li&gt;コアドメインのビジネスルールは独立させる&lt;/li&gt;
+&lt;li&gt;アプリケーション固有のビジネスルールはコアドメインのビジネスルールにのみ依存する&lt;/li&gt;
+&lt;li&gt;変更の多い箇所はHumble Objectパターンで分離する&lt;/li&gt;
+&lt;li&gt;テストが難しい箇所もHumble Objectパターンで分離する &lt;/li&gt;
+&lt;li&gt;境界を越えるデータは単純なデータ構造を使用する (エンティティオブジェクトを渡したりしない)&lt;/li&gt;
+&lt;li&gt;ビジネスルールはWeb, UI, DB, フレームワークなどの外部要素と独立してテストができる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記事項をきれいに守るためのテクニックは多岐にわたる。
+クリーンアーキテクチャの図として出回っている、かの有名な同心の図も一つの具体例に過ぎない。
+パッケージングの方法についても同心円図の命名規則に合わせる必要はなく、
+最後に言及があるようにドメイン駆動設計を念頭に分割していく方が理にかなっていると思う
+(し、これはクリーンアーキテクチャに違反しているわけでもない)。&lt;/p&gt;
+&lt;p&gt;上記を満たすための設計の切り口があることと切り口にしてはいけないものがあることも学べた。
+切り口は&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;アクターとユースケース (垂直方向)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;アクターごとに独立して変更できるよう&lt;/li&gt;
+&lt;li&gt;ユースケースがドメインオブジェクトで表現できるよう&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;レイヤーレベル (水平方向)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;であり、切り口にしてはいけないものは詳細であるフレームワークやデータベースである。&lt;/p&gt;
+&lt;p&gt;クリーンアーキテクチャはドメイン駆動設計を念頭においたアーキテクチャであると私は考えているが、
+用いられる用語はそれぞれで幾分か違ってしまっている。
+&lt;a href=&quot;https://qiita.com/takasek/items/70ab5a61756ee620aee6&quot;&gt;お前らがModelと呼ぶアレをなんと呼ぶべきか。近辺の用語(EntityとかVOとかDTOとか)について整理しつつ考える&lt;/a&gt; にてかなり詳しくまとめてくれているので参照されたい。&lt;/p&gt;
+&lt;p&gt;最後に、クリーンアーキテクチャを学んだところで設計の「正解」が判明するわけではないとわかった。
+ただし、書籍に大量に記述されている原則と照らし合わせることで何が「間違えている」かの知識を多く得ることができたのではないかと感じている。
+クリーンアーキテクチャを採用した設計という言葉を使っていたがこれからは避けよう。
+あぁ、アーキテクチャなんもわからん。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[エリック・エヴァンスのドメイン駆動設計をまとめる]]></title><description><![CDATA[いわゆるエヴァンス本を読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/evans-eric-dddエリック・エヴァンスのドメイン駆動設計をまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -2551,61 +3012,4 @@ Tehano, TensorFlowがシンボリックな記述をグラフに加える手法�
 &lt;li&gt;単一ノードが複数出力を持つ場合&lt;/li&gt;
 &lt;li&gt;誤差逆伝播方以外の自動微分が存在すること&lt;/li&gt;
 &lt;li&gt;高次の微分(TensorFlow等で使用可能)&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[機械学習の深層順伝播型ネットワークについてのざっくりとしたまとめ]]></title><description><![CDATA[書籍 深層学習 を読みながらまとめていく]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/deep-learning-3</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/deep-learning-3機械学習の深層順伝播型ネットワークについてのざっくりとしたまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Wed, 08 May 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;前回からとっても時間が空いてしまいましたが，機械学習の勉強の続きを上げていきたいと思います！&lt;/p&gt;
-&lt;h1&gt;深層順伝播型ネットワーク&lt;/h1&gt;
-&lt;p&gt;多層パーセプトロンとも言う．
-順伝播型ネットワークの目的はある関数を近似することである．
-線形モデルを拡張して非線形関数を表現する場合，&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;x&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.43056em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 自体に線形モデルを適用するのではなく非線型変換 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϕ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\phi&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ϕ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を用いて変換された入力&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϕ&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\phi(x)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ϕ&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; に対して線形モデルを適用する．
-順伝播型ネットワークが非線型な関数を表現する例としてXORの学習がよく挙げられる．
-サポートベクターマシーンでは &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϕ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\phi&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ϕ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; として無限次元の非常に汎用的な関数を用意したが，
-深層順伝播型ネットワークではこの &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϕ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\phi&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ϕ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を学習することが関数近似の戦略となる．
-順伝播型ネットワークの出力をネットワーク自体に戻すフィードバックのような
-接続を含むように拡張されたものは回帰結合型ニューラルネットワークと呼ばれる．&lt;/p&gt;
-&lt;h1&gt;コスト関数&lt;/h1&gt;
-&lt;p&gt;最近のニューラルネットワークはほとんどの場合，最尤法を用いて訓練される．
-最尤推定からコスト関数を導出することで，コスト関数の勾配が飽和しづらくなる．&lt;/p&gt;
-&lt;h1&gt;出力ユニット&lt;/h1&gt;
-&lt;p&gt;ほとんどの場合，コスト関数として，単純にデータ分布とモデル分布の間の交差エントロピーが利用されるため，出力の表現方法の選択によって黄砂エントロピーの関数の形が変わる．以下に代表的な出力ユニットを記す&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ガウス出力分布のための線形ユニット&lt;/li&gt;
-&lt;li&gt;ベルヌーイ出力分布のためのシグモイドユニット&lt;/li&gt;
-&lt;li&gt;マルチヌーイ出力分布のためのソフトマックスユニット&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;その他の出力の種類として，条件付きガウス分布の分散を学習したい場合の不等分散モデルや，混合ガウス分布のための混合密度ネットワークなどがある．&lt;/p&gt;
-&lt;h1&gt;隠れユニット&lt;/h1&gt;
-&lt;p&gt;隠れ層の中で使用する隠れユニットについて言及する．
-現在では，ReLUを使用することが一般的であるが，他にも多くの隠れユニットが利用可能である．
-基本的な隠れ層ではベクトル &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{x}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.44444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を受け取りアフィン変換 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;z&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;W&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;b&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{z} = \mathbf{W}^{\mathrm{T}} \mathbf{x} + \mathbf{b}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.44444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;z&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.924661em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;W&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8413309999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathrm mtight&quot;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を計算し，要素ごとに非線型変換関数 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;z&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;g(\mathbf{z})&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;z&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を適用する．
-よって隠れ層の出力 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;h&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{h}(\mathbf{x})&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;h&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; は&lt;/p&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;h&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mrow&gt;&lt;mo fence=&quot;true&quot;&gt;(&lt;/mo&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;W&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;x&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;b&lt;/mi&gt;&lt;mo fence=&quot;true&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \mathbf{h} = g \left(\mathbf{W}^\mathrm{T} \mathbf{x} + \mathbf{b} \right)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;h&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.2413409999999998em;vertical-align:-0.35001em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;minner&quot;&gt;&lt;span class=&quot;mopen delimcenter&quot; style=&quot;top:0em;&quot;&gt;&lt;span class=&quot;delimsizing size1&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;W&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8913309999999999em;&quot;&gt;&lt;span style=&quot;top:-3.113em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathrm mtight&quot;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose delimcenter&quot; style=&quot;top:0em;&quot;&gt;&lt;span class=&quot;delimsizing size1&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;となる．&lt;/p&gt;
-&lt;h3&gt;ReLU&lt;/h3&gt;
-&lt;p&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;m&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;{&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;}&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;g(z) = \mathrm{max}\{0, z\}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;	&lt;/p&gt;
-&lt;p&gt;上式の活性化関数がReLUである．アフィン変換のパラメータを初期化する場合&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;b&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf{b}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;b&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;のすべての要素を0.1などの小さい正の値に設定するとよく機能する．ReLUの問題点としては活性化値が0になるような事例が勾配に基づく学習をできない点である．&lt;/p&gt;
-&lt;h3&gt;ReLUの一般化&lt;/h3&gt;
-&lt;p&gt;ReLUの3つの一般化を以下に記す．
-3つの一般化は&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mo&gt;&amp;lt;&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;z&amp;lt;0&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.5782em;vertical-align:-0.0391em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;となる場合にゼロでない勾配を得るために工夫されたものとなっている．&lt;/p&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;α&lt;/mi&gt;&lt;msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;m&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;a&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;m&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;i&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    h_i = g(z, \mathbf{\alpha})_i = \mathrm{max}(0, z_i) + \alpha_i\mathrm{min}(0, z_i)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.84444em;vertical-align:-0.15em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathrm&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mord mathrm&quot;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;つまり上式の通りとなる．&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.43056em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;の値を変えることでその特徴を変える&lt;/p&gt;
-&lt;h5&gt;Absolute value rectification&lt;/h5&gt;
-&lt;p&gt;上式の &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha_i = -1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.58056em;vertical-align:-0.15em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.72777em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;−&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; である．よって &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;∣&lt;/mi&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;∣&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;g(z) = |z|&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;∣&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.04398em;&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;∣&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を得る．これは画像の中の物体認識に使用されている．物体認識では入力の光源の極性反転に対して普遍な特徴量を探すことが道理にかなっているためである．&lt;/p&gt;
-&lt;h5&gt;Leaky ReLU&lt;/h5&gt;
-&lt;p&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.01&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha_i = 0.01&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.58056em;vertical-align:-0.15em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.64444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; として扱う．&lt;/p&gt;
-&lt;h5&gt;Parametric ReLU&lt;/h5&gt;
-&lt;p&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha_i&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.58056em;vertical-align:-0.15em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.31166399999999994em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を学習可能なパラメタとして扱う．&lt;/p&gt;
-&lt;h3&gt;マックスアウトユニット&lt;/h3&gt;
-&lt;p&gt;マックスアウトユニットはReLUをさらに一般化したものである．このユニットは&lt;strong&gt;活性化関数自を学習&lt;/strong&gt;するものと考えられる．また，破壊的忘却に対抗する手段としても用いられる．正直よくわからん．&lt;/p&gt;
-&lt;h3&gt;ロジスティックシグモイドとイドとハイパボリックタンジェント&lt;/h3&gt;
-&lt;p&gt;0から離れると勾配に飽和が起きるため，現在の深層学習においてはあまり利用されていない．コスト関数で飽和を打ち消せる場合は使われる場合がある．一般的にハイパボリックタンジェントの方が訓練しやすい．&lt;/p&gt;
-&lt;h3&gt;その他の隠れユニット&lt;/h3&gt;
-&lt;p&gt;他にも多くの隠れユニットが存在するが，頻度は高くない．一般的なものを下記に記す．&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;恒等関数&lt;/li&gt;
-&lt;li&gt;同型基底関数&lt;/li&gt;
-&lt;li&gt;ソフトプラス&lt;/li&gt;
-&lt;li&gt;Hard tanh&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1&gt;アーキテクチャ設計&lt;/h1&gt;
-&lt;p&gt;アーキテクチャ設計とはユニットの数やネットワーク全体の構造を意味する．&lt;/p&gt;
-&lt;h3&gt;万能近似性と深さ&lt;/h3&gt;
-&lt;p&gt;万能近似理論はネットワークが十分な数の隠れユニットを持つ場合，線形の出力層と押しつぶすことができる活性化関数を持つ隠れ層が少なくとも1つ含まれる順伝播型ネットワークはどんなバレル可測関数でも任意の制度で近似できると述べている．ただし，表現可能であることが保証されても学習可能であることは保証されていないことには注意が必要である．現在も万能近似理論の証明に関する研究は進んでいるが，ネットワークの深さや効率に関する疑問は解明されていない．&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;/ul&gt;</content:encoded></item></channel></rss>
