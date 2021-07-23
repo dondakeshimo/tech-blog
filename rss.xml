@@ -1,4 +1,350 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 23 Jul 2021 11:59:51 GMT</lastBuildDate><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 23 Jul 2021 15:30:53 GMT</lastBuildDate><item><title><![CDATA[GoでCLIのTODOリストを作成した時の振り返り]]></title><description><![CDATA[todo-cliを開発する上で良かった点などの振り返り]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-develop-toco-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-develop-toco-cliGoでCLIのTODOリストを作成した時の振り返り</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;開発管理や開発ルール&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-1-0&quot;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-2-0&quot;&gt;GitHub Flow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-3-0&quot;&gt;GitHub Projects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-4-0&quot;&gt;英語&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-5-0&quot;&gt;CI/CD GitHub Actions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;設計&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-0&quot;&gt;ディレクトリ構造&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-0&quot;&gt;クリーンアーキテクチャ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-3-0&quot;&gt;テスト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;コーディング&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-0&quot;&gt;Makefile&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-0&quot;&gt;Value Object&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-0&quot;&gt;GoDoc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-4-0&quot;&gt;Table Driven Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-5-0&quot;&gt;ライブラリ選定&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-5-1&quot;&gt;CLIフレームワーク cobra vs urfave/cli&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-5-2&quot;&gt;writerライブラリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-6-0&quot;&gt;golangci-lint&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-7-0&quot;&gt;ポインタ vs 値&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-8-0&quot;&gt;スケジューリング&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-8-1&quot;&gt;launchd&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-8-2&quot;&gt;cron&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-9-0&quot;&gt;通知方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-9-1&quot;&gt;ossascript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-9-2&quot;&gt;slack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-0-0&quot;&gt;まとめ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CLIでのTODO管理ツールをGoで実装しました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/&quot;&gt;https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli&quot;&gt;https://github.com/dondakeshimo/todo-cli&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;その際に得た知見ややっていて良かったこと、やって失敗だったと思うことなどを振り返っていこうと思います。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;開発管理や開発ルール&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;GitHub&lt;/h2&gt;
+&lt;p&gt;デファクトスタンダードなので特に説明することもないかもしれませんが、GitHubを用いてコード管理を行いました。
+コード管理だけではなく、後述するようにCI/CDやプロジェクト管理もGitHubで完結させました。&lt;/p&gt;
+&lt;p&gt;(最近知ったのですがGitLabってオンプレ以外に普通のWebアプリケーションも提供されているんですね。
+特に比較とかはしていないです。)&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;GitHub Flow&lt;/h2&gt;
+&lt;p&gt;ブランチ戦略というものがあります。
+よく知られているものとしてGit FlowとGitHub Flowがあります。
+私はGitHub Flowしか利用したことがないので、Git Flowの詳細は他サイトに譲ります&lt;a href=&quot;https://www.atlassian.com/ja/git/tutorials/comparing-workflows/gitflow-workflow&quot;&gt;(参考)&lt;/a&gt;。
+GitHub Flowを要約すると変更をmasterに反映するときはPR経由で行えよ、ということになります。
+GitHub Flowに準じた開発を行うと決めたので、個人開発ではありますが、masterに直接マージするようなことはせずにPRを毎回作成して開発を行いました。&lt;/p&gt;
+&lt;p&gt;良かった点は&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;masterは常にテストが通った状態になる&lt;/li&gt;
+&lt;li&gt;管理しているチケットと紐付けができる&lt;/li&gt;
+&lt;li&gt;行った変更を自分で追いやすくなる&lt;/li&gt;
+&lt;li&gt;作業の中断ステータスがわかりやすい&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;悪かった点は&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;単純に面倒臭い&lt;/li&gt;
+&lt;li&gt;個人リポジトリだとmasterへのpush禁止をGitHubがしてくれないので2, 3回 masterにpushしてしまった&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;次回個人開発を行うことがあれば、最初はmaster pushで整えて&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;test&lt;/li&gt;
+&lt;li&gt;CI/CD パイプライン&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;が整ったタイミングでPRを出すようにしようかと思います。
+ただ、後で反省するように上記二つともプロジェクトの最初期に整えるべきものだと考えているので、実質最初からPRを出すつもりです。&lt;/p&gt;
+&lt;p&gt;また、masterへのpush防止策としてはgit hookに何かしら突っ込んでおく必要があるかなと思っています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;GitHub Projects&lt;/h2&gt;
+&lt;p&gt;プロジェクト管理は GitHub Projectsを利用しました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/projects/1&quot;&gt;https://github.com/dondakeshimo/todo-cli/projects/1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/projects/2&quot;&gt;https://github.com/dondakeshimo/todo-cli/projects/2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;欲しい機能は最初からほとんど決まっていたので、メモ書き以下の要件を最初に記載していたようです。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/issues/1&quot;&gt;https://github.com/dondakeshimo/todo-cli/issues/1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;IssueとPRは紐付けができるので機能の作成さえしておけば、Kanbanでの移動はそこまで必要ないです。
+調査系のタスクが入った時にIssueがあると自分の進捗がわかりやすいのとドキュメントが勝手に出来上がっていくのでとても良かったです。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/issues/33&quot;&gt;https://github.com/dondakeshimo/todo-cli/issues/33&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;メリットはやはりコード管理ツールと統合されていることに尽きると思います。今後もGitHubで何かしらのプロジェクトを行うときは重宝すると思います。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-4-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;英語&lt;/h2&gt;
+&lt;p&gt;コードのコメントや使い方などは全て英語にしようと決めていました。
+英語の勉強をしたかったという部分と、日本語が入ったコードはダサいと思ったのと、ゆくゆくは外国の方にもcommitしてもらえるようなプロダクトにしたいという野望があったからです。&lt;/p&gt;
+&lt;p&gt;2人の知人にcontributerをしていただいたのですが、その際にPRを英語で出していただいてハッとさせられました。
+海外の方にcommitしてもらうためにはIssueやPRも全て英語で行う必要があったのでは？？と。
+ちょっとそこまで英語にリソース割けないなと思い妥協しています。個人リポジトリですしね...&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-5-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;CI/CD GitHub Actions&lt;/h2&gt;
+&lt;p&gt;CI/CDツールとしてはGitHub Actionsを使用しました。
+ツールで行いたかったことは下記になります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PRに対して&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コードフォーマットのチェック&lt;/li&gt;
+&lt;li&gt;test&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;master commitに対して&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;バイナリのビルド&lt;/li&gt;
+&lt;li&gt;Releasesの作成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;コードフォーマットのチェックやtestは比較的簡単に設定できました &lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/blob/master/.github/workflows/go.yml&quot;&gt;(設定ファイル)&lt;/a&gt;。
+Releasesの作成についてはそれなりに苦闘したので、&lt;a href=&quot;https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog/&quot;&gt;別記事&lt;/a&gt;にまとめています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;設計&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;ディレクトリ構造&lt;/h2&gt;
+&lt;p&gt;ディレクトリ構造について初期は &lt;a href=&quot;https://github.com/golang-standards/project-layout&quot;&gt;golang-standards/project-layout&lt;/a&gt; を模倣して設計していました。
+ところが、 &lt;a href=&quot;https://github.com/golang-standards/project-layout/issues/117&quot;&gt;this is not a stndard Go project layout&lt;/a&gt; というIssueがGo開発者から立てられ、これは標準ではないし、Goの思想としては標準レイアウトのようなものは存在しない、なんでも好きなように作れば良いのだよということが公言されていました。
+特に問題となっていたのは &lt;code class=&quot;language-text&quot;&gt;pkg&lt;/code&gt; ディレクトリのようで、慣例として作られていた &lt;code class=&quot;language-text&quot;&gt;vendor&lt;/code&gt; との差分がよくわからないなどの意見が見られました。思考停止で利用していましたが、このIssueを受けて &lt;code class=&quot;language-text&quot;&gt;internal&lt;/code&gt; ディレクトリは &lt;code class=&quot;language-text&quot;&gt;pkg&lt;/code&gt; ディレクトリに&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli/pull/78&quot;&gt;まとめました&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;結果的には以下のような構成にしました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;.
+├── Makefile
+├── README.md
+├── cmd
+│   └── todo
+│       └── main.go
+├── go.mod
+├── go.sum
+├── pkg
+│   ├── commands
+│   ├── domain
+│   │   ├── notifier
+│   │   ├── scheduler
+│   │   └── task
+│   ├── gateways
+│   │   └── json
+│   └── usecases
+├── scripts
+│   └── uninstall.sh
+└── test
+    └── scenario
+        └── crud_test.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;pkg&lt;/code&gt; の中のディレクトリはそのままパッケージ名となります。
+こちらは次節にて詳しく述べる予定ですが、クリーンアーキテクチャのレイヤ名を随所に使用しています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;クリーンアーキテクチャ&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/&quot;&gt;https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;にてまとめているクリーンアーキテクチャを念頭に設計しています。というよりは開発していくうちにクリーンアーキテクチャっぽく修正していきました。&lt;/p&gt;
+&lt;p&gt;CLIフレームワークを変更したタイミングがあったのですが、CLIフレームワークとアプリケーションルールがそのタイミングでは絡み付いており、変更が非常に重たいタスクになってしまいました。これを嫌って、先にusecase層とcontroller層(commandsディレクトリ)を分割しました。これによってフレームワークに依存しているのはcontroller層のみとなり変更を容易に行うことができました。(分割は簡単ではなかったです。)&lt;/p&gt;
+&lt;p&gt;このことから、これからはフレームワークやインプットアウトプットが少しでも変わる可能性がある場合は常にクリーンアーキテクチャを最初から意識して設計していこうと心に誓いました。&lt;/p&gt;
+&lt;p&gt;逆にクリーンアーキテクチャを意識したアーキテクチャになっていた部分で良かったのは、後述するスケジューリングや通知の詳細実装を追加していくのが非常に容易だったことです。最初にインタフェースを決めておく難易度はありましたが、今回の場合は最初から要件がある程度固まっていたのでそこまで悩まずに済みました。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;テスト&lt;/h2&gt;
+&lt;p&gt;今回の場合二つのテストが必要と考えていました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;domain/taskの単体テスト&lt;/li&gt;
+&lt;li&gt;e2eテスト&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;逆にそれ以外の部分は手を抜いています。
+ただし、結構アプリケーションロジックにバグが紛れたりするので、usecase層もテストするべきだったなと思っています。
+これは今後追加するかもしれません。&lt;/p&gt;
+&lt;p&gt;最初にテストスコープを決めていて良かったのはdomain層に入れるべきものがはっきりとしたことです。
+このロジックにはテスト必要そうだぞというものは大抵domain層にいるべきものなので、ビジネスロジックがusecaseに紛れ込むのを防ぐことができました。&lt;/p&gt;
+&lt;p&gt;テストの実装時期ですが、プロトタイプのタイミングから単体テストは実装しておくべきだと感じました。
+後からやるのは辛いというのが主な理由ですが、先述の通りテストを念頭においた実装をすることでかなりすっきりとした設計になりがちですなので、気づいたらスパゲッティを錬成していたということを防ぐためにも最初からテストを書くべきです。&lt;/p&gt;
+&lt;p&gt;逆にe2eテストについてはある程度までは放置しておいて良いと感じました。
+テスト項目だけ決めておいて毎回手作業で確認していくくらいで良いかなと。
+結構テストの実装自体が手間ですし、その手間をかけて自動化するならまずは満足できるレベルのプロダクトを作るのが先だろというのが今の思いです。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;コーディング&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Makefile&lt;/h2&gt;
+&lt;p&gt;Makefileは最初に用意しておくと良いと思います。GoのMakefileは毎回ほとんど同じものになると思うので、ここに自分が使っているものでテンプレとなりそうな部分を貼っておきます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;GOBUILD=go build
+GOCLEAN=go clean
+GOTEST=go test
+GOGET=go get
+GOFMT=gofmt
+GOGEN=go generate
+GOIMPORTS=goimports
+GOLINT=golangci-lint
+BINARY_NAME=todo
+CMD_PKG=./cmd/todo
+SCENARIO_DIR=./test/scenario
+
+all: help
+
+.PHONY: init
+init: ## initilize developer environment
+  # mockを利用する場合
+	go install github.com/golang/mock/mockgen@latest
+
+.PHONY: get
+get: ## go get dependencies
+	$(GOGET) -u -v -t -d ./...
+
+.PHONY: build
+build: ## build go binary
+	$(GOBUILD) -o $(BINARY_NAME) -v $(CMD_PKG)
+
+.PHONY: mockgen
+mockgen: ## generate mock
+	$(GOGEN) ./...
+
+.PHONY: test
+test: build ## go test
+	$(GOTEST) -v ./...
+
+.PHONY: scenario-test
+scenario-test: build ## run scenario test
+	$(GOTEST) -v $(SCENARIO_DIR) -tags scenario
+
+.PHONY: clean
+clean: ## remove go binary
+	$(GOCLEAN)
+	rm -f $(BINARY_NAME)
+
+.PHONY: fmt
+fmt: ## format go files
+	$(GOFMT) -l -w -s .
+	$(GOIMPORTS) -w .
+
+.PHONY: lint
+# need docker to run this command
+# this command just run golangci-lint
+# so, if you hate docker, you can run equivalent this installing golangci-lint locally
+lint: ## check lint, format
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.41.0 golangci-lint run -v
+
+.PHONY: help
+help: ## DIsplay this help screen
+	@grep -E &amp;#39;^[a-zA-Z_-]+:.*?## .*$$&amp;#39; $(MAKEFILE_LIST) | awk &amp;#39;BEGIN {FS = &amp;quot;:.*?## &amp;quot;}; {printf &amp;quot;\033[36m%-20s\033[0m %s\n&amp;quot;, $$1, $$2}&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;プロジェクトの最初期から置いておくと良いと思います。最初期は &lt;code class=&quot;language-text&quot;&gt;go run&lt;/code&gt; とかを結局たくさん使いますが...&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Value Object&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/&quot;&gt;https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;で説明している値オブジェクトを利用できる場面では利用することを意識しました。
+具体的にはタスクに紐付けられる時間などが値オブジェクトとして定義されています。&lt;/p&gt;
+&lt;p&gt;時間については基本的にただの文字列なのですが、値オブジェクトとすることで文字が時間を表現するのに有効かどうかや、時間としての加算減算に対応できるようになっています。ビルドに通ればランタイムでのエラーがほとんど起きなくなったので、値オブジェクトは利用できるシーンでは積極的に利用すべきだと感じています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;GoDoc&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://qiita.com/shibukawa/items/8c70fdd1972fad76a5ce&quot;&gt;チョットできるGoプログラマーになるための詳細GoDoc&lt;/a&gt; で詳細に述べられていますが、Goではドキュメント自動生成のためのコメントお作法があります。このお作法の通りにコメントを書けばIDEがメソッドの説明とかを出して来れたりします。&lt;/p&gt;
+&lt;p&gt;コードは大体最初に思い描いたものよりも長く、複雑になるので最初からGoDocを書くことを忘れずにしておくと、エディタの力を最大限に生かすことができます。(ただ本当に面倒くさい)。次回以降もちゃんと書けるかは心の余裕によると思います。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-4-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Table Driven Test&lt;/h2&gt;
+&lt;p&gt;Table Driven Testをご存知でしょうか？
+テストの可読性が飛躍的に向上し、DRYなテストを実現できる手法になります。
+自分が参考にしたサイトを見つけることができなかったので、お好きなサイトをGoogle先生の書庫から選んで参照いただければと思います。&lt;/p&gt;
+&lt;p&gt;これを知って実装できたことでテストがかなり書きやすかったのでここで取り上げています。
+しばらくはTable Driven Testを使ってテストを書き続けるでしょう。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-5-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;ライブラリ選定&lt;/h2&gt;
+&lt;p&gt;ライブラリの選定はしっかりとするべきだという話です。&lt;/p&gt;
+&lt;p&gt;ライブラリを利用するということは依存が一つ増えるということです。
+依存が一つ増えたらメンテナンスのための改修が必要になるリスクが一つ増えるということです。
+まずはライブラリを使うか自前で実装するべきかという部分を真剣に考えた方が良いというのが最近の考えです。&lt;/p&gt;
+&lt;p&gt;ライブラリを選定するタイミングで確認するべきは&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Star数&lt;/li&gt;
+&lt;li&gt;最終更新日&lt;/li&gt;
+&lt;li&gt;更新頻度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;あたりだと考えていますが、実際に使ってみないとわからない部分も多々あると思うので参考程度に。&lt;/p&gt;
+&lt;p&gt;todo-cliではtodoリストの表示と、CLIフレームワークにおいて外部ライブラリを使用しています。
+それぞれについて少し解説します。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-5-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;CLIフレームワーク cobra vs urfave/cli&lt;/h3&gt;
+&lt;p&gt;初期段階では &lt;a href=&quot;https://github.com/urfave/cli&quot;&gt;urfave/cli&lt;/a&gt; を利用していました。
+最初からcobraも選択肢には入っていたのですが、同等の人気である urfave/cliが先に検索にヒットしたのでなんとなくで使っていました。&lt;/p&gt;
+&lt;p&gt;結果としては&lt;a href=&quot;https://github.com/spf13/cobra&quot;&gt;cobra&lt;/a&gt;に途中で乗り換えており、これからもCLIフレームワークを利用するならcobra一択だろうと考えています。&lt;/p&gt;
+&lt;p&gt;urfave/cliのよくない点は大きく二つです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://twitter.com/campuscodi/status/1371227524127199241?s=19&quot;&gt;twitter&lt;/a&gt; で指摘されているが、謎の情報を送る処理が実装されていた&lt;/li&gt;
+&lt;li&gt;必ず &lt;code class=&quot;language-text&quot;&gt;todo [option] [args]&lt;/code&gt; の順番でコマンドを叩く必要があり、タスクの内容の後にオプションをつけるといったことができなかった&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;その他にも細かい点でcobraの方が気が利いている部分が多く、紹介記事やStar数だけでは実際の使用感は判断できないのだなと感じました。
+このことから私が得られる教訓は、導入ハードルを恐れずにどんどん知らないツールを触っていけ、ということです。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-5-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;writerライブラリ&lt;/h3&gt;
+&lt;p&gt;初期段階ではGoの標準パッケージにある &lt;a href=&quot;https://pkg.go.dev/text/tabwriter&quot;&gt;tabwriter&lt;/a&gt; を利用していました。
+表示がリッチである必要はないと考えていたので、これで十分と考えていたのですが、知人が触って来れている時に日本語で表記がずれるという課題を共有いただき更に解決策となるパッケージもご提示していただきました。&lt;/p&gt;
+&lt;p&gt;途中で乗り換えたライブラリが &lt;a href=&quot;https://github.com/olekukonko/tablewriter&quot;&gt;tablewriter&lt;/a&gt; になります。 CJKに対応しており、リッチな表を書くこともできます。&lt;/p&gt;
+&lt;p&gt;表示系のライブラリではCJK(China, Japan, Korea)言語に対応しているかどうかを気にかける必要があるのだということを学べました。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-6-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;golangci-lint&lt;/h2&gt;
+&lt;p&gt;Goのフォーマッターやリンターは複数のパッケージ、ツールに別れておりそれを統合したツールもいくつかありますが、自分が調べた範囲で2021/07時点では &lt;a href=&quot;https://github.com/golangci/golangci-lint&quot;&gt;golangci-lint&lt;/a&gt; を用いるのが良さそうだと感じました。
+使い方等はREADMEや紹介記事も多数あるのでここでは省略します。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-7-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;ポインタ vs 値&lt;/h2&gt;
+&lt;p&gt;(この節の内容はうろ覚えなので100%信用しないでください。)&lt;/p&gt;
+&lt;p&gt;Goではポインタがヒープ領域に割り当てられます。
+そのため、軽量な値に関してはポインタでの受け渡しよりも値渡しを行った方が良いです。
+具体的にはプリミティブ型で関数内で値を変更しない場合は値渡しで良いと言えると思います。&lt;/p&gt;
+&lt;p&gt;これはメソッドのレシーバにも同様のことが言えます。
+軽量な構造体に対するメソッドの場合はポインタを指定するよりも値を渡した方が早くなります。&lt;/p&gt;
+&lt;p&gt;また、ポインタの利用を消極的にすることで関数型言語のように副作用のない(少ない)関数を書くことが意識できます。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-8-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;スケジューリング&lt;/h2&gt;
+&lt;p&gt;この節ではスケジューリング機能をどのように実装したかを説明します。&lt;/p&gt;
+&lt;p&gt;スケジューリング機能とググると &lt;a href=&quot;https://github.com/robfig/cron&quot;&gt;robfig/cron&lt;/a&gt; がヒットするのではないかと思います。
+当然の話ではありますが、スケジューリングを行うプログラムはプロセスとして常駐する必要があります。
+Goのみでこれを行おうとすると、プロセスを走り続ける必要があり軽さや使いやすさという点で疑問が生じる設計しか思いつきませんでした。&lt;/p&gt;
+&lt;p&gt;よって、基本戦略としてはOSに備わったスケジューリング機能を使用する方針としています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-8-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;launchd&lt;/h3&gt;
+&lt;p&gt;MacOSではcronを使用するのは非推奨とされており、代わりにLauncdというプロセスをスケジューラとして利用するように言われています。
+&lt;a href=&quot;https://qiita.com/rsahara/items/7d37a4cb6c73329d4683&quot;&gt;launchdで定期的にスクリプトを実行&lt;/a&gt; にて詳細に開設されているので、利用に際して困るというようなことはなかったです。
+指定箇所に指定フォーマットのXMLファイルを配置するだけなので実装難易度もそこまで高くないです。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-8-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;cron&lt;/h3&gt;
+&lt;p&gt;Linuxではcronがおおよそインストールされていると信じてcronを用いたスケジューリングもできるようにしました。&lt;/p&gt;
+&lt;p&gt;こちらについてはタスクの登録方法が複数あるのですが、課題となったのは権限です。
+launchdと同様の方針で、cronファイルを &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d&lt;/code&gt; に配置するだけで済むと考えていたのですが、配置するためにはroot権限が必要であり、またcronファイルもroot権限である必要があることがわかりました。
+root権限をアプリケーションに与える方針はユーザビリティやセキュリティの観点でありえない選択肢であると感じたので、ファイルを配置する方針は諦めました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron/&quot;&gt;諸々調べた結果&lt;/a&gt; もまとめてあるので見ていただければと思いますが、結局 &lt;code class=&quot;language-text&quot;&gt;crontab [file]&lt;/code&gt; でスケジュール登録する方針としました。&lt;/p&gt;
+&lt;p&gt;しかし、こちらの方針にも問題点があり、指定したcronファイルで全てのジョブが上書きされてしまうのです。そのため、ユーザがもともとcrontabを使用していた場合は利用するべきではないですし、自分の登録したジョブも注意を払わなければ最新の一件しかスケジュール登録されないということになってしまいます。詳細な実装についてはリポジトリの方を参照いただければと思います。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-9-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;通知方法&lt;/h2&gt;
+&lt;p&gt;理想はポップアップを出すことだと考えていました。MacにおいてはシンプルにポップアップをCLIから呼び出すインタフェースが搭載されており、容易に実装することができましたが、linuxについてのポップアップはまだ特に考えられていないです。Slackに投げられればそれで良いだろうと甘えました。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-9-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;ossascript&lt;/h3&gt;
+&lt;p&gt;遊んでもらえれば楽しいと思うのですが、&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;osascript -e &amp;#39;display notification &amp;quot;通知したいメッセージ&amp;quot;&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;とターミナルで打っていただければ通知センターにメッセージが届きます。
+似たような方法で、&lt;a href=&quot;https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html#//apple_ref/doc/uid/TP40000983-CH216-SW12&quot;&gt;色々な制御ができる&lt;/a&gt; のでこれらを用いてポップアップ通知を実現しています。&lt;/p&gt;
+&lt;p&gt;実装としては &lt;code class=&quot;language-text&quot;&gt;os/exec&lt;/code&gt; によって外部コマンドを呼び出す形になっています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-9-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;slack&lt;/h3&gt;
+&lt;p&gt;SlackではIncomming Webhookを利用すればHTTP POSTリクエストを送ることでメッセージを送信することができます。
+Incoming Webhookの導入はユーザに委ねるしかありませんが、その他の解決策もないと思ったので妥協しました。
+LINEラブな方のためにLINE Botインタフェースを用意するとかも面白そうではありますね。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;GoでCLIを作るのは非常に楽しかったです。cobraというフレームワークが最高です。kubectlとかを参考にできたところも良かったですね。
+開発途中でドメイン駆動設計やクリーンアーキテクチャについて勉強していたので、プロトタイプからどんどん設計周りの改善案が出てきたというのも面白かったポイントです。&lt;/p&gt;
+&lt;p&gt;今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;TODO管理ツールを作りました&lt;/a&gt;&lt;/p&gt;
@@ -3069,147 +3415,4 @@ jupyterサーバを立てる手もあるため，
 &lt;li&gt;パッケージ管理特化のツールはpipenvが一つ抜けている気もするが，(まだ)五十歩百歩&lt;/li&gt;
 &lt;li&gt;anacondaは好き嫌い分かれてる&lt;/li&gt;
 &lt;li&gt;開発環境を完璧に整えるのはdockerに限らず難しい&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[機械学習の正則化についてまとめ]]></title><description><![CDATA[書籍 深層学習 を読みながらまとめていく]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/deep-learning-5</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/deep-learning-5機械学習の正則化についてまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 04 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;かなり回を重ねてきたけど，完全に自分のことしか見ていない.
-絶対他の人の役には立っていないとわかる．
-そんなブログで突き進む．
-前回同様，深層学習について学んだことをまとめる．
-今回のテーマは深層学習における正則化である．&lt;/p&gt;
-&lt;h1&gt;正則化&lt;/h1&gt;
-&lt;p&gt;深層学習の観点では，正則化手法のほとんどは推定量の正則化に基づいている．
-推定量の正則化は，バイアスの増加とバリアンスの減少を引き換えることで機能する．
-過度にバイアスを増加させずにバリアンスを大きく減少させる正則化項が望まれる．&lt;/p&gt;
-&lt;h1&gt;パラメータノルムペナルティ&lt;/h1&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mover accent=&quot;true&quot;&gt;&lt;mi&gt;J&lt;/mi&gt;&lt;mo&gt;~&lt;/mo&gt;&lt;/mover&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;θ&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;;&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;X&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;y&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;J&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;θ&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;;&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;X&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;y&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;Ω&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;θ&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \tilde{J}(\mathbf{\theta}; \mathbf{X}, \mathbf{y}) =
-    J(\mathbf{\theta}; \mathbf{X}, \mathbf{y}) +
-    \alpha \Omega(\mathbf{\theta})&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.1701899999999998em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord accent&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.9201899999999998em;&quot;&gt;&lt;span style=&quot;top:-3em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.09618em;&quot;&gt;J&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.6023300000000003em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:3em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;accent-body&quot; style=&quot;left:-0.08332999999999999em;&quot;&gt;&lt;span class=&quot;mord&quot;&gt;~&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;X&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;y&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.09618em;&quot;&gt;J&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;X&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot; style=&quot;margin-right:0.01597em;&quot;&gt;y&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;Ω&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mo&gt;∈&lt;/mo&gt;&lt;mo stretchy=&quot;false&quot;&gt;[&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;∞&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;    \alpha \in [0, \infty]&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.5782em;vertical-align:-0.0391em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;∈&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;∞&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-&lt;p&gt;バイアスパラメータには関与せず重みのみにペナルティを課す．&lt;/p&gt;
-&lt;h3&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;L^2&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;パラメータ正則化&lt;/h3&gt;
-&lt;p&gt;重み減衰，リッジ回帰，ティホノフ正則化として知られる．
-ステップごとの観点で言うと，重みの更新に際して一定の割合
-(&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ε&lt;/mi&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;mi&gt;ε&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\varepsilon\alpha, \varepsilon&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.625em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ε&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;ε&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: learning rate)
-が間引かれながら学習を進めていく頃になる．
-学習全体の観点で言うと，パラメータが目的関数を減少させることに大きく寄与する方向には，
-相対的に重み減衰の影響が少ない．
-逆に学習において重要でない方向に対応する重みベクトルの要素は
-訓練全体で正則化を使うことで減衰する．&lt;/p&gt;
-&lt;h3&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;L^1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;パラメータ正則化&lt;/h3&gt;
-&lt;p&gt;個々のパラメータの絶対値の総和を減衰項とする．
-&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;L^2&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;正則化と比して&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;L^1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;正則化ではいくつかのパラメータの最適値が0になる
-スパースな解が得られる．
-このスパース性を利用して特徴量選択を行うことができる．&lt;/p&gt;
-&lt;h1&gt;条件付き最適化としてのノルムペナルティ&lt;/h1&gt;
-&lt;p&gt;一般化ラグランジュ関数を構築することで制約問題にパラメータペナルティの問題を帰着させると，
-パラメータ正則化は重みの解の範囲を限定する作用があることがわかる．
-減衰項の係数である &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.43056em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; を増減させることで，解の範囲を大まかに制御することができる．
-適切な範囲の係数である&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;k&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03148em;&quot;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;がわかっている場合， &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\alpha = k&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.43056em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03148em;&quot;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; として
-ペナルティを課すよりも，解が範囲を超えたタイミングで &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;Ω&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;θ&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;&amp;lt;&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\Omega(\mathbf{\theta}) \lt k&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;Ω&lt;/span&gt;&lt;span class=&quot;mopen&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mclose&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.03148em;&quot;&gt;k&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-の範囲に再射影する方が最適解ではない極小値に &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;θ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\theta&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.69444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02778em;&quot;&gt;θ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; が陥らず効率的に値を探索できる．&lt;/p&gt;
-&lt;h1&gt;正則化と制約不足問題&lt;/h1&gt;
-&lt;p&gt;正則化を行うことで，サンプルに分散が観察されない時や劣決定系問題を含む場合に
-解を定めることができる．&lt;/p&gt;
-&lt;h1&gt;データ集合の拡張&lt;/h1&gt;
-&lt;p&gt;機械学習モデルの汎化性能を高める最善の方法はより多くのデータで訓練することであり，
-そのために偽データを訓練データの一部として用いることで，訓練データを水増しするアプローチがある．
-このアプローチは分類において最も簡単な方法となる．
-ただし，密度推定タスクなど，他の多くのタスクについても簡単に適用できるものではないことに
-留意されたい．&lt;/p&gt;
-&lt;p&gt;特にデータ集合の拡張が効果を発揮している分野として物体認識がある．
-この分野では画像の回転やスケーリングを行うことでデータの拡張を行う．&lt;/p&gt;
-&lt;p&gt;ノイズを元データに加えると言う手法もデータ拡張の一つとみなせる．
-ニューラルネットワークはノイズに対してあまり頑健でないことが証明されている．
-ノイズへの頑健性を高めるためには単純にノイズを加えたデータで学習をする手法がある．
-入力へのノイズの注入は雑音除去自己符号器のような教師なし学習アルゴリズムの一部である．
-2014年にPoole et al.によりノイズの大きさを非常に注意深く調整すれば
-この手法が極めて有効であることが証明された．
-ドロップアウトもノイズの乗算を用いて新しい入力を構成する皇帝とみなせる．&lt;/p&gt;
-&lt;p&gt;機械学習アルゴリズムのベンチマークを比較する際は，
-スコアを算出した際にデータ拡張が行われていたか確かめることが重要である．
-データ集合の拡張の有無によって差が出ている場合，
-単純にモデルやアルゴリズムの比較ができないためである．&lt;/p&gt;
-&lt;h1&gt;ノイズに対する頑健性&lt;/h1&gt;
-&lt;p&gt;一般的に，ノイズの追加は，特にノイズが隠れユニットに加えられた場合に，
-単純にパラメータを縮小するよりずっと強力になりうる．&lt;/p&gt;
-&lt;h3&gt;出力目標へのノイズの注入&lt;/h3&gt;
-&lt;p&gt;データ集合の拡張で記述したノイズ手法以外に，出力ラベルに対してノイズを含ませる手法も存在する．
-このような手法の代表的なものがラベル平滑化と呼ばれる手法である．&lt;/p&gt;
-&lt;h1&gt;半教師あり学習&lt;/h1&gt;
-&lt;p&gt;表現を学習する手法であるらしいがあまり理解できなかった．
-Chapelle et al, (2006)に詳細が書いてあるらしい．&lt;/p&gt;
-&lt;h1&gt;マルチタスク学習&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;異なるタスクに関連づけられているデータで観測される変動を説明する因子の中には，
-二つ以上のタスクの間で共有されるものがいくつか存在する&lt;/em&gt;
-と言う事前信念のもとに適用される．
-モデルの一部を異なるタスク間で共有し，重みも共有することで汎化性能を改善する．
-このようなモデルのパラメータは&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;タスク固有のパラメータ&lt;/li&gt;
-&lt;li&gt;異なるタスク間で共有されるパラメータ&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;汎化と汎化誤差の浄化をこれらのモデルによって改善することが可能である．&lt;/p&gt;
-&lt;h1&gt;早期終了&lt;/h1&gt;
-&lt;p&gt;エポック数を回し切った最後のパラメタではなく，
-検証誤差が最少となったエポックでのパラメタを返す手法を早期終了という．
-早期終了はその単純さと有効性から，深層学習において一般的に最も使われている正則化である．&lt;/p&gt;
-&lt;p&gt;最大のメリットとして，ハイパーパラメタの一つであるエポック数を排除できることが挙げられる．
-逆に，デメリットは訓練中に定期的に検証誤差を測定する必要があるということと，
-最良のパラメタのコピーを保持する必要があるという点である．
-しかしパラメタの保持についてはメモリに格納する必要はないため，通常無視することができる．&lt;/p&gt;
-&lt;p&gt;早期終了では検証集合が必要となるため，一部のデータが訓練で使えないこととなる．
-これらのデータを使いたい場合，早期終了を行い，最適なエポック数やモデル訓練回数を調べた後に，
-同様の回数でもう一度始めから訓練するという手法がある．
-この場合，パラメタの更新回数を等しくするのかエポック数を等しくするかの2通りの手法がある．
-また，早期終了で得たパラメタを保持したまま追加分のデータを含めたデータ集合で訓練するという
-手法もある．
-しかし，この手法は一般的に良好な結果を示さない．&lt;/p&gt;
-&lt;h1&gt;パラメタ拘束とパラメタ共有&lt;/h1&gt;
-&lt;p&gt;類似したタスクを，類似した入出力をもつ二つのモデルの重み &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msubsup&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/msubsup&gt;&lt;mo separator=&quot;true&quot;&gt;,&lt;/mo&gt;&lt;msubsup&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/msubsup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;w_i^{(A)}, w_i^{(B)}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1.321664em;vertical-align:-0.27686399999999994em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02691em;&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.0448em;&quot;&gt;&lt;span style=&quot;top:-2.4231360000000004em;margin-left:-0.02691em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.2198em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mopen mtight&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;mclose mtight&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.27686399999999994em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mpunct&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.16666666666666666em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot; style=&quot;margin-right:0.02691em;&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:1.0448em;&quot;&gt;&lt;span style=&quot;top:-2.4231360000000004em;margin-left:-0.02691em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mathnormal mtight&quot;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;top:-3.2198em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mopen mtight&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mord mathnormal mtight&quot; style=&quot;margin-right:0.05017em;&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;mclose mtight&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.27686399999999994em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-があるとき，片方の学習時にもう片方の学習済みパラメタに近づけるように
-ノルムペナルティを課すことをパラメタ拘束といい，
-完全に学習済みのパラメタと同じになるように学習することをパラメタ共有という．&lt;/p&gt;
-&lt;h3&gt;畳み込みニューラルネットワーク&lt;/h3&gt;
-&lt;p&gt;パラメタ共有最大の活躍の場は間違いなく畳み込みニューラルネットワークである．
-特に画像認識において1ピクセルのずれても猫は猫である．
-そのため，入力全体に対して同様の重みを持つ隠れユニットを用いて計算することが有効となる．&lt;/p&gt;
-&lt;h1&gt;スパース表現&lt;/h1&gt;
-&lt;p&gt;下記のような正則化を用いることでパラメタのスパース表現が可能になる．&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;L&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;L^1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8141079999999999em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathnormal&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.8141079999999999em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; ノルムペナルティ&lt;/li&gt;
-&lt;li&gt;スチューデントのt事前分布から導かれたペナルティ&lt;/li&gt;
-&lt;li&gt;KLダイバージェンスペナルティ&lt;/li&gt;
-&lt;li&gt;直行マッチング追跡&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1&gt;バギングやその他のアンサンブル手法&lt;/h1&gt;
-&lt;p&gt;バギング(Bootstrap AGGregatING)はいくつかのモデルを組み合わせることで汎化誤差を
-減少させる手法である．
-モデル平均化と呼ばれる機械学習の一般的な手法や．
-アンサンブル手法などが含まれる？&lt;/p&gt;
-&lt;p&gt;(この辺りの関係はイマイチわかっていないので後で調べるかもしれない)&lt;/p&gt;
-&lt;p&gt;モデル平均化は汎化誤差を削減する手法としては極めて強力で信頼できるものである．&lt;/p&gt;
-&lt;h1&gt;ドロップアウト&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;ドロップアウトは最強である&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;ドロップアウトは大規模なニューラルネットワークに対して
-バギングを実用的に行う手法であると考えられる．
-具体的な手法はランダムに隠れユニットからの出力が0になる場所を作成する．
-そして，出力のないユニットが覗かれたランダムなモデルを含んだアンサンブル学習を
-近似的に行っていると見做すことができる．&lt;/p&gt;
-&lt;p&gt;ドロップアウトは重み減衰やスパース活動正則化といった標準的で
-計算コストの低い他の正則化手法より効果的であることが示されている．
-ただし，訓練事例がニューラルネットワークに用いる標準的な量と比して，
-極端に小さい場合はその限りではないという結果も得られている．&lt;/p&gt;
-&lt;p&gt;また，ドロップアウトを用いることで各隠れユニットは他の隠れユニットが
-どのようなものであろうとも性能を発揮できるように学習されるという利点もある．&lt;/p&gt;
-&lt;h1&gt;敵対的学習&lt;/h1&gt;
-&lt;p&gt;ニューラルネットワークは高い線型性を持っているため，入力値の小さな変化に対して
-大きく反応してしまうことがある．
-例えばパンダの画像にノイズを混ぜると，
-人間はその画像をただのパンダの画像としか認知できないが，
-元の画像ではパンダと認識できていた深層学習モデルはそれをテナガザルと推論することもある．
-この事例を逆手に取り，例えばノイズを加えた画像を訓練事例に含めていくことで
-誤り率を減少させることが可能である．&lt;/p&gt;
-&lt;h1&gt;接距離，接線伝播法，多様体接分類器&lt;/h1&gt;
-&lt;p&gt;次元の呪いを克服するため，機械学習の分野では多様体仮説を元に学習を行うことが多い．
-接距離アルゴリズムと接線伝播アルゴリズムはその仮説をそのままアルゴリズムに持ち込む．
-特に接線伝播法はデータ集合拡張や二重逆伝播法，敵対的学習などと関係する．&lt;/p&gt;
-&lt;h1&gt;まとめ&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;ドロップアウトと早期学習を組み合わせておけばなんかうまい感じによしなになりそうな説！&lt;/em&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
+&lt;/ul&gt;</content:encoded></item></channel></rss>
