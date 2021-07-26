@@ -1,4 +1,258 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 26 Jul 2021 15:44:34 GMT</lastBuildDate><item><title><![CDATA[GoでCLIのTODOリストを作成した時の振り返り]]></title><description><![CDATA[todo-cliを開発する上で良かった点などの振り返り]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-develop-toco-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-develop-toco-cliGoでCLIのTODOリストを作成した時の振り返り</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 26 Jul 2021 16:46:25 GMT</lastBuildDate><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;TODO管理ツールを作りました&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-1-0&quot;&gt;TODO管理はCLIでやりたい&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-2-0&quot;&gt;リマインダー機能が欲しい&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec1-3-0&quot;&gt;必要十分な機能が欲しい&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;インストール方法&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-1-0&quot;&gt;Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec2-2-0&quot;&gt;バイナリのダウンロード&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;使い方&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-1-0&quot;&gt;概要 (helpコマンド)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-2-0&quot;&gt;実際の使用感&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-0&quot;&gt;リマインダー&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-1&quot;&gt;macos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec3-3-2&quot;&gt;slack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sec4-0-0&quot;&gt;まとめ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;TODO管理ツールを作りました&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli&quot;&gt;https://github.com/dondakeshimo/todo-cli&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;todo-cliというTODO管理アプリを作りました。
+こちら、Go製になります。&lt;/p&gt;
+&lt;p&gt;モチベーションは大きく3つあり、以下それぞれについて述べていきます。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;TODO管理はCLIでやりたい&lt;/h2&gt;
+&lt;p&gt;TODOリストにタスクを加える行為は記憶容量を多少減らしてくれたり、作業再開の際にスムーズに導入できるようにといった目的だと思いますが、そのリターンに対して面倒臭さが勝ってしまうことが往々にしてありました。
+自分はキーボードで操作可能なものは全てキーボードで操作すべきという強迫観念にも似た信条を持っており、マウスやタッチパッドに手を伸ばすという行為はそれだけで多少の心象的ハードルを乗り越える必要があります。
+そのため、タスクの管理におけるコストを極力下げるためにはCLI操作でサッとタスクを残しておき、またその作業に戻った時にスッとタスクを手に取れるようになっていることが理想です。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;リマインダー機能が欲しい&lt;/h2&gt;
+&lt;p&gt;TODO管理をCLIで行うだけなら10は裕に超えるソフトウェアが検索に引っかかります。
+特に&lt;a href=&quot;https://github.com/todotxt/todo.txt-cli&quot;&gt;todotxt/todo.txt-cli&lt;/a&gt; はStar数が4.6k (2021/07/23時点) もありしっかりとしたコミュニティと様々な機能が提供されています。
+しかし、私が検索した中でリマインダー機能を外部アプリケーションと連携せず、独立で提供しているCLIツールは見つけられませんでした。
+(リマインダー機能がついたらそれはタスクリストではなくリマインダーでは？というツッコミを入れられた方は夜道にお気をつけください)。&lt;/p&gt;
+&lt;p&gt;TODOリストの本懐はコンテキストスイッチの量とコストを減らすことだと考えています。
+タスク管理を行う上で時間を気にしたり、タスクリストを思い出すといった作業は定期的にコンテキストスイッチが発生することに他なりません。
+余計なコンテキストスイッチが発生するのを防ぐためにリマンインダーは有効であると考えており、これを手軽に利用できるタスクリストがあると嬉しいと感じていました。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec1-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;必要十分な機能が欲しい&lt;/h2&gt;
+&lt;p&gt;その他、自分の欲しかった機能をあげていくと&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;優先度によるソート機能&lt;/li&gt;
+&lt;li&gt;グルーピング機能&lt;/li&gt;
+&lt;li&gt;タスクのエントリポイント(チケットのURLとか)に直接飛べる機能 &amp;#x3C;- 未実装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;あたりになります。一番下については自分も本当に欲しいのか半信半疑なのと、良いUXについて迷ったので未実装になっています。&lt;/p&gt;
+&lt;p&gt;上の二つの項目においては納得いただける方が多いのではないかと思いますし、リッチなタスクマネージャーを利用すれば大抵の場合該当機能は付属しています。
+問題となるのは、リッチなタスクマネージャーを利用した場合コマンドが多くてタスク管理のためのコンテキストスイッチが必要になりそうだった部分です。
+コンテキストスイッチを減らすための工夫でコンテキストスイッチが増えたら本末がすっ転んでしまいます。
+正直自分が作成した管理アプリがそこまでシンプルかと聞かれるとYESとは言い難い気もしますが、コマンド自体はシンプルなtodo管理アプリを参考に4つ程度に収めたのでわかりやすい方ではないかと思います。(自分で作ったので覚えられているだけかもしれませんが...)&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;インストール方法&lt;/h1&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Go&lt;/h2&gt;
+&lt;p&gt;Goをインストールしている方は &lt;code class=&quot;language-text&quot;&gt;go install&lt;/code&gt; するのが管理しやすくて良いと思います。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# Go 1.16+
+$ go install github.com/dondakeshimo/todo-cli/cmd/todo@latest
+
+# Go version &amp;lt; 1.16
+$ go get -u github.com/dondakeshimo/todo-cli/cmd/todo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Goのバイナリ置き場に &lt;code class=&quot;language-text&quot;&gt;PATH&lt;/code&gt; を通すことをお忘れなく。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ export PATH=$PATH:$(go env GOPATH)/bin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;sec2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;バイナリのダウンロード&lt;/h2&gt;
+&lt;p&gt;Goがインストールされていない環境をお使いの場合はバイナリの直接ダウンロードもできます。
+MacとUbuntuの環境でビルドしたものを用意しています。
+それ以外の環境の方はUbuntuのものでお祈りするか、Goをインストールの方お願いいたします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ TODO_VERSION=1.0.0
+
+$ curl -O https://github.com/dondakeshimo/todo-cli/releases/download/v${TODO_VERSION}/todo-${TODO_VERSION}.macos-10.15.tar.gz
+
+$ tar -xvf todo-${TODO_VERSION}.macos-10.15.tar.gz
+
+$ mv todo path/to/your/$PATH&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;使い方&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli&quot;&gt;https://github.com/dondakeshimo/todo-cli&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;に頑張って書いたので、ほとんどこれの転載になります。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;概要 (helpコマンド)&lt;/h2&gt;
+&lt;p&gt;こちらがtodo-cliのコマンドになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo --help
+Manage Your TODO
+
+Usage:
+  todo [command]
+
+Available Commands:
+  add         Add a task
+  close       Close tasks
+  completion  generate the autocompletion script for the specified shell
+  configure   Configure your todo-cli
+  help        Help about any command
+  list        List tasks
+  modify      Modify a task
+  notify      Notify a task (basicaly be used by system)
+
+Flags:
+  -h, --help   help for todo
+
+Use &quot;todo [command] --help&quot; for more information about a command.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;各コマンドのhelpも見られます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo modify -h
+Modify a task
+
+Usage:
+  todo modify [flags]
+
+Aliases:
+  modify, m
+
+Flags:
+  -g, --group string         task group. you can get filtered list by group.
+  -h, --help                 help for modify
+  -i, --id int               task&apos;s ID (default -1)
+  -p, --priority int         task&apos;s priority. Lower number means high priority. (default 100)
+  -d, --remind_time string   remind_time (2021/3/3 03:03, 2021/3/3, +2h3m, task-4h15m)
+  -r, --reminder string      choose reminder from [macos, slack]
+      --remove_reminder      remove reminder. this option overrides reminder option
+  -t, --task string          task contents&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;実際の使用感&lt;/h2&gt;
+&lt;p&gt;次に実際にどのように使用するかを見ていきます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo list
++----+--------------------------------+----------------+-------+----------+----------+
+| ID |              Task              |   RemindTime   | Group | Reminder | Priority |
++----+--------------------------------+----------------+-------+----------+----------+
+|  1 | deleting or modifying this     | 2099/1/1 00:00 |       |          |        0 |
+|    | task is your first TODO        |                |       |          |          |
++----+--------------------------------+----------------+-------+----------+----------+
+
+$ todo close -i=1
+
+$ todo l
++----+------+------------+-------+----------+----------+
+| ID | Task | RemindTime | Group | Reminder | Priority |
++----+------+------------+-------+----------+----------+
++----+------+------------+-------+----------+----------+
+
+$ todo add &quot;must task&quot; -d=&quot;2021/03/03 12:00&quot; -g=&quot;project x&quot; -r=slack -p=0
+
+$ todo l
++----+-----------+----------------+-----------+----------+----------+
+| ID |   Task    |   RemindTime   |   Group   | Reminder | Priority |
++----+-----------+----------------+-----------+----------+----------+
+|  1 | must task | 2021/3/3 12:00 | project x | slack    |        0 |
++----+-----------+----------------+-----------+----------+----------+
+
+$ todo a &quot;boring task&quot; -g=&quot;project x&quot;
+
+$ todo a &quot;important task&quot; -d=&quot;2022/01/01&quot; -p=50
+
+$ todo l
++----+----------------+----------------+-----------+----------+----------+
+| ID |      Task      |   RemindTime   |   Group   | Reminder | Priority |
++----+----------------+----------------+-----------+----------+----------+
+|  1 | must task      | 2021/3/3 12:00 | project x | slack    |        0 |
+|  2 | important task | 2022/1/1 00:00 |           |          |       50 |
+|  3 | boaring task   |                | project x |          |      100 |
++----+----------------+----------------+-----------+----------+----------+
+
+$ todo m -i=1 -t=&quot;should task&quot; -p=10
+
+$ todo l -g=&quot;project x&quot;
++----+--------------+----------------+-----------+----------+----------+
+| ID |     Task     |   RemindTime   |   Group   | Reminder | Priority |
++----+--------------+----------------+-----------+----------+----------+
+|  1 | should task  | 2021/3/3 12:00 | project x | slack    |       10 |
+|  3 | boaring task |                | project x |          |      100 |
++----+--------------+----------------+-----------+----------+----------+
+
+$ todo conf --hide_reminder=true --show_config
+columnwidth: 30
+hidegroup: false
+hidepriority: false
+hidereminder: true
+slackmentionto: XXXXXXXXXX
+slackwebhookurl: https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXX
+taskfilepath: /home/dondakeshimo/.local/share/todo/todo.json
+
+$ todo l
++----+----------------+----------------+-----------+----------+
+| ID |      Task      |   RemindTime   |   Group   | Priority |
++----+----------------+----------------+-----------+----------+
+|  1 | should task    | 2021/3/3 12:00 | project x |       10 |
+|  2 | important task | 2022/1/1 00:00 |           |       50 |
+|  3 | boaring task   |                | project x |      100 |
++----+----------------+----------------+-----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;使用感はこんな感じになります。&lt;/p&gt;
+&lt;p&gt;configのところで察された方もいるかもしれませんが、全ての情報をファイルで持っています。
+短期間のTODO管理に堅牢な永続化は不要ですし、トランザクションや競合もユーザが一人想定なので不要です。
+ファイルで十分だったのでそのように実装したのですが、副次的にファイルを管理することで複数のTODO管理を切り替えたり、新しい環境にTODOリストを引き継ぐことが可能になりました。(私はそのようなことはしないと思いますが)&lt;/p&gt;
+&lt;p&gt;後はそうですね、上記の例で見せられていない部分としてcloseする際のidは複数選択可能です。 &lt;code class=&quot;language-text&quot;&gt;-id 1,2,3,4&lt;/code&gt; のように指定できます。
+また、 &lt;code class=&quot;language-text&quot;&gt;-d&lt;/code&gt; オプションは相対時間で指定することが可能になっています。これは後述するリマインダーの使用方法で使っています。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;リマインダー&lt;/h2&gt;
+&lt;p&gt;実装に大いに苦しめられましたが、使用者からしたら開発者の苦労話など基本的にどうでも良いと思うので別記事にまとめます。&lt;/p&gt;
+&lt;p&gt;リマインダーは2種類用意しています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;macos&lt;/li&gt;
+&lt;li&gt;slack&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;名前の通りmacosはMacでのみ利用可能です。Slackは事前に設定が必要になりますが、linux環境できます。
+Windows環境については未対応になります(私がWindowsで開発を行わないため、しばらく対応されないと思います)。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;macos&lt;/h3&gt;
+&lt;p&gt;macosはシステムのポップアップを用いたリマインダー機能になります。
+リマインダーの名前は &lt;code class=&quot;language-text&quot;&gt;macos&lt;/code&gt; となっています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo a &quot;remind me this task&quot; -r=macos -d=+1m
+
+$ todo l
++----+---------------------+-----------------+-------+----------+----------+
+| ID |        Task         |   RemindTime    | Group | Reminder | Priority |
++----+---------------------+-----------------+-------+----------+----------+
+|  1 | remind me this task | 2021/3/3 01:01  |       | macos    |      100 |
++----+---------------------+-----------------+-------+----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上記のようにタスクを登録すれば、1分後に下記のような通知を受け取れます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/23194960/126190791-be2dae4a-5e56-4e59-8151-a6d88e48f0e9.png&quot; alt=&quot;notification&quot;&gt;&lt;/p&gt;
+&lt;p&gt;doneボタンを押すとタスクは自動的にクローズされて、skipを押すと特に何もしません。
+当初は何分後に再通知するみたいなボタンを足そうかと考えていた気がするのですが、疲れた時期に実装していた箇所であることと、結局あったところで自分は使わないなと思い未実装です。&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec3-3-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;slack&lt;/h3&gt;
+&lt;p&gt;Slackを用いたリマインダーを利用するためには事前に設定が必要になります。
+&lt;a href=&quot;https://slack.com/intl/ja-jp/help/articles/115005265063-Slack-%E3%81%A7%E3%81%AE-Incoming-Webhook-%E3%81%AE%E5%88%A9%E7%94%A8&quot;&gt;Slack での Incoming Webhook の利用&lt;/a&gt; を参考にIncoming Webhookを通知させたいSlackのworkspaceに導入したいただく必要があります。
+こちらで設定した際に得られるWebhook URLと、workspaceにおける自分のmember IDをtodo-cliに設定します。
+設定コマンドは下記の通りになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo conf --slack_webhook_url=&quot;https://hooks.slack.com/services/XXXXXXXX/XXXXXXXX&quot; --slack_mention_to=XXXXXXXXXX&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;それでは &lt;code class=&quot;language-text&quot;&gt;-r slack&lt;/code&gt; オプションを使ってタスクを追加します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo a &quot;remind me this task in slack\!&quot; -r=slack -d=+1m
+
+$ todo l
++----+-------------------------------+-----------------+-------+----------+----------+
+| ID |             Task              |   RemindTime    | Group | Reminder | Priority |
++----+-------------------------------+-----------------+-------+----------+----------+
+|  1 | remind me this task in slack! | 2021/7/20 01:11 |       | slack    |      100 |
++----+-------------------------------+-----------------+-------+----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;1分後に下図のような通知がslackに届いていると思います。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/23194960/126192217-cee8469b-b917-4770-ab76-f604556bd3e2.png&quot; alt=&quot;notification in slack&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&quot;sec4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;本記事ではtodo-cliを作成した理由と使用方法の紹介を行いました。
+是非使用の検討をしていただければと思います。&lt;/p&gt;
+&lt;p&gt;開発における工夫した点や学び気づきなどは別記事を書こうと思うのでそちらも見ていただければ幸いです。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GoでCLIのTODOリストを作成した時の振り返り]]></title><description><![CDATA[todo-cliを開発する上で良かった点などの振り返り]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-develop-toco-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-develop-toco-cliGoでCLIのTODOリストを作成した時の振り返り</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;開発管理や開発ルール&lt;/a&gt;&lt;/p&gt;
@@ -133,24 +387,24 @@ Releasesの作成についてはそれなりに苦闘したので、&lt;a href=&
 ├── Makefile
 ├── README.md
 ├── cmd
-│   └── todo
-│       └── main.go
+│   └── todo
+│       └── main.go
 ├── go.mod
 ├── go.sum
 ├── pkg
-│   ├── commands
-│   ├── domain
-│   │   ├── notifier
-│   │   ├── scheduler
-│   │   └── task
-│   ├── gateways
-│   │   └── json
-│   └── usecases
+│   ├── commands
+│   ├── domain
+│   │   ├── notifier
+│   │   ├── scheduler
+│   │   └── task
+│   ├── gateways
+│   │   └── json
+│   └── usecases
 ├── scripts
-│   └── uninstall.sh
+│   └── uninstall.sh
 └── test
-    └── scenario
-        └── crud_test.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    └── scenario
+        └── crud_test.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;pkg&lt;/code&gt; の中のディレクトリはそのままパッケージ名となります。
 こちらは次節にて詳しく述べる予定ですが、クリーンアーキテクチャのレイヤ名を随所に使用しています。&lt;/p&gt;
 &lt;p&gt;&lt;a id=&quot;sec2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -240,7 +494,7 @@ lint: ## check lint, format
 
 .PHONY: help
 help: ## DIsplay this help screen
-	@grep -E &amp;#39;^[a-zA-Z_-]+:.*?## .*$$&amp;#39; $(MAKEFILE_LIST) | awk &amp;#39;BEGIN {FS = &amp;quot;:.*?## &amp;quot;}; {printf &amp;quot;\033[36m%-20s\033[0m %s\n&amp;quot;, $$1, $$2}&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+	@grep -E &apos;^[a-zA-Z_-]+:.*?## .*$$&apos; $(MAKEFILE_LIST) | awk &apos;BEGIN {FS = &quot;:.*?## &quot;}; {printf &quot;\033[36m%-20s\033[0m %s\n&quot;, $$1, $$2}&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;プロジェクトの最初期から置いておくと良いと思います。最初期は &lt;code class=&quot;language-text&quot;&gt;go run&lt;/code&gt; とかを結局たくさん使いますが...&lt;/p&gt;
 &lt;p&gt;&lt;a id=&quot;sec3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Value Object&lt;/h2&gt;
@@ -331,7 +585,7 @@ root権限をアプリケーションに与える方針はユーザビリティ�
 &lt;p&gt;&lt;a id=&quot;sec3-9-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;ossascript&lt;/h3&gt;
 &lt;p&gt;遊んでもらえれば楽しいと思うのですが、&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;osascript -e &amp;#39;display notification &amp;quot;通知したいメッセージ&amp;quot;&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;osascript -e &apos;display notification &quot;通知したいメッセージ&quot;&apos;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;とターミナルで打っていただければ通知センターにメッセージが届きます。
 似たような方法で、&lt;a href=&quot;https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html#//apple_ref/doc/uid/TP40000983-CH216-SW12&quot;&gt;色々な制御ができる&lt;/a&gt; のでこれらを用いてポップアップ通知を実現しています。&lt;/p&gt;
 &lt;p&gt;実装としては &lt;code class=&quot;language-text&quot;&gt;os/exec&lt;/code&gt; によって外部コマンドを呼び出す形になっています。&lt;/p&gt;
@@ -344,261 +598,7 @@ LINEラブな方のためにLINE Botインタフェースを用意するとか�
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;GoでCLIを作るのは非常に楽しかったです。cobraというフレームワークが最高です。kubectlとかを参考にできたところも良かったですね。
 開発途中でドメイン駆動設計やクリーンアーキテクチャについて勉強していたので、プロトタイプからどんどん設計周りの改善案が出てきたというのも面白かったポイントです。&lt;/p&gt;
-&lt;p&gt;今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;TODO管理ツールを作りました&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#sec1-1-0&quot;&gt;TODO管理はCLIでやりたい&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec1-2-0&quot;&gt;リマインダー機能が欲しい&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec1-3-0&quot;&gt;必要十分な機能が欲しい&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;#sec2-0-0&quot;&gt;インストール方法&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#sec2-1-0&quot;&gt;Go&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec2-2-0&quot;&gt;バイナリのダウンロード&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;#sec3-0-0&quot;&gt;使い方&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#sec3-1-0&quot;&gt;概要 (helpコマンド)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec3-2-0&quot;&gt;実際の使用感&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec3-3-0&quot;&gt;リマインダー&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec3-3-1&quot;&gt;macos&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec3-3-2&quot;&gt;slack&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sec4-0-0&quot;&gt;まとめ&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;a id=&quot;sec1-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h1&gt;TODO管理ツールを作りました&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli&quot;&gt;https://github.com/dondakeshimo/todo-cli&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;todo-cliというTODO管理アプリを作りました。
-こちら、Go製になります。&lt;/p&gt;
-&lt;p&gt;モチベーションは大きく3つあり、以下それぞれについて述べていきます。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec1-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;TODO管理はCLIでやりたい&lt;/h2&gt;
-&lt;p&gt;TODOリストにタスクを加える行為は記憶容量を多少減らしてくれたり、作業再開の際にスムーズに導入できるようにといった目的だと思いますが、そのリターンに対して面倒臭さが勝ってしまうことが往々にしてありました。
-自分はキーボードで操作可能なものは全てキーボードで操作すべきという強迫観念にも似た信条を持っており、マウスやタッチパッドに手を伸ばすという行為はそれだけで多少の心象的ハードルを乗り越える必要があります。
-そのため、タスクの管理におけるコストを極力下げるためにはCLI操作でサッとタスクを残しておき、またその作業に戻った時にスッとタスクを手に取れるようになっていることが理想です。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec1-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;リマインダー機能が欲しい&lt;/h2&gt;
-&lt;p&gt;TODO管理をCLIで行うだけなら10は裕に超えるソフトウェアが検索に引っかかります。
-特に&lt;a href=&quot;https://github.com/todotxt/todo.txt-cli&quot;&gt;todotxt/todo.txt-cli&lt;/a&gt; はStar数が4.6k (2021/07/23時点) もありしっかりとしたコミュニティと様々な機能が提供されています。
-しかし、私が検索した中でリマインダー機能を外部アプリケーションと連携せず、独立で提供しているCLIツールは見つけられませんでした。
-(リマインダー機能がついたらそれはタスクリストではなくリマインダーでは？というツッコミを入れられた方は夜道にお気をつけください)。&lt;/p&gt;
-&lt;p&gt;TODOリストの本懐はコンテキストスイッチの量とコストを減らすことだと考えています。
-タスク管理を行う上で時間を気にしたり、タスクリストを思い出すといった作業は定期的にコンテキストスイッチが発生することに他なりません。
-余計なコンテキストスイッチが発生するのを防ぐためにリマンインダーは有効であると考えており、これを手軽に利用できるタスクリストがあると嬉しいと感じていました。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec1-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;必要十分な機能が欲しい&lt;/h2&gt;
-&lt;p&gt;その他、自分の欲しかった機能をあげていくと&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;優先度によるソート機能&lt;/li&gt;
-&lt;li&gt;グルーピング機能&lt;/li&gt;
-&lt;li&gt;タスクのエントリポイント(チケットのURLとか)に直接飛べる機能 &amp;#x3C;- 未実装&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;あたりになります。一番下については自分も本当に欲しいのか半信半疑なのと、良いUXについて迷ったので未実装になっています。&lt;/p&gt;
-&lt;p&gt;上の二つの項目においては納得いただける方が多いのではないかと思いますし、リッチなタスクマネージャーを利用すれば大抵の場合該当機能は付属しています。
-問題となるのは、リッチなタスクマネージャーを利用した場合コマンドが多くてタスク管理のためのコンテキストスイッチが必要になりそうだった部分です。
-コンテキストスイッチを減らすための工夫でコンテキストスイッチが増えたら本末がすっ転んでしまいます。
-正直自分が作成した管理アプリがそこまでシンプルかと聞かれるとYESとは言い難い気もしますが、コマンド自体はシンプルなtodo管理アプリを参考に4つ程度に収めたのでわかりやすい方ではないかと思います。(自分で作ったので覚えられているだけかもしれませんが...)&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec2-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h1&gt;インストール方法&lt;/h1&gt;
-&lt;p&gt;&lt;a id=&quot;sec2-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Go&lt;/h2&gt;
-&lt;p&gt;Goをインストールしている方は &lt;code class=&quot;language-text&quot;&gt;go install&lt;/code&gt; するのが管理しやすくて良いと思います。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;# Go 1.16+
-$ go install github.com/dondakeshimo/todo-cli/cmd/todo@latest
-
-# Go version &amp;lt; 1.16
-$ go get -u github.com/dondakeshimo/todo-cli/cmd/todo&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Goのバイナリ置き場に &lt;code class=&quot;language-text&quot;&gt;PATH&lt;/code&gt; を通すことをお忘れなく。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ export PATH=$PATH:$(go env GOPATH)/bin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a id=&quot;sec2-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;バイナリのダウンロード&lt;/h2&gt;
-&lt;p&gt;Goがインストールされていない環境をお使いの場合はバイナリの直接ダウンロードもできます。
-MacとUbuntuの環境でビルドしたものを用意しています。
-それ以外の環境の方はUbuntuのものでお祈りするか、Goをインストールの方お願いいたします。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ TODO_VERSION=1.0.0
-
-$ curl -O https://github.com/dondakeshimo/todo-cli/releases/download/v${TODO_VERSION}/todo-${TODO_VERSION}.macos-10.15.tar.gz
-
-$ tar -xvf todo-${TODO_VERSION}.macos-10.15.tar.gz
-
-$ mv todo path/to/your/$PATH&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h1&gt;使い方&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/dondakeshimo/todo-cli&quot;&gt;https://github.com/dondakeshimo/todo-cli&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;に頑張って書いたので、ほとんどこれの転載になります。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-1-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;概要 (helpコマンド)&lt;/h2&gt;
-&lt;p&gt;こちらがtodo-cliのコマンドになります。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo --help
-Manage Your TODO
-
-Usage:
-  todo [command]
-
-Available Commands:
-  add         Add a task
-  close       Close tasks
-  completion  generate the autocompletion script for the specified shell
-  configure   Configure your todo-cli
-  help        Help about any command
-  list        List tasks
-  modify      Modify a task
-  notify      Notify a task (basicaly be used by system)
-
-Flags:
-  -h, --help   help for todo
-
-Use &amp;quot;todo [command] --help&amp;quot; for more information about a command.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;各コマンドのhelpも見られます。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo modify -h
-Modify a task
-
-Usage:
-  todo modify [flags]
-
-Aliases:
-  modify, m
-
-Flags:
-  -g, --group string         task group. you can get filtered list by group.
-  -h, --help                 help for modify
-  -i, --id int               task&amp;#39;s ID (default -1)
-  -p, --priority int         task&amp;#39;s priority. Lower number means high priority. (default 100)
-  -d, --remind_time string   remind_time (2021/3/3 03:03, 2021/3/3, +2h3m, task-4h15m)
-  -r, --reminder string      choose reminder from [macos, slack]
-      --remove_reminder      remove reminder. this option overrides reminder option
-  -t, --task string          task contents&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-2-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;実際の使用感&lt;/h2&gt;
-&lt;p&gt;次に実際にどのように使用するかを見ていきます。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo list
-+----+--------------------------------+----------------+-------+----------+----------+
-| ID |              Task              |   RemindTime   | Group | Reminder | Priority |
-+----+--------------------------------+----------------+-------+----------+----------+
-|  1 | deleting or modifying this     | 2099/1/1 00:00 |       |          |        0 |
-|    | task is your first TODO        |                |       |          |          |
-+----+--------------------------------+----------------+-------+----------+----------+
-
-$ todo close -i=1
-
-$ todo l
-+----+------+------------+-------+----------+----------+
-| ID | Task | RemindTime | Group | Reminder | Priority |
-+----+------+------------+-------+----------+----------+
-+----+------+------------+-------+----------+----------+
-
-$ todo add &amp;quot;must task&amp;quot; -d=&amp;quot;2021/03/03 12:00&amp;quot; -g=&amp;quot;project x&amp;quot; -r=slack -p=0
-
-$ todo l
-+----+-----------+----------------+-----------+----------+----------+
-| ID |   Task    |   RemindTime   |   Group   | Reminder | Priority |
-+----+-----------+----------------+-----------+----------+----------+
-|  1 | must task | 2021/3/3 12:00 | project x | slack    |        0 |
-+----+-----------+----------------+-----------+----------+----------+
-
-$ todo a &amp;quot;boring task&amp;quot; -g=&amp;quot;project x&amp;quot;
-
-$ todo a &amp;quot;important task&amp;quot; -d=&amp;quot;2022/01/01&amp;quot; -p=50
-
-$ todo l
-+----+----------------+----------------+-----------+----------+----------+
-| ID |      Task      |   RemindTime   |   Group   | Reminder | Priority |
-+----+----------------+----------------+-----------+----------+----------+
-|  1 | must task      | 2021/3/3 12:00 | project x | slack    |        0 |
-|  2 | important task | 2022/1/1 00:00 |           |          |       50 |
-|  3 | boaring task   |                | project x |          |      100 |
-+----+----------------+----------------+-----------+----------+----------+
-
-$ todo m -i=1 -t=&amp;quot;should task&amp;quot; -p=10
-
-$ todo l -g=&amp;quot;project x&amp;quot;
-+----+--------------+----------------+-----------+----------+----------+
-| ID |     Task     |   RemindTime   |   Group   | Reminder | Priority |
-+----+--------------+----------------+-----------+----------+----------+
-|  1 | should task  | 2021/3/3 12:00 | project x | slack    |       10 |
-|  3 | boaring task |                | project x |          |      100 |
-+----+--------------+----------------+-----------+----------+----------+
-
-$ todo conf --hide_reminder=true --show_config
-columnwidth: 30
-hidegroup: false
-hidepriority: false
-hidereminder: true
-slackmentionto: XXXXXXXXXX
-slackwebhookurl: https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXX
-taskfilepath: /home/dondakeshimo/.local/share/todo/todo.json
-
-$ todo l
-+----+----------------+----------------+-----------+----------+
-| ID |      Task      |   RemindTime   |   Group   | Priority |
-+----+----------------+----------------+-----------+----------+
-|  1 | should task    | 2021/3/3 12:00 | project x |       10 |
-|  2 | important task | 2022/1/1 00:00 |           |       50 |
-|  3 | boaring task   |                | project x |      100 |
-+----+----------------+----------------+-----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;使用感はこんな感じになります。&lt;/p&gt;
-&lt;p&gt;configのところで察された方もいるかもしれませんが、全ての情報をファイルで持っています。
-短期間のTODO管理に堅牢な永続化は不要ですし、トランザクションや競合もユーザが一人想定なので不要です。
-ファイルで十分だったのでそのように実装したのですが、副次的にファイルを管理することで複数のTODO管理を切り替えたり、新しい環境にTODOリストを引き継ぐことが可能になりました。(私はそのようなことはしないと思いますが)&lt;/p&gt;
-&lt;p&gt;後はそうですね、上記の例で見せられていない部分としてcloseする際のidは複数選択可能です。 &lt;code class=&quot;language-text&quot;&gt;-id 1,2,3,4&lt;/code&gt; のように指定できます。
-また、 &lt;code class=&quot;language-text&quot;&gt;-d&lt;/code&gt; オプションは相対時間で指定することが可能になっています。これは後述するリマインダーの使用方法で使っています。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-3-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;リマインダー&lt;/h2&gt;
-&lt;p&gt;実装に大いに苦しめられましたが、使用者からしたら開発者の苦労話など基本的にどうでも良いと思うので別記事にまとめます。&lt;/p&gt;
-&lt;p&gt;リマインダーは2種類用意しています。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;macos&lt;/li&gt;
-&lt;li&gt;slack&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;名前の通りmacosはMacでのみ利用可能です。Slackは事前に設定が必要になりますが、linux環境できます。
-Windows環境については未対応になります(私がWindowsで開発を行わないため、しばらく対応されないと思います)。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-3-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;macos&lt;/h3&gt;
-&lt;p&gt;macosはシステムのポップアップを用いたリマインダー機能になります。
-リマインダーの名前は &lt;code class=&quot;language-text&quot;&gt;macos&lt;/code&gt; となっています。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo a &amp;quot;remind me this task&amp;quot; -r=macos -d=+1m
-
-$ todo l
-+----+---------------------+-----------------+-------+----------+----------+
-| ID |        Task         |   RemindTime    | Group | Reminder | Priority |
-+----+---------------------+-----------------+-------+----------+----------+
-|  1 | remind me this task | 2021/3/3 01:01  |       | macos    |      100 |
-+----+---------------------+-----------------+-------+----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;上記のようにタスクを登録すれば、1分後に下記のような通知を受け取れます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/23194960/126190791-be2dae4a-5e56-4e59-8151-a6d88e48f0e9.png&quot; alt=&quot;notification&quot;&gt;&lt;/p&gt;
-&lt;p&gt;doneボタンを押すとタスクは自動的にクローズされて、skipを押すと特に何もしません。
-当初は何分後に再通知するみたいなボタンを足そうかと考えていた気がするのですが、疲れた時期に実装していた箇所であることと、結局あったところで自分は使わないなと思い未実装です。&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec3-3-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;slack&lt;/h3&gt;
-&lt;p&gt;Slackを用いたリマインダーを利用するためには事前に設定が必要になります。
-&lt;a href=&quot;https://slack.com/intl/ja-jp/help/articles/115005265063-Slack-%E3%81%A7%E3%81%AE-Incoming-Webhook-%E3%81%AE%E5%88%A9%E7%94%A8&quot;&gt;Slack での Incoming Webhook の利用&lt;/a&gt; を参考にIncoming Webhookを通知させたいSlackのworkspaceに導入したいただく必要があります。
-こちらで設定した際に得られるWebhook URLと、workspaceにおける自分のmember IDをtodo-cliに設定します。
-設定コマンドは下記の通りになります。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo conf --slack_webhook_url=&amp;quot;https://hooks.slack.com/services/XXXXXXXX/XXXXXXXX&amp;quot; --slack_mention_to=XXXXXXXXXX&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;それでは &lt;code class=&quot;language-text&quot;&gt;-r slack&lt;/code&gt; オプションを使ってタスクを追加します。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ todo a &amp;quot;remind me this task in slack\!&amp;quot; -r=slack -d=+1m
-
-$ todo l
-+----+-------------------------------+-----------------+-------+----------+----------+
-| ID |             Task              |   RemindTime    | Group | Reminder | Priority |
-+----+-------------------------------+-----------------+-------+----------+----------+
-|  1 | remind me this task in slack! | 2021/7/20 01:11 |       | slack    |      100 |
-+----+-------------------------------+-----------------+-------+----------+----------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;1分後に下図のような通知がslackに届いていると思います。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/23194960/126192217-cee8469b-b917-4770-ab76-f604556bd3e2.png&quot; alt=&quot;notification in slack&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a id=&quot;sec4-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h1&gt;まとめ&lt;/h1&gt;
-&lt;p&gt;本記事ではtodo-cliを作成した理由と使用方法の紹介を行いました。
-是非使用の検討をしていただければと思います。&lt;/p&gt;
-&lt;p&gt;開発における工夫した点や学び気づきなどは別記事を書こうと思うのでそちらも見ていただければ幸いです。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[クリーンアーキテクチャをまとめる]]></title><description><![CDATA[クリーンアーキテクチャを読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/clean-architecture-uncle-bobクリーンアーキテクチャをまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;p&gt;今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[クリーンアーキテクチャをまとめる]]></title><description><![CDATA[クリーンアーキテクチャを読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/clean-architecture-uncle-bobクリーンアーキテクチャをまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -722,7 +722,7 @@ S型のオブジェクトの代わりにT型のオブジェクトを使用して
 直接依存してしまうと、密結合が生まれてしまいコンパイルの時間が伸び、障害に対してロバストでなくなる。&lt;/p&gt;
 &lt;p&gt;&lt;a id=&quot;sec2-2-5&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;依存関係逆転の原則 (DIP: Dependency Inversion Principle)&lt;/h3&gt;
-&lt;p&gt;コードの変化のしやすさを考えると、 &lt;code class=&quot;language-text&quot;&gt;具象クラス &amp;gt; 抽象クラス &amp;gt; インタフェース&lt;/code&gt; となる、なるべきである。
+&lt;p&gt;コードの変化のしやすさを考えると、 &lt;code class=&quot;language-text&quot;&gt;具象クラス &gt; 抽象クラス &gt; インタフェース&lt;/code&gt; となる、なるべきである。
 そのため、具象クラスへの依存は可能な限り減らす、参照、継承、オーバーライドどれも御法度である。
 具象インスタンスの作成をする際は &lt;strong&gt;Abstract Factoryパターン&lt;/strong&gt; を利用することで、直接具象を参照しなくてもよくなる。
 このように具象への参照を忌避していくと、最終的には全ての具象を扱う関数が唯一存在することとなり、
@@ -867,11 +867,11 @@ CPRとREPのみを守ると変更すべきコンポーネントが増大する�
 &lt;p&gt;&lt;figure class=&quot;gatsby-resp-image-figure&quot; style=&quot;&quot;&gt;
     &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 772px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 772px; &quot;
     &gt;
       &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 73.6%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAB6eycmog1/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAECIRH/2gAIAQEAAQUCdMVHSsJwl5//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAVEAEBAAAAAAAAAAAAAAAAAAAgIf/aAAgBAQAGPwKL/8QAGhAAAgMBAQAAAAAAAAAAAAAAAAERIUExgf/aAAgBAQABPyEhW2W4mWym/DRtklnp/9oADAMBAAIAAwAAABBsz//EABgRAAIDAAAAAAAAAAAAAAAAAAABIaGx/9oACAEDAQE/ENocH//EABcRAAMBAAAAAAAAAAAAAAAAABARIWH/2gAIAQIBAT8Qrwf/xAAbEAEAAwEBAQEAAAAAAAAAAAABABEhMUFRYf/aAAgBAQABPxBSgvaA6/WMGtgsT0jggIV2C2sCX02EJs4A+fsRFFt2f//Z&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 73.6%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIQAxAAAAHSaTk1EGv/xAAZEAADAQEBAAAAAAAAAAAAAAAAAQIhEDH/2gAIAQEAAQUCdCfKwnCfP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABUQAQEAAAAAAAAAAAAAAAAAACAh/9oACAEBAAY/Aov/xAAbEAADAAIDAAAAAAAAAAAAAAAAAREhQTGB0f/aAAgBAQABPyFj8C9qlvCZlqvRsbY1yP/aAAwDAQACAAMAAAAQ/M//xAAYEQACAwAAAAAAAAAAAAAAAAAAASGhsf/aAAgBAwEBPxDaHB//xAAXEQADAQAAAAAAAAAAAAAAAAAQESFh/9oACAECAQE/EK8H/8QAGxABAAMAAwEAAAAAAAAAAAAAAQARITFRYUH/2gAIAQEAAT8QaQeBye2VnQaJ9I5ICBvkXmBOzYQli4A8HsWxK28z/9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1769,14 +1769,14 @@ tagやReleaseの発行は外部Actionを使用しており、正直どこまで�
 &lt;p&gt;&lt;a id=&quot;sec1-1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Iterator&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; arr&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;arr&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;arr&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;上記のような基本的なループは集合体のスキャンを行っている。
 上記において一時変数 &lt;code class=&quot;language-text&quot;&gt;i&lt;/code&gt; の働きを抽象化し、一般化したものをIteratorパターンと呼ぶ。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;Iterator&lt;/span&gt; it &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;SampleAggregate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;iterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;it&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;hasNext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token class-name&quot;&gt;Sample&lt;/span&gt; sample &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;it&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;sample&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;sample&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Iteratorインタフェースによって終了条件と「次」の要素の抽出を抽象化している。
 このことで、Sampleクラスの実装とスキャンを独立させることができている。
@@ -1831,7 +1831,7 @@ finalメソッド内のロジックはどのサブクラスをインスタンス
 &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt; framework&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;framework&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Factory&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; owner&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1862,7 +1862,7 @@ finalメソッド内のロジックはどのサブクラスをインスタンス
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Singleton&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Singleton&lt;/span&gt; singleton &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Singleton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Singleton&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;インスタンスを生成しました。&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;インスタンスを生成しました。&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Singleton&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; singleton&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -1951,7 +1951,7 @@ Abstract Factoryパターンは複数の製品群を組み合わせるパター�
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;のようにクラス名をStringで渡してインスタンスを生成できるようにしておくとよい。&lt;/p&gt;
 &lt;p&gt;これらを踏まえた上でMain関数は下記のようになる。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; factory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;*&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;factory&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Main&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -2104,8 +2104,8 @@ ConcreteColleagueクラスにより実装される。
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Observer&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Subject&lt;/span&gt; subject&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;util&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;util&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Iterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;util&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Iterator&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Subject&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt; observers &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -2490,7 +2490,7 @@ CIビルドジョブを分割し、ソースコードリポジトリを分割し
 &lt;h3&gt;テストの種類&lt;/h3&gt;
 &lt;h5&gt;Maricの4象限&lt;/h5&gt;
 &lt;p&gt;Marickの4象限の派生系というものがある。
-図を書くのが面倒なので、言葉で記載すが、4象限なので軸が二つあり、それぞれ &lt;code class=&quot;language-text&quot;&gt;ビジネス &amp;lt;-&amp;gt; 技術&lt;/code&gt; , &lt;code class=&quot;language-text&quot;&gt;プログラミングのサポートの大小&lt;/code&gt; である。&lt;/p&gt;
+図を書くのが面倒なので、言葉で記載すが、4象限なので軸が二つあり、それぞれ &lt;code class=&quot;language-text&quot;&gt;ビジネス &amp;lt;-&gt; 技術&lt;/code&gt; , &lt;code class=&quot;language-text&quot;&gt;プログラミングのサポートの大小&lt;/code&gt; である。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ビジネス、プログラミングのサポート小: 探索的テスト&lt;/li&gt;
 &lt;li&gt;ビジネス、プログラミングのサポート大: 受け入れテスト&lt;/li&gt;
@@ -2807,7 +2807,7 @@ C++初学者であった私にこの書籍はあまりに難しく当時は挫�
 &lt;p&gt;型推論を行う代表的な場面がテンプレートを使用した場合とautoを宣言した場合となる。
 テンプレートとautoの型推論は基本的に同じものであるため、
 まずはテンプレートを例にとってどの様な型推論が行われるか理解する。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ParamType param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;expr&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -2854,13 +2854,13 @@ C++初学者であった私にこの書籍はあまりに難しく当時は挫�
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; v&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// decltype(v) is vector&amp;lt;int&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;使用用途として戻り型が仮引数の型により決定される関数テンプレートの宣言が挙げられる。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// c++11 version&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Index&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;// c++14 version&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Index&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -2868,15 +2868,15 @@ C++初学者であった私にこの書籍はあまりに難しく当時は挫�
 上記の例は改良の余地があり、一つは右辺値を受け付ける必要があること、
 もう一つは返り値を必要なら右辺値にする方が効率が良いことだ。それらを反映させると&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// c++11 version&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Index&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;// c++14 version&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; Index&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Index&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sampleContainerAccesser&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Index i&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Container&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;std::forwardについては後続の説明に記載予定。&lt;/p&gt;
 &lt;h5&gt;decltypeの注意点&lt;/h5&gt;
@@ -2922,10 +2922,10 @@ std::shared_ptrはreference countから地震がそのリソースを指す最�
 &lt;p&gt;std::shared_ptrもstd::unique_ptrと同様にカスタムデリータを指定できる。
 これら二つのカスタムデリータを指定したスマートポインタは型にデリータを含むかどうかで差異が存在する。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// deleter type is part of ptr type&lt;/span&gt;
-std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;upw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;decltype&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;upw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;// deleter type is not part of ptr type&lt;/span&gt;
-std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;spw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Widget&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;spw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; Widget&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; loggingDel&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;これらはポインタの取り回しの柔軟性にも差異を与える。
 例えばコンテナ型に上記のポインタを代入することを考えると、
 std::unique_ptrは全て同一のカスタムデリータを指定しない限りコンテナにまとめることができないが、
@@ -2973,9 +2973,9 @@ std::weak_ptrのコンストラクタにstd::shared_ptrを作成した時点か�
 &lt;h4&gt;newの可能な範囲での撲滅&lt;/h4&gt;
 &lt;p&gt;newを回避するためにstd::make_uniqueとstd::make_sharedを積極的に使用する。
 ただし、std::make_uniqueについてはC++14以降に追加された関数のため、以下に実装例を記す。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;make_unique&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;make_unique&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;unique_ptr&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;std namespaceに上記関数を置いた場合、C++14にアップグレードした際に衝突するため注意。&lt;/p&gt;
 &lt;p&gt;newの直接使用と比較してmake関数はソースコードの重複を避け、例外安全性を向上できる。
@@ -3001,10 +3001,10 @@ Widget&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&g
 
 &lt;span class=&quot;token keyword&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; var2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; var1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;              &lt;span class=&quot;token comment&quot;&gt;// universal reference&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// rvalue reference&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// rvalue reference&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; T&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;T&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;               &lt;span class=&quot;token comment&quot;&gt;// universal reference&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;上記のコードから察せられるように「T&amp;#x26;&amp;#x26;」には二つの意味がある。
 一つは右辺値参照であり、もう一つは右辺値参照か左辺値参照のどちらか一方を表すことである。
@@ -3057,7 +3057,7 @@ RVOとは値戻しの関数において下記条件を満たした際にコピ�
 使用例としては下記のようになる。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;fwd&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;forward&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Ts&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;完全転送はほとんどの場合意図通りに動作するが、まれに完全でない部分が露見する。
 条例の目的関数fと転送関数fwdでは、同じ実引数に対する両者の動作が異なると完全転送できない。&lt;/p&gt;
@@ -3101,9 +3101,9 @@ Widget &lt;span class=&quot;token function&quot;&gt;w2&lt;/span&gt;&lt;span clas
 解決されてしまうことである。
 これは混乱を生む場合がある。&lt;/p&gt;
 &lt;p&gt;丸括弧と波括弧の選択が生む差異の例としては下記のようなものもある。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [5, 5, 5]&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [5, 5, 5]&lt;/span&gt;
 
-std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [3, 5]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;vector&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; v2&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// [3, 5]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;結局波括弧ではないと初期化できないものがある一方、丸括弧を用いないと混乱を招く初期化もあり、
 どちらの方を使うべきということはない。
 開発ルールを定めることが肝要である。&lt;/p&gt;
@@ -3122,14 +3122,14 @@ std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;vector&lt;span cl
 &lt;p&gt;&lt;a id=&quot;sec33&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;エイリアス宣言&lt;/h4&gt;
 &lt;p&gt;長ったらしい型宣言を簡略化する際のtypedefの上位互換としてエイリアス宣言が実装された。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; UPtrMapSS&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;cpp&quot;&gt;&lt;pre class=&quot;language-cpp&quot;&gt;&lt;code class=&quot;language-cpp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt; UPtrMapSS&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; UPtrMapSS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; UPtrMapSS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unique_ptr&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;unordered_map&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
 
-&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;FP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;FP&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; FP &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; FP &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; std&lt;span class=&quot;token double-colon punctuation&quot;&gt;::&lt;/span&gt;string&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;typedefはテンプレート化に対応していないが、エイリアス宣言は対応しているため、気持ちの悪いネストをする必要がなくなった。&lt;/p&gt;
 &lt;p&gt;また、エイリアステンプレートを用いれば、「::type」や「typename」を排除できる。&lt;/p&gt;
 &lt;p&gt;&lt;a id=&quot;sec34&quot;&gt;&lt;/a&gt;&lt;/p&gt;
