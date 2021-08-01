@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://dondakeshimo.github.io/tech-blog/sitemap/sitemap-index.xml
+Sitemap: https://dondakeshimo.github.io/sitemap/sitemap-index.xml
 Host: https://dondakeshimo.github.io
