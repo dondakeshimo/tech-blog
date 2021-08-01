@@ -1,6 +1,6 @@
 
 module.exports = {
-  pathPrefix: '/tech-blog',
+  pathPrefix: '/',
   siteUrl: 'https://dondakeshimo.github.io',
   siteTitle: 'dondakeshimoの丸太',
   siteDescription: 'マルタ島は最高',
