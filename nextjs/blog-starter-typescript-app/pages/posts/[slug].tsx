@@ -30,7 +30,7 @@ const Post = ({ post, morePosts }: Props) => {
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <article className="mb-32">
+            <article className="mb-2xl">
               <Head>
                 <title>
                   {post.title} | Next.js Blog Example with {CMS_NAME}
