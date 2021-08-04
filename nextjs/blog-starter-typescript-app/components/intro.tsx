@@ -1,6 +1,5 @@
 import { BLOG_NAME } from '../lib/constants'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import SnsIcons from './sns-icons'
 
 const Intro = () => {
   return (
@@ -13,14 +12,7 @@ const Intro = () => {
         マルタ島は最高
       </h5>
 
-      <div className="py-m svg-center mb-l">
-        <div className="mx-s">
-          <FontAwesomeIcon icon={faGithub} size="sm" />
-        </div>
-        <div className="mx-s">
-          <FontAwesomeIcon icon={faTwitter} size="3x" />
-        </div>
-      </div>
+      <SnsIcons />
 
       <h4 className="text-center border-b-intro">
         Softwear Engineerのブログ

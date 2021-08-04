@@ -18,7 +18,7 @@ const PostPreview = ({
 }: Props) => {
   return (
     <div className="post-container border-b-post">
-      <FontAwesomeIcon icon={faHandPointUp} className="pc-left accent-magenta" />
+      <FontAwesomeIcon icon={faHandPointUp} className="pc-left dondake-icon" />
       <div className="pc-right">
         <h2 className="post-title">
           <Link as={`/posts/${slug}`} href="/posts/[slug]">

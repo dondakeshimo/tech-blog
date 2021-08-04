@@ -117,7 +117,7 @@ svg {
     }
 }
 
-.svg-center {
+.sns-container {
     display: flex;
     justify-content: center;
 
@@ -125,6 +125,18 @@ svg {
         width: 3rem;
         height: 3rem;
     }
+
+    .twitter-icon path {
+        color: map-get($accents, slr-blue);
+    }
+
+    .github-icon path {
+        color: black;
+    }
+}
+
+.dondake-icon path {
+    color: map-get($accents, slr-magenta);
 }
 
 .post-container {
@@ -136,9 +148,5 @@ svg {
         width: 2.5rem;
         height: 2.5rem;
         margin-right: $margin_l;
-
-        path {
-            color: map-get($accents, slr-magenta);
-        }
     }
 }
