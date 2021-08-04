@@ -4,11 +4,11 @@ import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const Footer = () => {
   return (
-    <footer className="bg-accent-1 border-t border-accent-2">
+    <footer>
       <Container>
-        <div className="py-l items-center contents-center">
+        <div className="py-m svg-center">
           <div className="mx-s">
-            <FontAwesomeIcon icon={faGithub} size="3x" />
+            <FontAwesomeIcon icon={faGithub} size="sm" />
           </div>
           <div className="mx-s">
             <FontAwesomeIcon icon={faTwitter} size="3x" />

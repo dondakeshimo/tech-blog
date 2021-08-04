@@ -30,4 +30,8 @@ module.exports = {
       },
     },
   },
+  corePlugins: {
+    listStyleType: false,
+    listStylePosition: false,
+  },
 }
