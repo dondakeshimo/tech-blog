@@ -12,21 +12,9 @@ ogImage:
 coverImage: '/assets/blog/dynamic-routing/cover.jpg'
 ---
 
-# 目次 <!-- exclude-toc -->
-* [概要](#sec1-0-0-0)
-* [手法](#sec2-0-0-0)
-    * [CHANGELOG](#sec2-0-1-0)
-    * [Action定義ファイル](#sec2-0-2-0)
-    * [ポイント](#sec2-0-3-0)
-      * [基本戦略](#sec2-0-3-1)
-      * [git fetch --unshallow](#sec2-0-3-2)
-      * [outputs と `*`](#sec2-0-3-3)
-      * [課題](#sec2-0-3-4)
-* [まとめ](#sec3-0-0-0)
+# 目次
 
 
-
-<a id="sec1-0-0-0"></a>
 # 概要
 GitHub Actionsというサービスがある。
 サービス自体の説明についてはここでは触れない。
@@ -48,10 +36,8 @@ CHANGELOGに応じた諸々のリリースフローを行ってほしいわけ�
 というGitHub Actionsを作るぞという話。
 
 
-<a id="sec2-0-0-0"></a>
 # 手法
 
-<a id="sec2-0-1-0"></a>
 ### CHANGELOG
 下記のようなCHANGELOG.mdを想定している。
 
@@ -67,7 +53,6 @@ CHANGELOGに応じた諸々のリリースフローを行ってほしいわけ�
 * initial application version
 ```
 
-<a id="sec2-0-2-0"></a>
 ### Action定義ファイル
 上記のCHANGELOG.mdに対してのAction定義ファイル。
 `Extract CHANGELOG` stepを適当にいじれば大体のCHANGELOG.mdの書き方に対応できると思われる。
@@ -118,15 +103,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<a id="sec2-0-3-0"></a>
 ### ポイント
 
-<a id="sec2-0-3-1"></a>
 #### 基本戦略
 - 1行目の文字列から `Version ` 以降の文字列を抽出しversionとする
 - 前回のtagとの差分をReleaseのdescriptionとする
 
-<a id="sec2-0-3-2"></a>
 #### git fetch --unshallow
 GitHub Actionsを使用していれば大概の場合使うであろう `actions/checkout` actionだが、
 こちらでcloneしているリポジトリは *shallow repository* である。
@@ -138,7 +120,6 @@ git fetch --unshallow
 
 をしてあげることで過去の変更履歴を取得して、前回のtagからの変更履歴が参照できるようにする。
 
-<a id="sec2-0-3-3"></a>
 #### outputs と `*`
 ```
 echo ::set-output name=version::$VERSION
@@ -151,13 +132,11 @@ echo ::set-output name=version::$VERSION
 
 対応策として、CHANGELOGの差分情報はファイルに書き出して、ファイル経由で情報の伝播を行うようにした。
 
-<a id="sec2-0-3-4"></a>
 #### 課題
 validation等は一切していないので、1行目が前と同じversionの状態でmasterへマージしてしまったりすると、
 tagの上書きが発生してしまうと思われるのでCHANGELOGの修正には注意が必要。(一敗)
 
 
-<a id="sec3-0-0-0"></a>
 # まとめ
 CHANGELOGの修正をトリガーとし、CHANGELOGの内容に従ったtagとReleaseを発行することができた。
 tagやReleaseの発行は外部Actionを使用しており、正直どこまで外部Actionに頼っていいかは疑問だし、不安の種でもある。

@@ -12,6 +12,9 @@ ogImage:
   url: '/assets/blog/dynamic-routing/cover.jpg'
 coverImage: '/assets/blog/dynamic-routing/cover.jpg'
 ---
+# 目次
+
+
 # 機械学習の勉強を真面目にはじめました。
 
 今回しっかりと基礎から見直そうと思い、入門書を精読することにしました。
