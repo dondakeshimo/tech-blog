@@ -16,11 +16,12 @@ coverImage: '/assets/blog/dynamic-routing/cover.jpg'
 # 目次
 
 
+# 概要
 CLIでのTODO管理ツールをGoで実装しました。
 
-https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/
+<https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/>
 
-https://github.com/dondakeshimo/todo-cli
+<https://github.com/dondakeshimo/todo-cli>
 
 その際に得た知見ややっていて良かったこと、やって失敗だったと思うことなどを振り返っていこうと思います。
 
@@ -64,17 +65,17 @@ GitHub Flowに準じた開発を行うと決めたので、個人開発ではあ
 ## GitHub Projects
 プロジェクト管理は GitHub Projectsを利用しました。
 
-- https://github.com/dondakeshimo/todo-cli/projects/1
-- https://github.com/dondakeshimo/todo-cli/projects/2
+- <https://github.com/dondakeshimo/todo-cli/projects/1>
+- <https://github.com/dondakeshimo/todo-cli/projects/2>
 
 欲しい機能は最初からほとんど決まっていたので、メモ書き以下の要件を最初に記載していたようです。
 
-https://github.com/dondakeshimo/todo-cli/issues/1
+<https://github.com/dondakeshimo/todo-cli/issues/1>
 
 IssueとPRは紐付けができるので機能の作成さえしておけば、Kanbanでの移動はそこまで必要ないです。
 調査系のタスクが入った時にIssueがあると自分の進捗がわかりやすいのとドキュメントが勝手に出来上がっていくのでとても良かったです。
 
-https://github.com/dondakeshimo/todo-cli/issues/33
+<https://github.com/dondakeshimo/todo-cli/issues/33>
 
 メリットはやはりコード管理ツールと統合されていることに尽きると思います。今後もGitHubで何かしらのプロジェクトを行うときは重宝すると思います。
 
@@ -138,7 +139,7 @@ Releasesの作成についてはそれなりに苦闘したので、[別記事](
 こちらは次節にて詳しく述べる予定ですが、クリーンアーキテクチャのレイヤ名を随所に使用しています。
 
 ## クリーンアーキテクチャ
-https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/
+<https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/>
 
 にてまとめているクリーンアーキテクチャを念頭に設計しています。というよりは開発していくうちにクリーンアーキテクチャっぽく修正していきました。
 
@@ -237,7 +238,7 @@ help: ## DIsplay this help screen
 プロジェクトの最初期から置いておくと良いと思います。最初期は `go run` とかを結局たくさん使いますが...
 
 ## Value Object
-https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/
+<https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/>
 
 で説明している値オブジェクトを利用できる場面では利用することを意識しました。
 具体的にはタスクに紐付けられる時間などが値オブジェクトとして定義されています。
