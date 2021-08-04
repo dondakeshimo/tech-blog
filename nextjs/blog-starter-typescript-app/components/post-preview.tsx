@@ -17,7 +17,7 @@ const PostPreview = ({
   slug,
 }: Props) => {
   return (
-    <div className="post-container border-b-post">
+    <div className="container-80 mx-auto post-container border-b-post">
       <FontAwesomeIcon icon={faHandPointUp} className="pc-left dondake-icon" />
       <div className="pc-right">
         <h2 className="post-title">

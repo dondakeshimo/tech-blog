@@ -14,10 +14,9 @@ import PostType from '../../types/post'
 
 type Props = {
   post: PostType
-  morePosts: PostType[]
 }
 
-const Post = ({ post, morePosts }: Props) => {
+const Post = ({ post }: Props) => {
   const router = useRouter()
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
