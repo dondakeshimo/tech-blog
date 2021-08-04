@@ -25,6 +25,10 @@ h1 {
 h2 {
     font-size: 1.6rem;
     border-bottom: solid 2px;
+
+    &.post-title {
+        border-bottom: none;
+    }
 }
 
 h3 {
@@ -46,11 +50,6 @@ pre {
 
 code {
     font-family: monospace;
-}
-
-a {
-    color: map-get($accents, srl-green);
-    text-decoration: underline;
 }
 
 blockquote {
@@ -96,6 +95,17 @@ blockquote {
     line-height: 1.5;
 }
 
+.border-b-intro {
+    padding-bottom: 2rem;
+    border-bottom: solid 2px map-get($accents, slr-yellow);
+}
+
+.border-b-post {
+    padding-top: $padding_l;
+    padding-bottom: $padding_l;
+    border-bottom: solid 2px map-get($accents, slr-cyan);
+}
+
 svg {
     width: 1rem;
     height: 1rem;
@@ -114,5 +124,21 @@ svg {
     svg {
         width: 3rem;
         height: 3rem;
+    }
+}
+
+.post-container {
+    display:flex;
+    justify-content: left;
+    align-items: center;
+
+    svg.pc-left{
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-right: $margin_l;
+
+        path {
+            color: map-get($accents, slr-magenta);
+        }
     }
 }

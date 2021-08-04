@@ -1,20 +1,29 @@
-import { CMS_NAME, BLOG_NAME } from '../lib/constants'
+import { BLOG_NAME } from '../lib/constants'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const Intro = () => {
   return (
-    <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
-      <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
+    <section className="">
+      <h1 className="title text-xl font-bold text-center leading-tight mt-l">
         {BLOG_NAME}
       </h1>
-      <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        A statically generated blog example using{' '}
-        <a
-          href="https://nextjs.org/"
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          Next.js
-        </a>{' '}
-        and {CMS_NAME}.
+
+      <h5 className="text-center">
+        マルタ島は最高
+      </h5>
+
+      <div className="py-m svg-center mb-l">
+        <div className="mx-s">
+          <FontAwesomeIcon icon={faGithub} size="sm" />
+        </div>
+        <div className="mx-s">
+          <FontAwesomeIcon icon={faTwitter} size="3x" />
+        </div>
+      </div>
+
+      <h4 className="text-center border-b-intro">
+        Softwear Engineerのブログ
       </h4>
     </section>
   )

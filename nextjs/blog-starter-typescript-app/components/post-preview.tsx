@@ -1,5 +1,7 @@
 import DateFormatter from './date-formatter'
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandPointUp } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   title: string
@@ -15,18 +17,19 @@ const PostPreview = ({
   slug,
 }: Props) => {
   return (
-    <div>
-      <div className="mb-5">
+    <div className="post-container border-b-post">
+      <FontAwesomeIcon icon={faHandPointUp} className="pc-left accent-magenta" />
+      <div className="pc-right">
+        <h2 className="post-title">
+          <Link as={`/posts/${slug}`} href="/posts/[slug]">
+            <a>{title}</a>
+          </Link>
+        </h2>
+        <div className="text-lg mb-4">
+          <DateFormatter dateString={date} />
+        </div>
+        <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
       </div>
-      <h3 className="text-3xl mb-3 leading-snug">
-        <Link as={`/posts/${slug}`} href="/posts/[slug]">
-          <a className="hover:underline">{title}</a>
-        </Link>
-      </h3>
-      <div className="text-lg mb-4">
-        <DateFormatter dateString={date} />
-      </div>
-      <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
     </div>
   )
 }
