@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer>
       <Container>
-        <div className="py-m svg-center">
+        <div className="py-m svg-center mb-l">
           <div className="mx-s">
             <FontAwesomeIcon icon={faGithub} size="sm" />
           </div>

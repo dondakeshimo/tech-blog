@@ -40,7 +40,12 @@ $accents: (
 
     a, a:active, a:visited {
         color: map-get($accents, slr-blue);
+
+        &.logo {
+            color: map-get($accents, slr-violet);
+        }
     }
+
 }
 
 @mixin rebase-code($rebase03, $rebase02, $rebase01, $rebase00, $rebase0, $rebase1, $rebase2, $rebase3) {

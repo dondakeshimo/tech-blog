@@ -1,13 +1,16 @@
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BLOG_NAME } from '../lib/constants'
+import { faHandPointUp } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
   return (
-    <h2 className="text-l font-bold text-tight mb-xl mt-l">
+    <a className="text-l font-bold text-tight mb-xl mt-l">
+      <FontAwesomeIcon icon={faHandPointUp} className="svg-l" />
       <Link href="/">
-        <a>{BLOG_NAME}</a>
+        <a className="logo">{BLOG_NAME}</a>
       </Link>
-    </h2>
+    </a>
   )
 }
 

@@ -96,6 +96,17 @@ blockquote {
     line-height: 1.5;
 }
 
+svg {
+    width: 1rem;
+    height: 1rem;
+
+    &.svg-l {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: $margin_s;
+    }
+}
+
 .svg-center {
     display: flex;
     justify-content: center;
