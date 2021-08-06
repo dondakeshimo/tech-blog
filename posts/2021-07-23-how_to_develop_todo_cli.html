@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="ja"><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#000000"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#fdf6e3"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#fdf6e3"/><link rel="alternate" type="application/rss+xml" href="/feed.xml"/><meta name="description"/><meta property="og:title" content="GoでCLIのTODOリストを作成した時の振り返り"/><meta property="og:type" content="website"/><meta property="og:url" content="{DOMAIN}/posts/2021-07-23-how_to_develop_todo_cli"/><meta property="og:description"/><meta property="og:image" content="https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&amp;md=1&amp;fontSize=100px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><meta property="og:image:alt"/><meta property="og:site_name" content="dondakeshimoの丸太"/><meta property="og:locale" content="ja_JP"/><meta property="twitter:card" content="summary_large_image"/><meta property="twitter:title" content="GoでCLIのTODOリストを作成した時の振り返り"/><meta property="twitter:description"/><meta property="twitter:image" content="https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&amp;md=1&amp;fontSize=100px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><meta property="twitter:image:alt"/><meta property="twitter:site" content="dondakeshimo"/><meta property="twitter:creator" content="dondakeshimo"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"/><title>GoでCLIのTODOリストを作成した時の振り返り | dondakeshimoの丸太</title><meta property="og:image" content="/assets/blog/dynamic-routing/cover.jpg"/><meta name="next-head-count" content="31"/><link rel="preload" href="/_next/static/css/0f9d9436e0b0760d86ae.css" as="style"/><link rel="stylesheet" href="/_next/static/css/0f9d9436e0b0760d86ae.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-a54b4f32bdc1ef890ddd.js"></script><script src="/_next/static/chunks/webpack-61095c13c5984b221292.js" defer=""></script><script src="/_next/static/chunks/framework-2191d16384373197bc0a.js" defer=""></script><script src="/_next/static/chunks/main-c034215587cd157b2989.js" defer=""></script><script src="/_next/static/chunks/pages/_app-d2622b3552023a29a89a.js" defer=""></script><script src="/_next/static/chunks/cb1608f2-854db26f8877d6c8528f.js" defer=""></script><script src="/_next/static/chunks/a9a7754c-ecd5c258dd80f13aa656.js" defer=""></script><script src="/_next/static/chunks/349-e0275456508bca40c658.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-c414199f8f835e5668ae.js" defer=""></script><script src="/_next/static/yNrEyh5A0Oyk3eJQw5kY9/_buildManifest.js" defer=""></script><script src="/_next/static/yNrEyh5A0Oyk3eJQw5kY9/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="min-h-vfull"><main><div class="full-container mx-auto px-5"><a class="text-l font-bold text-tight mb-xl mt-l"><a class="logo" href="/"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="hand-point-up" class="svg-inline--fa fa-hand-point-up fa-w-12 svg-l dondake-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M135.652 0c23.625 0 43.826 20.65 43.826 44.8v99.851c17.048-16.34 49.766-18.346 70.944 6.299 22.829-14.288 53.017-2.147 62.315 16.45C361.878 158.426 384 189.346 384 240c0 2.746-.203 13.276-.195 16 .168 61.971-31.065 76.894-38.315 123.731C343.683 391.404 333.599 400 321.786 400H150.261l-.001-.002c-18.366-.011-35.889-10.607-43.845-28.464C93.421 342.648 57.377 276.122 29.092 264 10.897 256.203.008 242.616 0 224c-.014-34.222 35.098-57.752 66.908-44.119 8.359 3.583 16.67 8.312 24.918 14.153V44.8c0-23.45 20.543-44.8 43.826-44.8zM136 416h192c13.255 0 24 10.745 24 24v48c0 13.255-10.745 24-24 24H136c-13.255 0-24-10.745-24-24v-48c0-13.255 10.745-24 24-24zm168 28c-11.046 0-20 8.954-20 20s8.954 20 20 20 20-8.954 20-20-8.954-20-20-20z"></path></svg>dondakeshimoの丸太</a></a><article class="mb-2xl"><h1 class="title text-xl font-bold mb-l text-center">GoでCLIのTODOリストを作成した時の振り返り</h1><div class="container-80 mx-auto"><div class="mb-l text-l"><time dateTime="2021-07-23">July	23, 2021</time></div></div><div class="container-80 mx-auto"><div><h1 id="目次">目次</h1>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#%E9%96%8B%E7%99%BA%E7%AE%A1%E7%90%86%E3%82%84%E9%96%8B%E7%99%BA%E3%83%AB%E3%83%BC%E3%83%AB">開発管理や開発ルール</a>
+<ul>
+<li><a href="#github">GitHub</a></li>
+<li><a href="#github-flow">GitHub Flow</a></li>
+<li><a href="#github-projects">GitHub Projects</a></li>
+<li><a href="#%E8%8B%B1%E8%AA%9E">英語</a></li>
+<li><a href="#cicd-github-actions">CI/CD GitHub Actions</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A8%AD%E8%A8%88">設計</a>
+<ul>
+<li><a href="#%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%A7%8B%E9%80%A0">ディレクトリ構造</a></li>
+<li><a href="#%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3">クリーンアーキテクチャ</a></li>
+<li><a href="#%E3%83%86%E3%82%B9%E3%83%88">テスト</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0">コーディング</a>
+<ul>
+<li><a href="#makefile">Makefile</a></li>
+<li><a href="#value-object">Value Object</a></li>
+<li><a href="#godoc">GoDoc</a></li>
+<li><a href="#table-driven-test">Table Driven Test</a></li>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E9%81%B8%E5%AE%9A">ライブラリ選定</a>
+<ul>
+<li><a href="#cli%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF-cobra-vs-urfavecli">CLIフレームワーク cobra vs urfave/cli</a></li>
+<li><a href="#writer%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA">writerライブラリ</a></li>
+</ul>
+</li>
+<li><a href="#golangci-lint">golangci-lint</a></li>
+<li><a href="#%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF-vs-%E5%80%A4">ポインタ vs 値</a></li>
+<li><a href="#%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0">スケジューリング</a>
+<ul>
+<li><a href="#launchd">launchd</a></li>
+<li><a href="#cron">cron</a></li>
+</ul>
+</li>
+<li><a href="#%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95">通知方法</a>
+<ul>
+<li><a href="#ossascript">ossascript</a></li>
+<li><a href="#slack">slack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<h1 id="概要">概要</h1>
+<p>CLIでのTODO管理ツールをGoで実装しました。</p>
+<p><a href="https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/">https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/</a></p>
+<p><a href="https://github.com/dondakeshimo/todo-cli">https://github.com/dondakeshimo/todo-cli</a></p>
+<p>その際に得た知見ややっていて良かったこと、やって失敗だったと思うことなどを振り返っていこうと思います。</p>
+<h1 id="開発管理や開発ルール">開発管理や開発ルール</h1>
+<h2 id="github">GitHub</h2>
+<p>デファクトスタンダードなので特に説明することもないかもしれませんが、GitHubを用いてコード管理を行いました。
+コード管理だけではなく、後述するようにCI/CDやプロジェクト管理もGitHubで完結させました。</p>
+<p>(最近知ったのですがGitLabってオンプレ以外に普通のWebアプリケーションも提供されているんですね。
+特に比較とかはしていないです。)</p>
+<h2 id="github-flow">GitHub Flow</h2>
+<p>ブランチ戦略というものがあります。
+よく知られているものとしてGit FlowとGitHub Flowがあります。
+私はGitHub Flowしか利用したことがないので、Git Flowの詳細は他サイトに譲ります<a href="https://www.atlassian.com/ja/git/tutorials/comparing-workflows/gitflow-workflow">(参考)</a>。
+GitHub Flowを要約すると変更をmasterに反映するときはPR経由で行えよ、ということになります。
+GitHub Flowに準じた開発を行うと決めたので、個人開発ではありますが、masterに直接マージするようなことはせずにPRを毎回作成して開発を行いました。</p>
+<p>良かった点は</p>
+<ul>
+<li>masterは常にテストが通った状態になる</li>
+<li>管理しているチケットと紐付けができる</li>
+<li>行った変更を自分で追いやすくなる</li>
+<li>作業の中断ステータスがわかりやすい</li>
+</ul>
+<p>悪かった点は</p>
+<ul>
+<li>単純に面倒臭い</li>
+<li>個人リポジトリだとmasterへのpush禁止をGitHubがしてくれないので2, 3回 masterにpushしてしまった</li>
+</ul>
+<p>次回個人開発を行うことがあれば、最初はmaster pushで整えて</p>
+<ul>
+<li>test</li>
+<li>CI/CD パイプライン</li>
+</ul>
+<p>が整ったタイミングでPRを出すようにしようかと思います。
+ただ、後で反省するように上記二つともプロジェクトの最初期に整えるべきものだと考えているので、実質最初からPRを出すつもりです。</p>
+<p>また、masterへのpush防止策としてはgit hookに何かしら突っ込んでおく必要があるかなと思っています。</p>
+<h2 id="github-projects">GitHub Projects</h2>
+<p>プロジェクト管理は GitHub Projectsを利用しました。</p>
+<ul>
+<li><a href="https://github.com/dondakeshimo/todo-cli/projects/1">https://github.com/dondakeshimo/todo-cli/projects/1</a></li>
+<li><a href="https://github.com/dondakeshimo/todo-cli/projects/2">https://github.com/dondakeshimo/todo-cli/projects/2</a></li>
+</ul>
+<p>欲しい機能は最初からほとんど決まっていたので、メモ書き以下の要件を最初に記載していたようです。</p>
+<p><a href="https://github.com/dondakeshimo/todo-cli/issues/1">https://github.com/dondakeshimo/todo-cli/issues/1</a></p>
+<p>IssueとPRは紐付けができるので機能の作成さえしておけば、Kanbanでの移動はそこまで必要ないです。
+調査系のタスクが入った時にIssueがあると自分の進捗がわかりやすいのとドキュメントが勝手に出来上がっていくのでとても良かったです。</p>
+<p><a href="https://github.com/dondakeshimo/todo-cli/issues/33">https://github.com/dondakeshimo/todo-cli/issues/33</a></p>
+<p>メリットはやはりコード管理ツールと統合されていることに尽きると思います。今後もGitHubで何かしらのプロジェクトを行うときは重宝すると思います。</p>
+<h2 id="英語">英語</h2>
+<p>コードのコメントや使い方などは全て英語にしようと決めていました。
+英語の勉強をしたかったという部分と、日本語が入ったコードはダサいと思ったのと、ゆくゆくは外国の方にもcommitしてもらえるようなプロダクトにしたいという野望があったからです。</p>
+<p>2人の知人にcontributerをしていただいたのですが、その際にPRを英語で出していただいてハッとさせられました。
+海外の方にcommitしてもらうためにはIssueやPRも全て英語で行う必要があったのでは？？と。
+ちょっとそこまで英語にリソース割けないなと思い妥協しています。個人リポジトリですしね...</p>
+<h2 id="cicd-github-actions">CI/CD GitHub Actions</h2>
+<p>CI/CDツールとしてはGitHub Actionsを使用しました。
+ツールで行いたかったことは下記になります。</p>
+<ul>
+<li>PRに対して
+<ul>
+<li>コードフォーマットのチェック</li>
+<li>test</li>
+</ul>
+</li>
+<li>master commitに対して
+<ul>
+<li>バイナリのビルド</li>
+<li>Releasesの作成</li>
+</ul>
+</li>
+</ul>
+<p>コードフォーマットのチェックやtestは比較的簡単に設定できました <a href="https://github.com/dondakeshimo/todo-cli/blob/master/.github/workflows/go.yml">(設定ファイル)</a>。
+Releasesの作成についてはそれなりに苦闘したので、<a href="https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog/">別記事</a>にまとめています。</p>
+<h1 id="設計">設計</h1>
+<h2 id="ディレクトリ構造">ディレクトリ構造</h2>
+<p>ディレクトリ構造について初期は <a href="https://github.com/golang-standards/project-layout">golang-standards/project-layout</a> を模倣して設計していました。
+ところが、 <a href="https://github.com/golang-standards/project-layout/issues/117">this is not a stndard Go project layout</a> というIssueがGo開発者から立てられ、これは標準ではないし、Goの思想としては標準レイアウトのようなものは存在しない、なんでも好きなように作れば良いのだよということが公言されていました。
+特に問題となっていたのは <code>pkg</code> ディレクトリのようで、慣例として作られていた <code>vendor</code> との差分がよくわからないなどの意見が見られました。思考停止で利用していましたが、このIssueを受けて <code>internal</code> ディレクトリは <code>pkg</code> ディレクトリに<a href="https://github.com/dondakeshimo/todo-cli/pull/78">まとめました</a>。</p>
+<p>結果的には以下のような構成にしました。</p>
+<pre class="language-makefile"><code class="language-makefile">.
+├── Makefile
+├── README.md
+├── cmd
+│   └── todo
+│       └── main.go
+├── go.mod
+├── go.sum
+├── pkg
+│   ├── commands
+│   ├── domain
+│   │   ├── notifier
+│   │   ├── scheduler
+│   │   └── task
+│   ├── gateways
+│   │   └── json
+│   └── usecases
+├── scripts
+│   └── uninstall.sh
+└── test
+    └── scenario
+        └── crud_test.go
+</code></pre>
+<p><code>pkg</code> の中のディレクトリはそのままパッケージ名となります。
+こちらは次節にて詳しく述べる予定ですが、クリーンアーキテクチャのレイヤ名を随所に使用しています。</p>
+<h2 id="クリーンアーキテクチャ">クリーンアーキテクチャ</h2>
+<p><a href="https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/">https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/</a></p>
+<p>にてまとめているクリーンアーキテクチャを念頭に設計しています。というよりは開発していくうちにクリーンアーキテクチャっぽく修正していきました。</p>
+<p>CLIフレームワークを変更したタイミングがあったのですが、CLIフレームワークとアプリケーションルールがそのタイミングでは絡み付いており、変更が非常に重たいタスクになってしまいました。これを嫌って、先にusecase層とcontroller層(commandsディレクトリ)を分割しました。これによってフレームワークに依存しているのはcontroller層のみとなり変更を容易に行うことができました。(分割は簡単ではなかったです。)</p>
+<p>このことから、これからはフレームワークやインプットアウトプットが少しでも変わる可能性がある場合は常にクリーンアーキテクチャを最初から意識して設計していこうと心に誓いました。</p>
+<p>逆にクリーンアーキテクチャを意識したアーキテクチャになっていた部分で良かったのは、後述するスケジューリングや通知の詳細実装を追加していくのが非常に容易だったことです。最初にインタフェースを決めておく難易度はありましたが、今回の場合は最初から要件がある程度固まっていたのでそこまで悩まずに済みました。</p>
+<h2 id="テスト">テスト</h2>
+<p>今回の場合二つのテストが必要と考えていました。</p>
+<ul>
+<li>domain/taskの単体テスト</li>
+<li>e2eテスト</li>
+</ul>
+<p>逆にそれ以外の部分は手を抜いています。
+ただし、結構アプリケーションロジックにバグが紛れたりするので、usecase層もテストするべきだったなと思っています。
+これは今後追加するかもしれません。</p>
+<p>最初にテストスコープを決めていて良かったのはdomain層に入れるべきものがはっきりとしたことです。
+このロジックにはテスト必要そうだぞというものは大抵domain層にいるべきものなので、ビジネスロジックがusecaseに紛れ込むのを防ぐことができました。</p>
+<p>テストの実装時期ですが、プロトタイプのタイミングから単体テストは実装しておくべきだと感じました。
+後からやるのは辛いというのが主な理由ですが、先述の通りテストを念頭においた実装をすることでかなりすっきりとした設計になりがちですなので、気づいたらスパゲッティを錬成していたということを防ぐためにも最初からテストを書くべきです。</p>
+<p>逆にe2eテストについてはある程度までは放置しておいて良いと感じました。
+テスト項目だけ決めておいて毎回手作業で確認していくくらいで良いかなと。
+結構テストの実装自体が手間ですし、その手間をかけて自動化するならまずは満足できるレベルのプロダクトを作るのが先だろというのが今の思いです。</p>
+<h1 id="コーディング">コーディング</h1>
+<h2 id="makefile">Makefile</h2>
+<p>Makefileは最初に用意しておくと良いと思います。GoのMakefileは毎回ほとんど同じものになると思うので、ここに自分が使っているものでテンプレとなりそうな部分を貼っておきます。</p>
+<pre><code>GOBUILD=go build
+GOCLEAN=go clean
+GOTEST=go test
+GOGET=go get
+GOFMT=gofmt
+GOGEN=go generate
+GOIMPORTS=goimports
+GOLINT=golangci-lint
+BINARY_NAME=todo
+CMD_PKG=./cmd/todo
+SCENARIO_DIR=./test/scenario
+
+all: help
+
+.PHONY: init
+init: ## initilize developer environment
+  # mockを利用する場合
+	go install github.com/golang/mock/mockgen@latest
+
+.PHONY: get
+get: ## go get dependencies
+	$(GOGET) -u -v -t -d ./...
+
+.PHONY: build
+build: ## build go binary
+	$(GOBUILD) -o $(BINARY_NAME) -v $(CMD_PKG)
+
+.PHONY: mockgen
+mockgen: ## generate mock
+	$(GOGEN) ./...
+
+.PHONY: test
+test: build ## go test
+	$(GOTEST) -v ./...
+
+.PHONY: scenario-test
+scenario-test: build ## run scenario test
+	$(GOTEST) -v $(SCENARIO_DIR) -tags scenario
+
+.PHONY: clean
+clean: ## remove go binary
+	$(GOCLEAN)
+	rm -f $(BINARY_NAME)
+
+.PHONY: fmt
+fmt: ## format go files
+	$(GOFMT) -l -w -s .
+	$(GOIMPORTS) -w .
+
+.PHONY: lint
+# need docker to run this command
+# this command just run golangci-lint
+# so, if you hate docker, you can run equivalent this installing golangci-lint locally
+lint: ## check lint, format
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.41.0 golangci-lint run -v
+
+.PHONY: help
+help: ## DIsplay this help screen
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+</code></pre>
+<p>プロジェクトの最初期から置いておくと良いと思います。最初期は <code>go run</code> とかを結局たくさん使いますが...</p>
+<h2 id="value-object">Value Object</h2>
+<p><a href="https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/">https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/</a></p>
+<p>で説明している値オブジェクトを利用できる場面では利用することを意識しました。
+具体的にはタスクに紐付けられる時間などが値オブジェクトとして定義されています。</p>
+<p>時間については基本的にただの文字列なのですが、値オブジェクトとすることで文字が時間を表現するのに有効かどうかや、時間としての加算減算に対応できるようになっています。ビルドに通ればランタイムでのエラーがほとんど起きなくなったので、値オブジェクトは利用できるシーンでは積極的に利用すべきだと感じています。</p>
+<h2 id="godoc">GoDoc</h2>
+<p><a href="https://qiita.com/shibukawa/items/8c70fdd1972fad76a5ce">チョットできるGoプログラマーになるための詳細GoDoc</a> で詳細に述べられていますが、Goではドキュメント自動生成のためのコメントお作法があります。このお作法の通りにコメントを書けばIDEがメソッドの説明とかを出して来れたりします。</p>
+<p>コードは大体最初に思い描いたものよりも長く、複雑になるので最初からGoDocを書くことを忘れずにしておくと、エディタの力を最大限に生かすことができます。(ただ本当に面倒くさい)。次回以降もちゃんと書けるかは心の余裕によると思います。</p>
+<h2 id="table-driven-test">Table Driven Test</h2>
+<p>Table Driven Testをご存知でしょうか？
+テストの可読性が飛躍的に向上し、DRYなテストを実現できる手法になります。
+自分が参考にしたサイトを見つけることができなかったので、お好きなサイトをGoogle先生の書庫から選んで参照いただければと思います。</p>
+<p>これを知って実装できたことでテストがかなり書きやすかったのでここで取り上げています。
+しばらくはTable Driven Testを使ってテストを書き続けるでしょう。</p>
+<h2 id="ライブラリ選定">ライブラリ選定</h2>
+<p>ライブラリの選定はしっかりとするべきだという話です。</p>
+<p>ライブラリを利用するということは依存が一つ増えるということです。
+依存が一つ増えたらメンテナンスのための改修が必要になるリスクが一つ増えるということです。
+まずはライブラリを使うか自前で実装するべきかという部分を真剣に考えた方が良いというのが最近の考えです。</p>
+<p>ライブラリを選定するタイミングで確認するべきは</p>
+<ul>
+<li>Star数</li>
+<li>最終更新日</li>
+<li>更新頻度</li>
+</ul>
+<p>あたりだと考えていますが、実際に使ってみないとわからない部分も多々あると思うので参考程度に。</p>
+<p>todo-cliではtodoリストの表示と、CLIフレームワークにおいて外部ライブラリを使用しています。
+それぞれについて少し解説します。</p>
+<h3 id="cliフレームワーク-cobra-vs-urfavecli">CLIフレームワーク cobra vs urfave/cli</h3>
+<p>初期段階では <a href="https://github.com/urfave/cli">urfave/cli</a> を利用していました。
+最初からcobraも選択肢には入っていたのですが、同等の人気である urfave/cliが先に検索にヒットしたのでなんとなくで使っていました。</p>
+<p>結果としては<a href="https://github.com/spf13/cobra">cobra</a>に途中で乗り換えており、これからもCLIフレームワークを利用するならcobra一択だろうと考えています。</p>
+<p>urfave/cliのよくない点は大きく二つです。</p>
+<ul>
+<li><a href="https://twitter.com/campuscodi/status/1371227524127199241?s=19">twitter</a> で指摘されているが、謎の情報を送る処理が実装されていた</li>
+<li>必ず <code>todo [option] [args]</code> の順番でコマンドを叩く必要があり、タスクの内容の後にオプションをつけるといったことができなかった</li>
+</ul>
+<p>その他にも細かい点でcobraの方が気が利いている部分が多く、紹介記事やStar数だけでは実際の使用感は判断できないのだなと感じました。
+このことから私が得られる教訓は、導入ハードルを恐れずにどんどん知らないツールを触っていけ、ということです。</p>
+<h3 id="writerライブラリ">writerライブラリ</h3>
+<p>初期段階ではGoの標準パッケージにある <a href="https://pkg.go.dev/text/tabwriter">tabwriter</a> を利用していました。
+表示がリッチである必要はないと考えていたので、これで十分と考えていたのですが、知人が触って来れている時に日本語で表記がずれるという課題を共有いただき更に解決策となるパッケージもご提示していただきました。</p>
+<p>途中で乗り換えたライブラリが <a href="https://github.com/olekukonko/tablewriter">tablewriter</a> になります。 CJKに対応しており、リッチな表を書くこともできます。</p>
+<p>表示系のライブラリではCJK(China, Japan, Korea)言語に対応しているかどうかを気にかける必要があるのだということを学べました。</p>
+<h2 id="golangci-lint">golangci-lint</h2>
+<p>Goのフォーマッターやリンターは複数のパッケージ、ツールに別れておりそれを統合したツールもいくつかありますが、自分が調べた範囲で2021/07時点では <a href="https://github.com/golangci/golangci-lint">golangci-lint</a> を用いるのが良さそうだと感じました。
+使い方等はREADMEや紹介記事も多数あるのでここでは省略します。</p>
+<h2 id="ポインタ-vs-値">ポインタ vs 値</h2>
+<p>(この節の内容はうろ覚えなので100%信用しないでください。)</p>
+<p>Goではポインタがヒープ領域に割り当てられます。
+そのため、軽量な値に関してはポインタでの受け渡しよりも値渡しを行った方が良いです。
+具体的にはプリミティブ型で関数内で値を変更しない場合は値渡しで良いと言えると思います。</p>
+<p>これはメソッドのレシーバにも同様のことが言えます。
+軽量な構造体に対するメソッドの場合はポインタを指定するよりも値を渡した方が早くなります。</p>
+<p>また、ポインタの利用を消極的にすることで関数型言語のように副作用のない(少ない)関数を書くことが意識できます。</p>
+<h2 id="スケジューリング">スケジューリング</h2>
+<p>この節ではスケジューリング機能をどのように実装したかを説明します。</p>
+<p>スケジューリング機能とググると <a href="https://github.com/robfig/cron">robfig/cron</a> がヒットするのではないかと思います。
+当然の話ではありますが、スケジューリングを行うプログラムはプロセスとして常駐する必要があります。
+Goのみでこれを行おうとすると、プロセスを走り続ける必要があり軽さや使いやすさという点で疑問が生じる設計しか思いつきませんでした。</p>
+<p>よって、基本戦略としてはOSに備わったスケジューリング機能を使用する方針としています。</p>
+<h3 id="launchd">launchd</h3>
+<p>MacOSではcronを使用するのは非推奨とされており、代わりにLauncdというプロセスをスケジューラとして利用するように言われています。
+<a href="https://qiita.com/rsahara/items/7d37a4cb6c73329d4683">launchdで定期的にスクリプトを実行</a> にて詳細に開設されているので、利用に際して困るというようなことはなかったです。
+指定箇所に指定フォーマットのXMLファイルを配置するだけなので実装難易度もそこまで高くないです。</p>
+<h3 id="cron">cron</h3>
+<p>Linuxではcronがおおよそインストールされていると信じてcronを用いたスケジューリングもできるようにしました。</p>
+<p>こちらについてはタスクの登録方法が複数あるのですが、課題となったのは権限です。
+launchdと同様の方針で、cronファイルを <code>/etc/cron.d</code> に配置するだけで済むと考えていたのですが、配置するためにはroot権限が必要であり、またcronファイルもroot権限である必要があることがわかりました。
+root権限をアプリケーションに与える方針はユーザビリティやセキュリティの観点でありえない選択肢であると感じたので、ファイルを配置する方針は諦めました。</p>
+<p><a href="https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron/">諸々調べた結果</a> もまとめてあるので見ていただければと思いますが、結局 <code>crontab [file]</code> でスケジュール登録する方針としました。</p>
+<p>しかし、こちらの方針にも問題点があり、指定したcronファイルで全てのジョブが上書きされてしまうのです。そのため、ユーザがもともとcrontabを使用していた場合は利用するべきではないですし、自分の登録したジョブも注意を払わなければ最新の一件しかスケジュール登録されないということになってしまいます。詳細な実装についてはリポジトリの方を参照いただければと思います。</p>
+<h2 id="通知方法">通知方法</h2>
+<p>理想はポップアップを出すことだと考えていました。MacにおいてはシンプルにポップアップをCLIから呼び出すインタフェースが搭載されており、容易に実装することができましたが、linuxについてのポップアップはまだ特に考えられていないです。Slackに投げられればそれで良いだろうと甘えました。</p>
+<h3 id="ossascript">ossascript</h3>
+<p>遊んでもらえれば楽しいと思うのですが、</p>
+<pre><code>osascript -e 'display notification "通知したいメッセージ"'
+</code></pre>
+<p>とターミナルで打っていただければ通知センターにメッセージが届きます。
+似たような方法で、<a href="https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html#//apple_ref/doc/uid/TP40000983-CH216-SW12">色々な制御ができる</a> のでこれらを用いてポップアップ通知を実現しています。</p>
+<p>実装としては <code>os/exec</code> によって外部コマンドを呼び出す形になっています。</p>
+<h3 id="slack">slack</h3>
+<p>SlackではIncomming Webhookを利用すればHTTP POSTリクエストを送ることでメッセージを送信することができます。
+Incoming Webhookの導入はユーザに委ねるしかありませんが、その他の解決策もないと思ったので妥協しました。
+LINEラブな方のためにLINE Botインタフェースを用意するとかも面白そうではありますね。</p>
+<h1 id="まとめ">まとめ</h1>
+<p>GoでCLIを作るのは非常に楽しかったです。cobraというフレームワークが最高です。kubectlとかを参考にできたところも良かったですね。
+開発途中でドメイン駆動設計やクリーンアーキテクチャについて勉強していたので、プロトタイプからどんどん設計周りの改善案が出てきたというのも面白かったポイントです。</p>
+<p>今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。</p></div></div></article></div></main></div><footer><div class="full-container mx-auto px-5"><div class="full-container mx-auto px-5"><div class="py-m sns-container my-l"><div class="mx-s github-icon"><a href="https://github.com/dondakeshimo"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a></div><div class="mx-s twitter-icon"><a href="https://twitter.com/dondakeshimo"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a></div></div></div></div></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"GoでCLIのTODOリストを作成した時の振り返り","date":"2021-07-23","slug":"2021-07-23-how_to_develop_todo_cli","author":{"name":"JJ Kasper","picture":"/assets/blog/authors/jj.jpeg"},"content":"\u003ch1 id=\"目次\"\u003e目次\u003c/h1\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#%E6%A6%82%E8%A6%81\"\u003e概要\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E9%96%8B%E7%99%BA%E7%AE%A1%E7%90%86%E3%82%84%E9%96%8B%E7%99%BA%E3%83%AB%E3%83%BC%E3%83%AB\"\u003e開発管理や開発ルール\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#github\"\u003eGitHub\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#github-flow\"\u003eGitHub Flow\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#github-projects\"\u003eGitHub Projects\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E8%8B%B1%E8%AA%9E\"\u003e英語\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#cicd-github-actions\"\u003eCI/CD GitHub Actions\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E8%A8%AD%E8%A8%88\"\u003e設計\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%A7%8B%E9%80%A0\"\u003eディレクトリ構造\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3\"\u003eクリーンアーキテクチャ\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%83%86%E3%82%B9%E3%83%88\"\u003eテスト\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0\"\u003eコーディング\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#makefile\"\u003eMakefile\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#value-object\"\u003eValue Object\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#godoc\"\u003eGoDoc\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#table-driven-test\"\u003eTable Driven Test\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E9%81%B8%E5%AE%9A\"\u003eライブラリ選定\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#cli%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF-cobra-vs-urfavecli\"\u003eCLIフレームワーク cobra vs urfave/cli\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#writer%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA\"\u003ewriterライブラリ\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#golangci-lint\"\u003egolangci-lint\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF-vs-%E5%80%A4\"\u003eポインタ vs 値\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0\"\u003eスケジューリング\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#launchd\"\u003elaunchd\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#cron\"\u003ecron\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95\"\u003e通知方法\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"#ossascript\"\u003eossascript\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#slack\"\u003eslack\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#%E3%81%BE%E3%81%A8%E3%82%81\"\u003eまとめ\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch1 id=\"概要\"\u003e概要\u003c/h1\u003e\n\u003cp\u003eCLIでのTODO管理ツールをGoで実装しました。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/\"\u003ehttps://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli/\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://github.com/dondakeshimo/todo-cli\"\u003ehttps://github.com/dondakeshimo/todo-cli\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eその際に得た知見ややっていて良かったこと、やって失敗だったと思うことなどを振り返っていこうと思います。\u003c/p\u003e\n\u003ch1 id=\"開発管理や開発ルール\"\u003e開発管理や開発ルール\u003c/h1\u003e\n\u003ch2 id=\"github\"\u003eGitHub\u003c/h2\u003e\n\u003cp\u003eデファクトスタンダードなので特に説明することもないかもしれませんが、GitHubを用いてコード管理を行いました。\nコード管理だけではなく、後述するようにCI/CDやプロジェクト管理もGitHubで完結させました。\u003c/p\u003e\n\u003cp\u003e(最近知ったのですがGitLabってオンプレ以外に普通のWebアプリケーションも提供されているんですね。\n特に比較とかはしていないです。)\u003c/p\u003e\n\u003ch2 id=\"github-flow\"\u003eGitHub Flow\u003c/h2\u003e\n\u003cp\u003eブランチ戦略というものがあります。\nよく知られているものとしてGit FlowとGitHub Flowがあります。\n私はGitHub Flowしか利用したことがないので、Git Flowの詳細は他サイトに譲ります\u003ca href=\"https://www.atlassian.com/ja/git/tutorials/comparing-workflows/gitflow-workflow\"\u003e(参考)\u003c/a\u003e。\nGitHub Flowを要約すると変更をmasterに反映するときはPR経由で行えよ、ということになります。\nGitHub Flowに準じた開発を行うと決めたので、個人開発ではありますが、masterに直接マージするようなことはせずにPRを毎回作成して開発を行いました。\u003c/p\u003e\n\u003cp\u003e良かった点は\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003emasterは常にテストが通った状態になる\u003c/li\u003e\n\u003cli\u003e管理しているチケットと紐付けができる\u003c/li\u003e\n\u003cli\u003e行った変更を自分で追いやすくなる\u003c/li\u003e\n\u003cli\u003e作業の中断ステータスがわかりやすい\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e悪かった点は\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e単純に面倒臭い\u003c/li\u003e\n\u003cli\u003e個人リポジトリだとmasterへのpush禁止をGitHubがしてくれないので2, 3回 masterにpushしてしまった\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e次回個人開発を行うことがあれば、最初はmaster pushで整えて\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003etest\u003c/li\u003e\n\u003cli\u003eCI/CD パイプライン\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eが整ったタイミングでPRを出すようにしようかと思います。\nただ、後で反省するように上記二つともプロジェクトの最初期に整えるべきものだと考えているので、実質最初からPRを出すつもりです。\u003c/p\u003e\n\u003cp\u003eまた、masterへのpush防止策としてはgit hookに何かしら突っ込んでおく必要があるかなと思っています。\u003c/p\u003e\n\u003ch2 id=\"github-projects\"\u003eGitHub Projects\u003c/h2\u003e\n\u003cp\u003eプロジェクト管理は GitHub Projectsを利用しました。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/dondakeshimo/todo-cli/projects/1\"\u003ehttps://github.com/dondakeshimo/todo-cli/projects/1\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/dondakeshimo/todo-cli/projects/2\"\u003ehttps://github.com/dondakeshimo/todo-cli/projects/2\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e欲しい機能は最初からほとんど決まっていたので、メモ書き以下の要件を最初に記載していたようです。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://github.com/dondakeshimo/todo-cli/issues/1\"\u003ehttps://github.com/dondakeshimo/todo-cli/issues/1\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIssueとPRは紐付けができるので機能の作成さえしておけば、Kanbanでの移動はそこまで必要ないです。\n調査系のタスクが入った時にIssueがあると自分の進捗がわかりやすいのとドキュメントが勝手に出来上がっていくのでとても良かったです。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://github.com/dondakeshimo/todo-cli/issues/33\"\u003ehttps://github.com/dondakeshimo/todo-cli/issues/33\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eメリットはやはりコード管理ツールと統合されていることに尽きると思います。今後もGitHubで何かしらのプロジェクトを行うときは重宝すると思います。\u003c/p\u003e\n\u003ch2 id=\"英語\"\u003e英語\u003c/h2\u003e\n\u003cp\u003eコードのコメントや使い方などは全て英語にしようと決めていました。\n英語の勉強をしたかったという部分と、日本語が入ったコードはダサいと思ったのと、ゆくゆくは外国の方にもcommitしてもらえるようなプロダクトにしたいという野望があったからです。\u003c/p\u003e\n\u003cp\u003e2人の知人にcontributerをしていただいたのですが、その際にPRを英語で出していただいてハッとさせられました。\n海外の方にcommitしてもらうためにはIssueやPRも全て英語で行う必要があったのでは？？と。\nちょっとそこまで英語にリソース割けないなと思い妥協しています。個人リポジトリですしね...\u003c/p\u003e\n\u003ch2 id=\"cicd-github-actions\"\u003eCI/CD GitHub Actions\u003c/h2\u003e\n\u003cp\u003eCI/CDツールとしてはGitHub Actionsを使用しました。\nツールで行いたかったことは下記になります。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ePRに対して\n\u003cul\u003e\n\u003cli\u003eコードフォーマットのチェック\u003c/li\u003e\n\u003cli\u003etest\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003emaster commitに対して\n\u003cul\u003e\n\u003cli\u003eバイナリのビルド\u003c/li\u003e\n\u003cli\u003eReleasesの作成\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eコードフォーマットのチェックやtestは比較的簡単に設定できました \u003ca href=\"https://github.com/dondakeshimo/todo-cli/blob/master/.github/workflows/go.yml\"\u003e(設定ファイル)\u003c/a\u003e。\nReleasesの作成についてはそれなりに苦闘したので、\u003ca href=\"https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog/\"\u003e別記事\u003c/a\u003eにまとめています。\u003c/p\u003e\n\u003ch1 id=\"設計\"\u003e設計\u003c/h1\u003e\n\u003ch2 id=\"ディレクトリ構造\"\u003eディレクトリ構造\u003c/h2\u003e\n\u003cp\u003eディレクトリ構造について初期は \u003ca href=\"https://github.com/golang-standards/project-layout\"\u003egolang-standards/project-layout\u003c/a\u003e を模倣して設計していました。\nところが、 \u003ca href=\"https://github.com/golang-standards/project-layout/issues/117\"\u003ethis is not a stndard Go project layout\u003c/a\u003e というIssueがGo開発者から立てられ、これは標準ではないし、Goの思想としては標準レイアウトのようなものは存在しない、なんでも好きなように作れば良いのだよということが公言されていました。\n特に問題となっていたのは \u003ccode\u003epkg\u003c/code\u003e ディレクトリのようで、慣例として作られていた \u003ccode\u003evendor\u003c/code\u003e との差分がよくわからないなどの意見が見られました。思考停止で利用していましたが、このIssueを受けて \u003ccode\u003einternal\u003c/code\u003e ディレクトリは \u003ccode\u003epkg\u003c/code\u003e ディレクトリに\u003ca href=\"https://github.com/dondakeshimo/todo-cli/pull/78\"\u003eまとめました\u003c/a\u003e。\u003c/p\u003e\n\u003cp\u003e結果的には以下のような構成にしました。\u003c/p\u003e\n\u003cpre class=\"language-makefile\"\u003e\u003ccode class=\"language-makefile\"\u003e.\n├── Makefile\n├── README.md\n├── cmd\n│   └── todo\n│       └── main.go\n├── go.mod\n├── go.sum\n├── pkg\n│   ├── commands\n│   ├── domain\n│   │   ├── notifier\n│   │   ├── scheduler\n│   │   └── task\n│   ├── gateways\n│   │   └── json\n│   └── usecases\n├── scripts\n│   └── uninstall.sh\n└── test\n    └── scenario\n        └── crud_test.go\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e\u003ccode\u003epkg\u003c/code\u003e の中のディレクトリはそのままパッケージ名となります。\nこちらは次節にて詳しく述べる予定ですが、クリーンアーキテクチャのレイヤ名を随所に使用しています。\u003c/p\u003e\n\u003ch2 id=\"クリーンアーキテクチャ\"\u003eクリーンアーキテクチャ\u003c/h2\u003e\n\u003cp\u003e\u003ca href=\"https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/\"\u003ehttps://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob/\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eにてまとめているクリーンアーキテクチャを念頭に設計しています。というよりは開発していくうちにクリーンアーキテクチャっぽく修正していきました。\u003c/p\u003e\n\u003cp\u003eCLIフレームワークを変更したタイミングがあったのですが、CLIフレームワークとアプリケーションルールがそのタイミングでは絡み付いており、変更が非常に重たいタスクになってしまいました。これを嫌って、先にusecase層とcontroller層(commandsディレクトリ)を分割しました。これによってフレームワークに依存しているのはcontroller層のみとなり変更を容易に行うことができました。(分割は簡単ではなかったです。)\u003c/p\u003e\n\u003cp\u003eこのことから、これからはフレームワークやインプットアウトプットが少しでも変わる可能性がある場合は常にクリーンアーキテクチャを最初から意識して設計していこうと心に誓いました。\u003c/p\u003e\n\u003cp\u003e逆にクリーンアーキテクチャを意識したアーキテクチャになっていた部分で良かったのは、後述するスケジューリングや通知の詳細実装を追加していくのが非常に容易だったことです。最初にインタフェースを決めておく難易度はありましたが、今回の場合は最初から要件がある程度固まっていたのでそこまで悩まずに済みました。\u003c/p\u003e\n\u003ch2 id=\"テスト\"\u003eテスト\u003c/h2\u003e\n\u003cp\u003e今回の場合二つのテストが必要と考えていました。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003edomain/taskの単体テスト\u003c/li\u003e\n\u003cli\u003ee2eテスト\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e逆にそれ以外の部分は手を抜いています。\nただし、結構アプリケーションロジックにバグが紛れたりするので、usecase層もテストするべきだったなと思っています。\nこれは今後追加するかもしれません。\u003c/p\u003e\n\u003cp\u003e最初にテストスコープを決めていて良かったのはdomain層に入れるべきものがはっきりとしたことです。\nこのロジックにはテスト必要そうだぞというものは大抵domain層にいるべきものなので、ビジネスロジックがusecaseに紛れ込むのを防ぐことができました。\u003c/p\u003e\n\u003cp\u003eテストの実装時期ですが、プロトタイプのタイミングから単体テストは実装しておくべきだと感じました。\n後からやるのは辛いというのが主な理由ですが、先述の通りテストを念頭においた実装をすることでかなりすっきりとした設計になりがちですなので、気づいたらスパゲッティを錬成していたということを防ぐためにも最初からテストを書くべきです。\u003c/p\u003e\n\u003cp\u003e逆にe2eテストについてはある程度までは放置しておいて良いと感じました。\nテスト項目だけ決めておいて毎回手作業で確認していくくらいで良いかなと。\n結構テストの実装自体が手間ですし、その手間をかけて自動化するならまずは満足できるレベルのプロダクトを作るのが先だろというのが今の思いです。\u003c/p\u003e\n\u003ch1 id=\"コーディング\"\u003eコーディング\u003c/h1\u003e\n\u003ch2 id=\"makefile\"\u003eMakefile\u003c/h2\u003e\n\u003cp\u003eMakefileは最初に用意しておくと良いと思います。GoのMakefileは毎回ほとんど同じものになると思うので、ここに自分が使っているものでテンプレとなりそうな部分を貼っておきます。\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eGOBUILD=go build\nGOCLEAN=go clean\nGOTEST=go test\nGOGET=go get\nGOFMT=gofmt\nGOGEN=go generate\nGOIMPORTS=goimports\nGOLINT=golangci-lint\nBINARY_NAME=todo\nCMD_PKG=./cmd/todo\nSCENARIO_DIR=./test/scenario\n\nall: help\n\n.PHONY: init\ninit: ## initilize developer environment\n  # mockを利用する場合\n\tgo install github.com/golang/mock/mockgen@latest\n\n.PHONY: get\nget: ## go get dependencies\n\t$(GOGET) -u -v -t -d ./...\n\n.PHONY: build\nbuild: ## build go binary\n\t$(GOBUILD) -o $(BINARY_NAME) -v $(CMD_PKG)\n\n.PHONY: mockgen\nmockgen: ## generate mock\n\t$(GOGEN) ./...\n\n.PHONY: test\ntest: build ## go test\n\t$(GOTEST) -v ./...\n\n.PHONY: scenario-test\nscenario-test: build ## run scenario test\n\t$(GOTEST) -v $(SCENARIO_DIR) -tags scenario\n\n.PHONY: clean\nclean: ## remove go binary\n\t$(GOCLEAN)\n\trm -f $(BINARY_NAME)\n\n.PHONY: fmt\nfmt: ## format go files\n\t$(GOFMT) -l -w -s .\n\t$(GOIMPORTS) -w .\n\n.PHONY: lint\n# need docker to run this command\n# this command just run golangci-lint\n# so, if you hate docker, you can run equivalent this installing golangci-lint locally\nlint: ## check lint, format\n\tdocker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:v1.41.0 golangci-lint run -v\n\n.PHONY: help\nhelp: ## DIsplay this help screen\n\t@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = \":.*?## \"}; {printf \"\\033[36m%-20s\\033[0m %s\\n\", $$1, $$2}'\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eプロジェクトの最初期から置いておくと良いと思います。最初期は \u003ccode\u003ego run\u003c/code\u003e とかを結局たくさん使いますが...\u003c/p\u003e\n\u003ch2 id=\"value-object\"\u003eValue Object\u003c/h2\u003e\n\u003cp\u003e\u003ca href=\"https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/\"\u003ehttps://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd/\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eで説明している値オブジェクトを利用できる場面では利用することを意識しました。\n具体的にはタスクに紐付けられる時間などが値オブジェクトとして定義されています。\u003c/p\u003e\n\u003cp\u003e時間については基本的にただの文字列なのですが、値オブジェクトとすることで文字が時間を表現するのに有効かどうかや、時間としての加算減算に対応できるようになっています。ビルドに通ればランタイムでのエラーがほとんど起きなくなったので、値オブジェクトは利用できるシーンでは積極的に利用すべきだと感じています。\u003c/p\u003e\n\u003ch2 id=\"godoc\"\u003eGoDoc\u003c/h2\u003e\n\u003cp\u003e\u003ca href=\"https://qiita.com/shibukawa/items/8c70fdd1972fad76a5ce\"\u003eチョットできるGoプログラマーになるための詳細GoDoc\u003c/a\u003e で詳細に述べられていますが、Goではドキュメント自動生成のためのコメントお作法があります。このお作法の通りにコメントを書けばIDEがメソッドの説明とかを出して来れたりします。\u003c/p\u003e\n\u003cp\u003eコードは大体最初に思い描いたものよりも長く、複雑になるので最初からGoDocを書くことを忘れずにしておくと、エディタの力を最大限に生かすことができます。(ただ本当に面倒くさい)。次回以降もちゃんと書けるかは心の余裕によると思います。\u003c/p\u003e\n\u003ch2 id=\"table-driven-test\"\u003eTable Driven Test\u003c/h2\u003e\n\u003cp\u003eTable Driven Testをご存知でしょうか？\nテストの可読性が飛躍的に向上し、DRYなテストを実現できる手法になります。\n自分が参考にしたサイトを見つけることができなかったので、お好きなサイトをGoogle先生の書庫から選んで参照いただければと思います。\u003c/p\u003e\n\u003cp\u003eこれを知って実装できたことでテストがかなり書きやすかったのでここで取り上げています。\nしばらくはTable Driven Testを使ってテストを書き続けるでしょう。\u003c/p\u003e\n\u003ch2 id=\"ライブラリ選定\"\u003eライブラリ選定\u003c/h2\u003e\n\u003cp\u003eライブラリの選定はしっかりとするべきだという話です。\u003c/p\u003e\n\u003cp\u003eライブラリを利用するということは依存が一つ増えるということです。\n依存が一つ増えたらメンテナンスのための改修が必要になるリスクが一つ増えるということです。\nまずはライブラリを使うか自前で実装するべきかという部分を真剣に考えた方が良いというのが最近の考えです。\u003c/p\u003e\n\u003cp\u003eライブラリを選定するタイミングで確認するべきは\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eStar数\u003c/li\u003e\n\u003cli\u003e最終更新日\u003c/li\u003e\n\u003cli\u003e更新頻度\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eあたりだと考えていますが、実際に使ってみないとわからない部分も多々あると思うので参考程度に。\u003c/p\u003e\n\u003cp\u003etodo-cliではtodoリストの表示と、CLIフレームワークにおいて外部ライブラリを使用しています。\nそれぞれについて少し解説します。\u003c/p\u003e\n\u003ch3 id=\"cliフレームワーク-cobra-vs-urfavecli\"\u003eCLIフレームワーク cobra vs urfave/cli\u003c/h3\u003e\n\u003cp\u003e初期段階では \u003ca href=\"https://github.com/urfave/cli\"\u003eurfave/cli\u003c/a\u003e を利用していました。\n最初からcobraも選択肢には入っていたのですが、同等の人気である urfave/cliが先に検索にヒットしたのでなんとなくで使っていました。\u003c/p\u003e\n\u003cp\u003e結果としては\u003ca href=\"https://github.com/spf13/cobra\"\u003ecobra\u003c/a\u003eに途中で乗り換えており、これからもCLIフレームワークを利用するならcobra一択だろうと考えています。\u003c/p\u003e\n\u003cp\u003eurfave/cliのよくない点は大きく二つです。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"https://twitter.com/campuscodi/status/1371227524127199241?s=19\"\u003etwitter\u003c/a\u003e で指摘されているが、謎の情報を送る処理が実装されていた\u003c/li\u003e\n\u003cli\u003e必ず \u003ccode\u003etodo [option] [args]\u003c/code\u003e の順番でコマンドを叩く必要があり、タスクの内容の後にオプションをつけるといったことができなかった\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eその他にも細かい点でcobraの方が気が利いている部分が多く、紹介記事やStar数だけでは実際の使用感は判断できないのだなと感じました。\nこのことから私が得られる教訓は、導入ハードルを恐れずにどんどん知らないツールを触っていけ、ということです。\u003c/p\u003e\n\u003ch3 id=\"writerライブラリ\"\u003ewriterライブラリ\u003c/h3\u003e\n\u003cp\u003e初期段階ではGoの標準パッケージにある \u003ca href=\"https://pkg.go.dev/text/tabwriter\"\u003etabwriter\u003c/a\u003e を利用していました。\n表示がリッチである必要はないと考えていたので、これで十分と考えていたのですが、知人が触って来れている時に日本語で表記がずれるという課題を共有いただき更に解決策となるパッケージもご提示していただきました。\u003c/p\u003e\n\u003cp\u003e途中で乗り換えたライブラリが \u003ca href=\"https://github.com/olekukonko/tablewriter\"\u003etablewriter\u003c/a\u003e になります。 CJKに対応しており、リッチな表を書くこともできます。\u003c/p\u003e\n\u003cp\u003e表示系のライブラリではCJK(China, Japan, Korea)言語に対応しているかどうかを気にかける必要があるのだということを学べました。\u003c/p\u003e\n\u003ch2 id=\"golangci-lint\"\u003egolangci-lint\u003c/h2\u003e\n\u003cp\u003eGoのフォーマッターやリンターは複数のパッケージ、ツールに別れておりそれを統合したツールもいくつかありますが、自分が調べた範囲で2021/07時点では \u003ca href=\"https://github.com/golangci/golangci-lint\"\u003egolangci-lint\u003c/a\u003e を用いるのが良さそうだと感じました。\n使い方等はREADMEや紹介記事も多数あるのでここでは省略します。\u003c/p\u003e\n\u003ch2 id=\"ポインタ-vs-値\"\u003eポインタ vs 値\u003c/h2\u003e\n\u003cp\u003e(この節の内容はうろ覚えなので100%信用しないでください。)\u003c/p\u003e\n\u003cp\u003eGoではポインタがヒープ領域に割り当てられます。\nそのため、軽量な値に関してはポインタでの受け渡しよりも値渡しを行った方が良いです。\n具体的にはプリミティブ型で関数内で値を変更しない場合は値渡しで良いと言えると思います。\u003c/p\u003e\n\u003cp\u003eこれはメソッドのレシーバにも同様のことが言えます。\n軽量な構造体に対するメソッドの場合はポインタを指定するよりも値を渡した方が早くなります。\u003c/p\u003e\n\u003cp\u003eまた、ポインタの利用を消極的にすることで関数型言語のように副作用のない(少ない)関数を書くことが意識できます。\u003c/p\u003e\n\u003ch2 id=\"スケジューリング\"\u003eスケジューリング\u003c/h2\u003e\n\u003cp\u003eこの節ではスケジューリング機能をどのように実装したかを説明します。\u003c/p\u003e\n\u003cp\u003eスケジューリング機能とググると \u003ca href=\"https://github.com/robfig/cron\"\u003erobfig/cron\u003c/a\u003e がヒットするのではないかと思います。\n当然の話ではありますが、スケジューリングを行うプログラムはプロセスとして常駐する必要があります。\nGoのみでこれを行おうとすると、プロセスを走り続ける必要があり軽さや使いやすさという点で疑問が生じる設計しか思いつきませんでした。\u003c/p\u003e\n\u003cp\u003eよって、基本戦略としてはOSに備わったスケジューリング機能を使用する方針としています。\u003c/p\u003e\n\u003ch3 id=\"launchd\"\u003elaunchd\u003c/h3\u003e\n\u003cp\u003eMacOSではcronを使用するのは非推奨とされており、代わりにLauncdというプロセスをスケジューラとして利用するように言われています。\n\u003ca href=\"https://qiita.com/rsahara/items/7d37a4cb6c73329d4683\"\u003elaunchdで定期的にスクリプトを実行\u003c/a\u003e にて詳細に開設されているので、利用に際して困るというようなことはなかったです。\n指定箇所に指定フォーマットのXMLファイルを配置するだけなので実装難易度もそこまで高くないです。\u003c/p\u003e\n\u003ch3 id=\"cron\"\u003ecron\u003c/h3\u003e\n\u003cp\u003eLinuxではcronがおおよそインストールされていると信じてcronを用いたスケジューリングもできるようにしました。\u003c/p\u003e\n\u003cp\u003eこちらについてはタスクの登録方法が複数あるのですが、課題となったのは権限です。\nlaunchdと同様の方針で、cronファイルを \u003ccode\u003e/etc/cron.d\u003c/code\u003e に配置するだけで済むと考えていたのですが、配置するためにはroot権限が必要であり、またcronファイルもroot権限である必要があることがわかりました。\nroot権限をアプリケーションに与える方針はユーザビリティやセキュリティの観点でありえない選択肢であると感じたので、ファイルを配置する方針は諦めました。\u003c/p\u003e\n\u003cp\u003e\u003ca href=\"https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron/\"\u003e諸々調べた結果\u003c/a\u003e もまとめてあるので見ていただければと思いますが、結局 \u003ccode\u003ecrontab [file]\u003c/code\u003e でスケジュール登録する方針としました。\u003c/p\u003e\n\u003cp\u003eしかし、こちらの方針にも問題点があり、指定したcronファイルで全てのジョブが上書きされてしまうのです。そのため、ユーザがもともとcrontabを使用していた場合は利用するべきではないですし、自分の登録したジョブも注意を払わなければ最新の一件しかスケジュール登録されないということになってしまいます。詳細な実装についてはリポジトリの方を参照いただければと思います。\u003c/p\u003e\n\u003ch2 id=\"通知方法\"\u003e通知方法\u003c/h2\u003e\n\u003cp\u003e理想はポップアップを出すことだと考えていました。MacにおいてはシンプルにポップアップをCLIから呼び出すインタフェースが搭載されており、容易に実装することができましたが、linuxについてのポップアップはまだ特に考えられていないです。Slackに投げられればそれで良いだろうと甘えました。\u003c/p\u003e\n\u003ch3 id=\"ossascript\"\u003eossascript\u003c/h3\u003e\n\u003cp\u003e遊んでもらえれば楽しいと思うのですが、\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eosascript -e 'display notification \"通知したいメッセージ\"'\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eとターミナルで打っていただければ通知センターにメッセージが届きます。\n似たような方法で、\u003ca href=\"https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html#//apple_ref/doc/uid/TP40000983-CH216-SW12\"\u003e色々な制御ができる\u003c/a\u003e のでこれらを用いてポップアップ通知を実現しています。\u003c/p\u003e\n\u003cp\u003e実装としては \u003ccode\u003eos/exec\u003c/code\u003e によって外部コマンドを呼び出す形になっています。\u003c/p\u003e\n\u003ch3 id=\"slack\"\u003eslack\u003c/h3\u003e\n\u003cp\u003eSlackではIncomming Webhookを利用すればHTTP POSTリクエストを送ることでメッセージを送信することができます。\nIncoming Webhookの導入はユーザに委ねるしかありませんが、その他の解決策もないと思ったので妥協しました。\nLINEラブな方のためにLINE Botインタフェースを用意するとかも面白そうではありますね。\u003c/p\u003e\n\u003ch1 id=\"まとめ\"\u003eまとめ\u003c/h1\u003e\n\u003cp\u003eGoでCLIを作るのは非常に楽しかったです。cobraというフレームワークが最高です。kubectlとかを参考にできたところも良かったですね。\n開発途中でドメイン駆動設計やクリーンアーキテクチャについて勉強していたので、プロトタイプからどんどん設計周りの改善案が出てきたというのも面白かったポイントです。\u003c/p\u003e\n\u003cp\u003e今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。\u003c/p\u003e","ogImage":{"url":"/assets/blog/dynamic-routing/cover.jpg"},"coverImage":"/assets/blog/dynamic-routing/cover.jpg"}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"2021-07-23-how_to_develop_todo_cli"},"buildId":"yNrEyh5A0Oyk3eJQw5kY9","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
