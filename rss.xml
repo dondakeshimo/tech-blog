@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 07 Aug 2021 12:33:22 GMT</lastBuildDate><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io//blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Luigi Colella RSS Feed]]></title><description><![CDATA[マルタ島は最高]]></description><link>https://dondakeshimo.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 07 Aug 2021 12:40:58 GMT</lastBuildDate><item><title><![CDATA[CLIでTODO管理を行うツールを作ったので紹介させてください]]></title><description><![CDATA[TODO管理ツールを作ったのでみんなに使って欲しいです]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/introduce-todo-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/introduce-todo-cliCLIでTODO管理を行うツールを作ったので紹介させてください</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;TODO管理ツールを作りました&lt;/a&gt;&lt;/p&gt;
@@ -252,7 +252,7 @@ $ todo l
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;本記事ではtodo-cliを作成した理由と使用方法の紹介を行いました。
 是非使用の検討をしていただければと思います。&lt;/p&gt;
-&lt;p&gt;開発における工夫した点や学び気づきなどは別記事を書こうと思うのでそちらも見ていただければ幸いです。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GoでCLIのTODOリストを作成した時の振り返り]]></title><description><![CDATA[todo-cliを開発する上で良かった点などの振り返り]]></description><link>https://dondakeshimo.github.io//blog/how-to-develop-toco-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-develop-toco-cliGoでCLIのTODOリストを作成した時の振り返り</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;p&gt;開発における工夫した点や学び気づきなどは別記事を書こうと思うのでそちらも見ていただければ幸いです。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GoでCLIのTODOリストを作成した時の振り返り]]></title><description><![CDATA[todo-cliを開発する上で良かった点などの振り返り]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-develop-toco-cli</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-develop-toco-cliGoでCLIのTODOリストを作成した時の振り返り</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Fri, 23 Jul 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;開発管理や開発ルール&lt;/a&gt;&lt;/p&gt;
@@ -598,7 +598,7 @@ LINEラブな方のためにLINE Botインタフェースを用意するとか�
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;GoでCLIを作るのは非常に楽しかったです。cobraというフレームワークが最高です。kubectlとかを参考にできたところも良かったですね。
 開発途中でドメイン駆動設計やクリーンアーキテクチャについて勉強していたので、プロトタイプからどんどん設計周りの改善案が出てきたというのも面白かったポイントです。&lt;/p&gt;
-&lt;p&gt;今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[クリーンアーキテクチャをまとめる]]></title><description><![CDATA[クリーンアーキテクチャを読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io//blog/clean-architecture-uncle-bob</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/clean-architecture-uncle-bobクリーンアーキテクチャをまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;p&gt;今後も開発は続けますし、よければ追加機能や機能修正のPRをお待ちしています。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[クリーンアーキテクチャをまとめる]]></title><description><![CDATA[クリーンアーキテクチャを読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/clean-architecture-uncle-bob</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/clean-architecture-uncle-bobクリーンアーキテクチャをまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 31 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -842,7 +842,7 @@ CPRとREPのみを守ると変更すべきコンポーネントが増大する�
 &lt;p&gt;最重要ビジネスルールのことをエンティティと呼ぶ。
 エンティティは最上位のレベルに位置することとなる。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;a href=&quot;/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
+&lt;p&gt;&lt;a href=&quot;/tech-blog/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
 にて扱ったエンティティとは別の概念であり、ドメイン駆動設計でいうところのコアドメインにあたる。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h4&gt;ユースケース&lt;/h4&gt;
@@ -851,7 +851,7 @@ CPRとREPのみを守ると変更すべきコンポーネントが増大する�
 &lt;p&gt;ユースケースでは実際の入出力の詳細を知ることはなく、エンティティはユースケースを知ることがない。
 ここからユースケースがエンティティと入出力の詳細の中間のレベルに位置していることがわかる。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;a href=&quot;/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
+&lt;p&gt;&lt;a href=&quot;/tech-blog/tech-blog/blog/evans-eric-ddd&quot;&gt;エリック・エヴァンスのドメイン駆動設計をまとめる&lt;/a&gt;
 でいうところのドメイン層のサービス、特に粒度を大きくとるために使用するサービスに近いものであると考えている。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h4&gt;リクエストとレスポンスのモデル&lt;/h4&gt;
@@ -877,10 +877,10 @@ CPRとREPのみを守ると変更すべきコンポーネントが増大する�
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Clean Architecture&quot;
         title=&quot;Clean Architecture&quot;
-        src=&quot;/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg&quot;
-        srcset=&quot;/static/07b2e4403c83a8b377ad14ab3589044c/9a1e7/CleanArchitecture.jpg 250w,
-/static/07b2e4403c83a8b377ad14ab3589044c/10bbb/CleanArchitecture.jpg 500w,
-/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg 772w&quot;
+        src=&quot;/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg&quot;
+        srcset=&quot;/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/9a1e7/CleanArchitecture.jpg 250w,
+/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/10bbb/CleanArchitecture.jpg 500w,
+/tech-blog/static/07b2e4403c83a8b377ad14ab3589044c/37601/CleanArchitecture.jpg 772w&quot;
         sizes=&quot;(max-width: 772px) 100vw, 772px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
@@ -1059,7 +1059,7 @@ ViewがやるべきことはViewModelからデータを読み込み画面に表�
 &lt;p&gt;最後に、クリーンアーキテクチャを学んだところで設計の「正解」が判明するわけではないとわかった。
 ただし、書籍に大量に記述されている原則と照らし合わせることで何が「間違えている」かの知識を多く得ることができたのではないかと感じている。
 クリーンアーキテクチャを採用した設計という言葉を使っていたがこれからは避けよう。
-あぁ、アーキテクチャなんもわからん。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[エリック・エヴァンスのドメイン駆動設計をまとめる]]></title><description><![CDATA[いわゆるエヴァンス本を読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io//blog/evans-eric-ddd</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/evans-eric-dddエリック・エヴァンスのドメイン駆動設計をまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+あぁ、アーキテクチャなんもわからん。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[エリック・エヴァンスのドメイン駆動設計をまとめる]]></title><description><![CDATA[いわゆるエヴァンス本を読んだので頭の整理がしたい]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/evans-eric-ddd</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/evans-eric-dddエリック・エヴァンスのドメイン駆動設計をまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Tue, 18 May 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0-0&quot;&gt;動機&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -1601,7 +1601,7 @@ O/Rマッパーを使用するかダブルディスパッチを利用するな�
 &lt;p&gt;エンティティ間にある役割と関係が状況によって変わるアプリケーションでは複雑さがます。
 例えば従業員とその役割などが当てはまる。
 リフレクションパターンにおけるベースモデルを業務レベル、メタレベルを知識レベルとすることで
-ドメインモデルに適用したものを使うと複雑さを軽減できる。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GitHub ActionsでCHANGELOG駆動Release]]></title><link>https://dondakeshimo.github.io//blog/github-actions-changelog</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/github-actions-changelogGitHub ActionsでCHANGELOG駆動Release</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 07 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+ドメインモデルに適用したものを使うと複雑さを軽減できる。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GitHub ActionsでCHANGELOG駆動Release]]></title><link>https://dondakeshimo.github.io/tech-blog/blog/github-actions-changelog</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/github-actions-changelogGitHub ActionsでCHANGELOG駆動Release</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 07 Mar 2021 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0-0&quot;&gt;概要&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -1732,7 +1732,7 @@ tagの上書きが発生してしまうと思われるのでCHANGELOGの修正�
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;CHANGELOGの修正をトリガーとし、CHANGELOGの内容に従ったtagとReleaseを発行することができた。
 tagやReleaseの発行は外部Actionを使用しており、正直どこまで外部Actionに頼っていいかは疑問だし、不安の種でもある。
-まあ、GitHub自体が破壊的なAPIの変更等を加えない限り同様のバージョンを使い続けていれば不慮の事故は起こらないと信じたい。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[デザインパターンについてまとめる]]></title><description><![CDATA[JAVA言語で学ぶデザインパターン入門を読んだのでざっくりまとめる]]></description><link>https://dondakeshimo.github.io//blog/design-pattern</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/design-patternデザインパターンについてまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 21 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+まあ、GitHub自体が破壊的なAPIの変更等を加えない限り同様のバージョンを使い続けていれば不慮の事故は起こらないと信じたい。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[デザインパターンについてまとめる]]></title><description><![CDATA[JAVA言語で学ぶデザインパターン入門を読んだのでざっくりまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/design-pattern</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/design-patternデザインパターンについてまとめる</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 21 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0&quot;&gt;デザインパターン&lt;/a&gt;&lt;/p&gt;
@@ -2218,7 +2218,7 @@ Commandクラスの処理の対象となるクラスをReceiverクラスとし�
 &lt;li&gt;拡張したい場所はなるだけ疎結合に&lt;/li&gt;
 &lt;li&gt;修正の多い箇所はなるだけ一箇所に&lt;/li&gt;
 &lt;li&gt;一番複雑な箇所はなるだけ一箇所で独立させて&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[マイクロサービスアーキテクチャのざっくりまとめ]]></title><description><![CDATA[マイクロサービスアーキテクチャを読んだのでざっくりまとめる]]></description><link>https://dondakeshimo.github.io//blog/microservice-architecture</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/microservice-architectureマイクロサービスアーキテクチャのざっくりまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 19 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[マイクロサービスアーキテクチャのざっくりまとめ]]></title><description><![CDATA[マイクロサービスアーキテクチャを読んだのでざっくりまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/microservice-architecture</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/microservice-architectureマイクロサービスアーキテクチャのざっくりまとめ</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 19 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude-toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;マイクロサービスアーキテクチャ&lt;/a&gt;&lt;/p&gt;
@@ -2640,7 +2640,7 @@ SAMLやSSOなどの統合的な認証方法についてはさらに学ぶ必要�
 障害がどこでも起こりうることを念頭に対処法を施す。&lt;/p&gt;
 &lt;p&gt;&lt;a id=&quot;sec8-0-7&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;高度な観測&lt;/h3&gt;
-&lt;p&gt;セマンティック監視を利用して、ログと統計データは集約する。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io//blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude toc --&gt;&lt;/h1&gt;
+&lt;p&gt;セマンティック監視を利用して、ログと統計データは集約する。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[cronジョブを追加する4つの方法]]></title><description><![CDATA[cronジョブの追加方法について調べたのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/how-to-use-cron</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/how-to-use-croncronジョブを追加する4つの方法</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sat, 12 Dec 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;目次 &lt;!-- exclude toc --&gt;&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#sec1-0-0&quot;&gt;モチベーション&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -2745,7 +2745,7 @@ cronは &lt;code class=&quot;language-text&quot;&gt;/etc/cron.d/&lt;/code&gt; �
 &lt;/ul&gt;
 &lt;p&gt;&lt;a id=&quot;sec3-0-0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;まとめ&lt;/h1&gt;
-&lt;p&gt;以上、まとめてみた感想だが、cronは意外と扱いづらいことがわかった。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io//blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+&lt;p&gt;以上、まとめてみた感想だが、cronは意外と扱いづらいことがわかった。&lt;/p&gt;</content:encoded></item><item><title><![CDATA[modern C++erの流儀]]></title><description><![CDATA[C++11以降大きく変わったC++をどの様に扱うべきかを記したEffective Modern C++を読んだのでまとめる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/effective-modern-cpp</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/effective-modern-cppmodern C++erの流儀</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Mon, 23 Nov 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;私は業務でC++を使用している。
 聞いて驚いてほしいことに最近までのC++のコンパイラはC++98までしか理解しないものだった。
 過去形ということでお気づきだと思うが、つい最近、
@@ -3197,7 +3197,7 @@ constexprを宣言した後は以降constexpr宣言を削除しないと断ぜ�
 &lt;li&gt;追加する値がコンテナ内に代入ではなくコンストラクトされる&lt;/li&gt;
 &lt;li&gt;実引数の型がコンテナ要素の型とは異なる&lt;/li&gt;
 &lt;li&gt;コンテナが重複すを理由に値の追加を拒否しない&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Pythonの環境構築奮闘記 あるいは降参の反省文]]></title><description><![CDATA[Python の環境構築はツールが多すぎる]]></description><link>https://dondakeshimo.github.io//blog/python-env</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/python-envPythonの環境構築奮闘記 あるいは降参の反省文</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 16 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Pythonの環境構築奮闘記 あるいは降参の反省文]]></title><description><![CDATA[Python の環境構築はツールが多すぎる]]></description><link>https://dondakeshimo.github.io/tech-blog/blog/python-env</link><guid isPermaLink="false">https://dondakeshimo.github.ioblog/python-envPythonの環境構築奮闘記 あるいは降参の反省文</guid><dc:creator><![CDATA[dondakeshimo]]></dc:creator><pubDate>Sun, 16 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;モチベーション&lt;/h1&gt;
 &lt;p&gt;Pythonは最高だ！
 コードの見た目は綺麗で，3rdパーティモジュールも豊富，
 何よりもiPython kernelの存在が大きいと思う．
